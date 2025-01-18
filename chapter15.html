@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Machine Learning</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="chapter.css">
+</head>
+<body>
+  <main id="content" class="main-content" role="main">
+      <h1 id="machine-learning">Machine Learning</h1>
+
+<ul>
+  <li><a href="#machine-learning">Machine Learning</a>
+    <ul>
+      <li><a href="#amazon-rekognition">Amazon Rekognition</a></li>
+      <li><a href="#amazon-transcribe">Amazon Transcribe</a></li>
+      <li><a href="#amazon-polly">Amazon Polly</a></li>
+      <li><a href="#amazon-translate">Amazon Translate</a></li>
+      <li><a href="#amazon-lex--connect">Amazon Lex &amp; Connect</a>
+        <ul>
+          <li><a href="#amazon-lex-same-technology-that-powers-alexa">Amazon Lex: (same technology that powers Alexa)</a></li>
+          <li><a href="#amazon-connect">Amazon Connect</a></li>
+        </ul>
+      </li>
+      <li><a href="#amazon-comprehend">Amazon Comprehend</a></li>
+      <li><a href="#amazon-sagemaker">Amazon SageMaker</a></li>
+      <li><a href="#amazon-forecast">Amazon Forecast</a></li>
+      <li><a href="#amazon-kendra">Amazon Kendra</a></li>
+      <li><a href="#amazon-personalize">Amazon Personalize</a></li>
+      <li><a href="#amazon-textract">Amazon Textract</a></li>
+      <li><a href="#summary">Summary</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="amazon-rekognition">Amazon Rekognition</h2>
+
+<ul>
+  <li>Identifies objects, people, text, and scenes in images and videos using ML</li>
+  <li>Facial analysis and facial search for user verification and people counting</li>
+  <li>Create a database of familiar faces or compare against celebrities</li>
+  <li>Key uses:
+    <ul>
+      <li>Labeling</li>
+      <li>Content Moderation</li>
+      <li>Text Detection</li>
+      <li>Face Detection and Analysis (gender, age range, emotions)</li>
+      <li>Face Search and Verification</li>
+      <li>Celebrity Recognition</li>
+    </ul>
+  </li>
+  <li>More info: <a href="https://aws.amazon.com/rekognition/">Amazon Rekognition</a></li>
+</ul>
+
+<h2 id="amazon-transcribe">Amazon Transcribe</h2>
+
+<ul>
+  <li>Converts speech to text using Automatically speech recognition (ASR)</li>
+  <li>Accurate and quick transcription</li>
+  <li>Key uses:
+    <ul>
+      <li>Transcribing customer service calls</li>
+      <li>Automating closed captioning and subtitling</li>
+      <li>Generating metadata for media assets for searchable archives</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="amazon-polly">Amazon Polly</h2>
+
+<ul>
+  <li>Turns text into lifelike speech using deep learning</li>
+  <li>Enables creation of talking applications</li>
+</ul>
+
+<h2 id="amazon-translate">Amazon Translate</h2>
+
+<ul>
+  <li>Provides natural and accurate language translation</li>
+  <li>Localizes content for international users</li>
+  <li>Efficiently translates large volumes of text</li>
+</ul>
+
+<h2 id="amazon-lex--connect">Amazon Lex &amp; Connect</h2>
+
+<h3 id="amazon-lex-same-technology-that-powers-alexa">Amazon Lex: (same technology that powers Alexa)</h3>
+
+<ul>
+  <li>Uses ASR to convert speech to text</li>
+  <li>Natural Language Understanding to recognize text and caller intent</li>
+  <li>Helps build chatbots and call center bots</li>
+</ul>
+
+<h3 id="amazon-connect">Amazon Connect</h3>
+
+<ul>
+  <li>Cloud-based virtual contact center</li>
+  <li>Receives calls and creates contact flows</li>
+  <li>Integrates with CRM systems or AWS</li>
+  <li>No upfront payments, 80% cheaper than traditional contact centers</li>
+</ul>
+
+<h2 id="amazon-comprehend">Amazon Comprehend</h2>
+
+<ul>
+  <li>Fully managed and serverless NLP service</li>
+  <li>Uses machine learning to find insights and relationships in text</li>
+  <li>Key features:
+    <ul>
+      <li>Identifies language of the text</li>
+      <li>Extracts key phrases, places, people, brands, or events</li>
+      <li>Determines sentiment of the text</li>
+      <li>Analyzes text using tokenization and parts of speech</li>
+      <li>Organizes text files by topic</li>
+    </ul>
+  </li>
+  <li>Key uses:
+    <ul>
+      <li>Analyzing customer interactions for positive or negative experiences</li>
+      <li>Grouping articles by topics</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="amazon-sagemaker">Amazon SageMaker</h2>
+
+<ul>
+  <li>Fully managed service for developers / data scientists to build ML models</li>
+  <li>Typically, difficult to do all the processes in one place + provision servers</li>
+  <li>Machine learning process (simplified): predicting your exam score</li>
+</ul>
+
+<h2 id="amazon-forecast">Amazon Forecast</h2>
+
+<ul>
+  <li>Fully managed service that uses ML to deliver highly accurate forecasts</li>
+  <li>Example: predict the future sales of a raincoat</li>
+  <li>50% more accurate than looking at the data itself</li>
+  <li>Reduces forecasting time from months to hours</li>
+  <li>Key uses:
+    <ul>
+      <li>Product Demand Planning</li>
+      <li>Financial Planning</li>
+      <li>Resource Planning</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="amazon-kendra">Amazon Kendra</h2>
+
+<ul>
+  <li>Fully managed document search service powered by ML</li>
+  <li>Extracts answers from various document types (text, PDF, HTML, PowerPoint, MS Word, FAQs)</li>
+  <li>Offers natural language search capabilities</li>
+  <li>Learns from user interactions to promote preferred results</li>
+  <li>Allows manual fine-tuning of search results</li>
+</ul>
+
+<h2 id="amazon-personalize">Amazon Personalize</h2>
+
+<ul>
+  <li>Fully managed ML service for real-time personalized recommendations</li>
+  <li>Key uses:
+    <ul>
+      <li>Personalized product recommendations</li>
+      <li>Customized direct marketing</li>
+    </ul>
+  </li>
+  <li>Integrates into websites, applications, SMS, email marketing systems</li>
+  <li>Implemented in days, not months</li>
+</ul>
+
+<h2 id="amazon-textract">Amazon Textract</h2>
+
+<ul>
+  <li>Automatically extracts text, handwriting, and data from scanned documents using AI and ML</li>
+  <li>Reads and processes various document types (PDFs, images)</li>
+  <li>Key uses:
+    <ul>
+      <li>Financial Services (invoices, financial reports)</li>
+      <li>Healthcare (medical records, insurance claims)</li>
+      <li>Public Sector (tax forms, ID documents, passports)</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li><strong>Rekognition</strong>: Face detection, labeling, celebrity recognition</li>
+  <li><strong>Transcribe</strong>: Audio to text (e.g., subtitles)</li>
+  <li><strong>Polly</strong>: Text to audio</li>
+  <li><strong>Translate</strong>: Language translation</li>
+  <li><strong>Lex</strong>: Build conversational bots (chatbots)</li>
+  <li><strong>Connect</strong>: Cloud contact center</li>
+  <li><strong>Comprehend</strong>: Natural language processing</li>
+  <li><strong>SageMaker</strong>: Machine learning for developers and data scientists</li>
+  <li><strong>Forecast</strong>: Accurate forecasts</li>
+  <li><strong>Kendra</strong>: ML-powered search engine</li>
+  <li><strong>Personalize</strong>: Real-time personalized recommendations</li>
+  <li><strong>Textract</strong>: Detect text and data in documents</li>
+</ul>
+
+
+<footer>
+  <!-- New Footer Navigation -->
+<div class="footer-nav">
+<nav>
+    <ul>
+        <li><a href="chapter14.html">Previous</a></li>
+        <li><a href="chapter16.html">Next</a></li>
+        <li><a href="Notes.html">Home</a></li>
+    </ul>
+</nav>
+</div>
+<div class="footer-content">
+<div class="footer-info">
+    <p><strong>Jawahar Parvez</strong></p>
+    <p>Email: <a href="mailto:Jawaharparvez@gmail.com">Jawaharparvez@gmail.com</a></p>
+</div>
+
+<div class="social-links">
+    <a href="https://instagram.com/iamtheparvez" target="_blank" title="Instagram">
+        <i class="fab fa-instagram"></i> Instagram
+    </a>
+    <a href="https://github.com/Jawaharparvez" target="_blank" title="GitHub">
+        <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/jawaharparvez" target="_blank" title="LinkedIn">
+        <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+</div>
+
+<div class="copyright">
+    <p>&copy; 2025 Jawahar Parvez. All rights reserved.</p>
+</div>
+</div>
+
+
+</footer>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Account Management, Billing &amp; Support</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="chapter.css">
+</head>
+<body>
+  <main id="content" class="main-content" role="main">
+      <h1 id="account-management-billing--support">Account Management, Billing &amp; Support</h1>
+
+<ul>
+  <li><a href="#account-management-billing--support">Account Management, Billing &amp; Support</a>
+    <ul>
+      <li><a href="#aws-organizations">AWS Organizations</a></li>
+      <li><a href="#multi-account-strategies">Multi Account Strategies</a></li>
+      <li><a href="#service-control-policies-scp">Service Control Policies (SCP)</a></li>
+      <li><a href="#aws-organization---consolidated-billing">AWS Organization - Consolidated Billing</a></li>
+      <li><a href="#aws-control-tower">AWS Control Tower</a></li>
+      <li><a href="#aws-resource-access-manager-aws-ram">AWS Resource Access Manager (AWS RAM)</a></li>
+      <li><a href="#aws-service-catalog">AWS Service Catalog</a></li>
+      <li><a href="#pricing-models-in-aws">Pricing Models in AWS</a></li>
+      <li><a href="#compute-pricing">Compute Pricing</a>
+        <ul>
+          <li><a href="#ec2">EC2</a></li>
+          <li><a href="#lambda--ecs">Lambda &amp; ECS</a></li>
+        </ul>
+      </li>
+      <li><a href="#storage-pricing">Storage Pricing</a>
+        <ul>
+          <li><a href="#s3">S3</a></li>
+          <li><a href="#ebs">EBS</a></li>
+        </ul>
+      </li>
+      <li><a href="#database-pricing---rds">Database Pricing - RDS</a></li>
+      <li><a href="#content-delivery---cloudfront">Content Delivery - CloudFront</a></li>
+      <li><a href="#networking-costs-in-aws-per-gb---simplified">Networking Costs in AWS per GB - Simplified</a></li>
+      <li><a href="#savings-plan">Savings Plan</a></li>
+      <li><a href="#aws-compute-optimizer">AWS Compute Optimizer</a></li>
+      <li><a href="#billing-and-costing-tools">Billing and Costing Tools</a></li>
+      <li><a href="#aws-pricing-calculator">AWS Pricing Calculator</a></li>
+      <li><a href="#cost-allocation-tags">Cost Allocation Tags</a></li>
+      <li><a href="#tagging-and-resource-groups">Tagging and Resource Groups</a></li>
+      <li><a href="#cost-and-usage-reports">Cost and Usage Reports</a></li>
+      <li><a href="#cost-explorer">Cost Explorer</a></li>
+      <li><a href="#billing-alarms-in-cloudwatch">Billing Alarms in CloudWatch</a></li>
+      <li><a href="#aws-budgets">AWS Budgets</a></li>
+      <li><a href="#aws-cost-anomaly-detection">AWS Cost Anomaly Detection</a></li>
+      <li><a href="#aws-service-quotas">AWS Service Quotas</a></li>
+      <li><a href="#trusted-advisor">Trusted Advisor</a></li>
+      <li><a href="#trusted-advisor---support-plans">Trusted Advisor - Support Plans</a></li>
+      <li><a href="#aws-basic-support-plan">AWS Basic Support Plan</a></li>
+      <li><a href="#aws-developer-support-plan">AWS Developer Support Plan</a></li>
+      <li><a href="#aws-business-support-plan-247">AWS Business Support Plan (24/7)</a></li>
+      <li><a href="#aws-enterprise-on-ramp-support-plan-247">AWS Enterprise On-Ramp Support Plan (24/7)</a></li>
+      <li><a href="#aws-enterprise-support-plan-247">AWS Enterprise Support Plan (24/7)</a></li>
+      <li><a href="#account-best-practices---summary">Account Best Practices - Summary</a></li>
+      <li><a href="#billing-and-costing-tools---summary">Billing and Costing Tools - Summary</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="aws-organizations">AWS Organizations</h2>
+
+<ul>
+  <li>Global service</li>
+  <li>Allows to manage <strong>multiple AWS accounts</strong></li>
+  <li>The main account is the master account</li>
+  <li>Cost Benefits:
+    <ul>
+      <li>Consolidated Billing across all accounts - single payment method</li>
+      <li>Pricing benefits from aggregated usage (volume discount for EC2, S3…)</li>
+      <li>Pooling of Reserved EC2 instances for optimal savings</li>
+    </ul>
+  </li>
+  <li>API is available to <strong>automate AWS account creation</strong></li>
+  <li>Restrict account privileges using Service Control Policies (SCP)</li>
+</ul>
+
+<h2 id="multi-account-strategies">Multi Account Strategies</h2>
+
+<ul>
+  <li>Create accounts per <strong>department</strong>, per <strong>cost center</strong>, per <strong>dev / test / prod</strong>, based on regulatory restrictions (using SCP), for better resource isolation (ex: VPC), to have separate per-account service limits, isolated account for logging</li>
+  <li>Multi Account vs One Account Multi VPC</li>
+  <li>Use tagging standards for billing purposes</li>
+  <li>Enable CloudTrail on all accounts, send logs to central S3 account</li>
+  <li>Send CloudWatch Logs to central logging account</li>
+</ul>
+
+<h2 id="service-control-policies-scp">Service Control Policies (SCP)</h2>
+
+<ul>
+  <li>Whitelist or blacklist IAM actions</li>
+  <li>Applied at the OU or Account level</li>
+  <li>Does not apply to the Master Account</li>
+  <li>SCP is applied to all the Users and Roles of the Account, including Root user</li>
+  <li>The SCP does not affect service-linked roles
+    <ul>
+      <li>Service-linked roles enable other AWS services to integrate with AWS Organizations and can’t be restricted by SCPs.</li>
+    </ul>
+  </li>
+  <li>SCP must have an explicit Allow (does not allow anything by default)</li>
+  <li>Use cases:
+    <ul>
+      <li>Restrict access to certain services (for example: can’t use EMR)</li>
+      <li>Enforce PCI compliance by explicitly disabling services</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="aws-organization---consolidated-billing">AWS Organization - Consolidated Billing</h2>
+
+<ul>
+  <li>When enabled, provides you with:
+    <ul>
+      <li>Combined Usage – combine the usage across all AWS accounts in the AWS Organization to share the volume pricing, Reserved Instances and Savings Plans discounts</li>
+      <li>One Bill – get one bill for all AWS Accounts in the AWS Organization</li>
+    </ul>
+  </li>
+  <li>The management account can turn off Reserved Instances discount sharing for any account in the AWS Organization, including itself</li>
+</ul>
+
+<h2 id="aws-control-tower">AWS Control Tower</h2>
+
+<ul>
+  <li>Easy way to set up and govern a secure and compliant multi-account AWS environment based on best practices</li>
+  <li>Benefits:
+    <ul>
+      <li>Automate the set up of your environment in a few clicks</li>
+      <li>Automate ongoing policy management using guardrails</li>
+      <li>Detect policy violations and remediate them</li>
+      <li>Monitor compliance through an interactive dashboard</li>
+    </ul>
+  </li>
+  <li>AWS Control Tower runs on top of AWS Organizations:
+    <ul>
+      <li>It automatically sets up AWS Organizations to organize accounts and implement SCPs (Service Control Policies)</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="aws-resource-access-manager-aws-ram">AWS Resource Access Manager (AWS RAM)</h2>
+
+<ul>
+  <li>Share AWS resources that you own with other AWS accounts</li>
+  <li>Share with any account or within your Organization</li>
+  <li>Avoid resource duplication!</li>
+  <li>Supported resources include Aurora, VPC Subnets, Transit Gateway, Route 53, EC2 Dedicated Hosts, License Manager Configurations.</li>
+</ul>
+
+<h2 id="aws-service-catalog">AWS Service Catalog</h2>
+
+<ul>
+  <li>Users that are new to AWS have too many options, and may create stacks that are not compliant or in line with the rest of the organization</li>
+  <li>Some users just want a quick self-service portal to launch a set of authorized products pre-defined by admins</li>
+  <li>Includes: virtual machines, databases, storage options, etc…</li>
+  <li>Enter AWS Service Catalog!</li>
+</ul>
+
+
+
+<h2 id="pricing-models-in-aws">Pricing Models in AWS</h2>
+
+<ul>
+  <li>AWS has 4 pricing models:</li>
+  <li><strong>Pay as you go</strong>: pay for what you use, remain agile, responsive, meet scale demands</li>
+  <li><strong>Save when you reserve</strong>: minimize risks, predictably manage budgets, comply with long-terms requirements
+    <ul>
+      <li>Reservations are available for EC2 Reserved Instances, DynamoDB Reserved Capacity, ElastiCache Reserved Nodes, RDS Reserved Instance, Redshift Reserved Nodes</li>
+    </ul>
+  </li>
+  <li><strong>Pay less by using more</strong>: volume-based discounts</li>
+  <li><strong>Pay less as AWS grows</strong></li>
+</ul>
+
+<h2 id="compute-pricing">Compute Pricing</h2>
+
+<h3 id="ec2">EC2</h3>
+
+<ul>
+  <li>Only charged for what you use</li>
+  <li>Number of instances</li>
+  <li>Instance configuration:
+    <ul>
+      <li>Physical capacity</li>
+      <li>Region</li>
+      <li>OS and software</li>
+      <li>Instance type</li>
+      <li>Instance size</li>
+    </ul>
+  </li>
+  <li>ELB running time and amount of data processed</li>
+  <li>
+    <p>Detailed monitoring</p>
+  </li>
+  <li>On-demand instances:
+    <ul>
+      <li>Minimum of 60s</li>
+      <li>Pay per second (Linux/Windows) or per hour (other)</li>
+    </ul>
+  </li>
+  <li>Reserved instances:
+    <ul>
+      <li>Up to 75% discount compared to On-demand on hourly rate</li>
+      <li>1- or 3-years commitment</li>
+      <li>All upfront, partial upfront, no upfront</li>
+    </ul>
+  </li>
+  <li>Spot instances:
+    <ul>
+      <li>Up to 90% discount compared to On-demand on hourly rate</li>
+      <li>Bid for unused capacity</li>
+    </ul>
+  </li>
+  <li>Dedicated Host:
+    <ul>
+      <li>On-demand</li>
+      <li>Reservation for 1 year or 3 years commitment</li>
+      <li>Savings plans as an alternative to save on sustained usage</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="lambda--ecs">Lambda &amp; ECS</h3>
+
+<ul>
+  <li>Lambda:
+    <ul>
+      <li>Pay per call</li>
+      <li>Pay per duration</li>
+    </ul>
+  </li>
+  <li>ECS:
+    <ul>
+      <li>EC2 Launch Type Model: No additional fees, you pay for AWS resources stored and created in your application</li>
+    </ul>
+  </li>
+  <li>Fargate:
+    <ul>
+      <li>Fargate Launch Type Model: Pay for vCPU and memory resources allocated to your applications in your containers</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="storage-pricing">Storage Pricing</h2>
+
+<h3 id="s3">S3</h3>
+
+<ul>
+  <li>Storage class: S3 Standard, S3 Infrequent Access, S3 One-Zone IA, S3 Intelligent Tiering, S3 Glacier and S3 Glacier Deep Archive</li>
+  <li>Number and size of objects: Price can be tiered (based on volume)</li>
+  <li>Number and type of requests</li>
+  <li>Data transfer OUT of the S3 region</li>
+  <li>S3 Transfer Acceleration</li>
+  <li>Lifecycle transitions</li>
+  <li>Similar service: EFS (pay per use, has infrequent access &amp; lifecycle rules)</li>
+</ul>
+
+<h3 id="ebs">EBS</h3>
+
+<ul>
+  <li>Volume type (based on performance)</li>
+  <li>Storage volume in GB per month provisioned</li>
+  <li>IOPS:
+    <ul>
+      <li>General Purpose SSD: Included</li>
+      <li>Provisioned IOPS SSD: provisioned amount in IOPS</li>
+      <li>Magnetic: Number of requests</li>
+    </ul>
+  </li>
+  <li>Snapshots:
+    <ul>
+      <li>Added data cost per GB per month</li>
+    </ul>
+  </li>
+  <li>Data transfer:
+    <ul>
+      <li>Outbound data transfer are tiered for volume discounts</li>
+      <li>Inbound is free</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="database-pricing---rds">Database Pricing - RDS</h2>
+
+<ul>
+  <li>Per hour billing</li>
+  <li>Database characteristics:
+    <ul>
+      <li>Engine</li>
+      <li>Size</li>
+      <li>Memory class</li>
+    </ul>
+  </li>
+  <li>Purchase type:
+    <ul>
+      <li>On-demand</li>
+      <li>Reserved instances (1 or 3 years) with required up-front</li>
+    </ul>
+  </li>
+  <li>Backup Storage: There is no additional charge for backup storage up to 100% of your total database storage for a region.</li>
+  <li>Additional storage (per GB per month)</li>
+  <li>Number of input and output requests per month</li>
+  <li>Deployment type (storage and I/O are variable):
+    <ul>
+      <li>Single AZ</li>
+      <li>Multiple AZs</li>
+    </ul>
+  </li>
+  <li>Data transfer:
+    <ul>
+      <li>Outbound data transfer are tiered for volume discounts</li>
+      <li>Inbound is free</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="content-delivery---cloudfront">Content Delivery - CloudFront</h2>
+
+<ul>
+  <li>Pricing is different across different geographic regions</li>
+  <li>Aggregated for each edge location, then applied to your bill</li>
+  <li>Data Transfer Out (volume discount)</li>
+  <li>Number of HTTP/HTTPS requests</li>
+</ul>
+
+<h2 id="networking-costs-in-aws-per-gb---simplified">Networking Costs in AWS per GB - Simplified</h2>
+
+<ul>
+  <li>Use Private IP instead of Public IP for good savings and better network performance</li>
+  <li>Use same AZ for maximum savings (at the cost of high availability)</li>
+</ul>
+
+<h2 id="savings-plan">Savings Plan</h2>
+
+<ul>
+  <li>Commit a certain $ amount per hour for 1 or 3 years</li>
+  <li>Easiest way to setup long-term commitments on AWS</li>
+  <li>EC2 Savings Plan
+    <ul>
+      <li>Up to 72% discount compared to On-Demand</li>
+      <li>Commit to usage of individual instance families in a region (e.g. C5 or M5)</li>
+      <li>Regardless of AZ, size (m5.xl to m5.4xl), OS (Linux/Windows) or tenancy</li>
+      <li>All upfront, partial upfront, no upfront</li>
+    </ul>
+  </li>
+  <li>Compute Savings Plan
+    <ul>
+      <li>Up to 66% discount compared to On-Demand</li>
+      <li>Regardless of Family, Region, size, OS, tenancy, compute options</li>
+      <li>Compute Options: EC2, Fargate, Lambda</li>
+    </ul>
+  </li>
+  <li>Setup from the AWS Cost Explorer console</li>
+  <li>Estimate pricing at <a href="https://aws.amazon.com/savingsplans/pricing/">https://aws.amazon.com/savingsplans/pricing/</a></li>
+</ul>
+
+<h2 id="aws-compute-optimizer">AWS Compute Optimizer</h2>
+
+<ul>
+  <li>Reduce costs and improve performance by recommending optimal AWS resources for your workloads</li>
+  <li>Helps you choose optimal configurations and right - size your workloads (over/under provisioned)</li>
+  <li>Uses Machine Learning to analyze your resources’ configurations and their utilization CloudWatch metrics</li>
+  <li>Supported resources
+    <ul>
+      <li>EC2 instances</li>
+      <li>EC2 Auto Scaling Groups</li>
+      <li>EBS volumes</li>
+      <li>Lambda functions</li>
+    </ul>
+  </li>
+  <li>Lower your costs by up to 25%</li>
+  <li>Recommendations can be exported to S3</li>
+</ul>
+
+<h2 id="billing-and-costing-tools">Billing and Costing Tools</h2>
+
+<ul>
+  <li>Estimating costs in the cloud:
+    <ul>
+      <li>Pricing Calculator</li>
+    </ul>
+  </li>
+  <li>Tracking costs in the cloud:
+    <ul>
+      <li>Billing Dashboard</li>
+      <li>Cost Allocation Tags</li>
+      <li>Cost and Usage Reports</li>
+      <li>Cost Explorer</li>
+    </ul>
+  </li>
+  <li>Monitoring against costs plans:
+    <ul>
+      <li>Billing Alarms</li>
+      <li>Budgets</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="aws-pricing-calculator">AWS Pricing Calculator</h2>
+
+<ul>
+  <li>Available at <a href="https://calculator.aws/">https://calculator.aws/</a></li>
+  <li>Estimate the cost for your solution architecture</li>
+</ul>
+
+<h2 id="cost-allocation-tags">Cost Allocation Tags</h2>
+
+<ul>
+  <li>Use cost allocation tags to track your AWS costs on a detailed level</li>
+  <li>AWS generated tags
+    <ul>
+      <li>Automatically applied to the resource you create</li>
+      <li>Starts with Prefix aws: (e.g. aws: createdBy)</li>
+    </ul>
+  </li>
+  <li>User-defined tags
+    <ul>
+      <li>Defined by the user</li>
+      <li>Starts with Prefix user:</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="tagging-and-resource-groups">Tagging and Resource Groups</h2>
+
+<ul>
+  <li>Tags are used for organizing resources:
+    <ul>
+      <li>EC2: instances, images, load balancers, security groups…</li>
+      <li>RDS, VPC resources, Route 53, IAM users, etc…</li>
+      <li>Resources created by CloudFormation are all tagged the same way</li>
+    </ul>
+  </li>
+  <li>Free naming, common tags are: Name, Environment, Team …</li>
+  <li>Tags can be used to create <strong>Resource Groups</strong>
+    <ul>
+      <li>Create, maintain, and view a collection of resources that share common tags</li>
+      <li>Manage these tags using the Tag Editor</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="cost-and-usage-reports">Cost and Usage Reports</h2>
+
+<ul>
+  <li>Dive deeper into your AWS costs and usage</li>
+  <li>The AWS Cost &amp; Usage Report contains the most comprehensive set of AWS cost and usage data available, including additional metadata about AWS services, pricing, and reservations (e.g., Amazon EC2 Reserved Instances (RIs)).</li>
+  <li>The AWS Cost &amp; Usage Report lists AWS usage for each service category used by an account and its IAM users in hourly or daily line items, as well as any tags that you have activated for cost allocation purposes.</li>
+  <li>Can be integrated with Athena, Redshift or QuickSight</li>
+</ul>
+
+<h2 id="cost-explorer">Cost Explorer</h2>
+
+<ul>
+  <li>Visualize, understand, and manage your AWS costs and usage over time</li>
+  <li>Create custom reports that analyze cost and usage data.</li>
+  <li>Analyze your data at a high level: total costs and usage across all accounts</li>
+  <li>Or Monthly, hourly, resource level granularity</li>
+  <li>Choose an optimal <strong>Savings Plan</strong>(to lower prices on your bill)</li>
+  <li>
+    <p><strong>Forecast usage up to 12 months based on previous usage</strong></p>
+  </li>
+  <li>Cost Explorer – Monthly Cost by AWS Service</li>
+  <li>Cost Explorer– Hourly &amp; Resource Level</li>
+  <li>Cost Explorer – Savings Plan Alternative to Reserved Instances</li>
+  <li>Cost Explorer – Forecast Usage</li>
+</ul>
+
+<h2 id="billing-alarms-in-cloudwatch">Billing Alarms in CloudWatch</h2>
+
+<ul>
+  <li>Billing data metric is stored in CloudWatch us-east1</li>
+  <li>Billing data are for overall worldwide AWS costs</li>
+  <li>It’s for actual cost, not for projected costs</li>
+  <li>Intended a simple alarm (not as powerful as AWS Budgets)</li>
+</ul>
+
+<h2 id="aws-budgets">AWS Budgets</h2>
+
+<ul>
+  <li>Create budget and send alarms when costs exceeds the budget</li>
+  <li>3 types of budgets: Usage, Cost, Reservation</li>
+  <li>For Reserved Instances (RI)
+    <ul>
+      <li>Track utilization</li>
+      <li>Supports EC2, ElastiCache, RDS, Redshift</li>
+    </ul>
+  </li>
+  <li>Up to 5 SNS notifications per budget</li>
+  <li>Can filter by: Service, Linked Account, Tag, Purchase Option, Instance Type, Region, Availability Zone, API Operation, etc…</li>
+  <li>Same options as AWS Cost Explorer!</li>
+  <li>2 budgets are free, then $0.02/day/budget</li>
+</ul>
+
+<h2 id="aws-cost-anomaly-detection">AWS Cost Anomaly Detection</h2>
+
+<ul>
+  <li>Continuously monitor your cost and usage using ML to detect unusual spends</li>
+  <li>It learns your unique, historic spend patterns to detect one-time cost spike
+and/or continuous cost increases (you don’t need to define thresholds)</li>
+  <li>Monitor AWS services, member accounts, cost allocation tags, or cost categories</li>
+  <li>Sends you the anomaly detection report with root-cause analysis</li>
+  <li>Get notified with individual alerts or daily/weekly summary (using SNS)</li>
+</ul>
+
+<h2 id="aws-service-quotas">AWS Service Quotas</h2>
+
+<ul>
+  <li>Notify you when you’re close to a service quota value threshold</li>
+  <li>Create CloudWatch Alarms on the Service Quotas console</li>
+  <li>Example: Lambda concurrent executions</li>
+  <li>Request a quota increase from AWS Service Quotas or shutdown resources before limit is reached</li>
+</ul>
+
+<h2 id="trusted-advisor">Trusted Advisor</h2>
+
+<ul>
+  <li>No need to install anything – high level AWS account assessment</li>
+  <li>Analyze your AWS accounts and provides recommendation on 5 categories</li>
+  <li>Cost optimization</li>
+  <li>Performance</li>
+  <li>Security</li>
+  <li>Fault tolerance</li>
+  <li>Service limits</li>
+</ul>
+
+<h2 id="trusted-advisor---support-plans">Trusted Advisor - Support Plans</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>7 CORE CHECKS Basic &amp; Developer Support plan</th>
+      <th>FULL CHECKS Business &amp; Enterprise Support plan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>S3 Bucket Permissions, Security Groups – Specific Ports Unrestricted</td>
+      <td>Full Checks available on the 5 categories</td>
+    </tr>
+    <tr>
+      <td>IAM Use (one IAM user minimum), MFA on Root Account</td>
+      <td>Ability to set CloudWatch alarms when reaching limits</td>
+    </tr>
+    <tr>
+      <td>EBS Public Snapshots, RDS Public Snapshots, Service Limits</td>
+      <td>Programmatic Access using AWS Support API</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="aws-basic-support-plan">AWS Basic Support Plan</h2>
+
+<ul>
+  <li>Customer Service &amp; Communities - 24x7 access to customer service, documentation, whitepapers, and support forums.</li>
+  <li>AWS Trusted Advisor - Access to the 7 core Trusted Advisor checks and guidance to provision your resources following best practices to increase performance and improve security.</li>
+  <li>AWS Personal Health Dashboard - A personalized view of the health of AWS services, and alerts when your resources are impacted.</li>
+</ul>
+
+<h2 id="aws-developer-support-plan">AWS Developer Support Plan</h2>
+
+<ul>
+  <li>All Basic Support Plan +</li>
+  <li>Business hours email access to Cloud Support Associates</li>
+  <li>Unlimited cases / 1 primary contact</li>
+  <li>Case severity / response times:
+    <ul>
+      <li>General guidance: &lt; 24 business hours</li>
+      <li>System impaired: &lt; 12 business hours</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="aws-business-support-plan-247">AWS Business Support Plan (24/7)</h2>
+
+<ul>
+  <li>Intended to be used if you have production workloads</li>
+  <li>Trusted Advisor – Full set of checks + API access</li>
+  <li>24x7 phone, email, and chat access to Cloud Support Engineers</li>
+  <li>Unlimited cases / unlimited contacts</li>
+  <li>Access to Infrastructure Event Management for additional fee.</li>
+  <li>Case severity / response times:
+    <ul>
+      <li>General guidance: &lt; 24 business hours</li>
+      <li>System impaired: &lt; 12 business hours</li>
+      <li>Production system impaired: &lt; 4 hours</li>
+      <li>Production system down: &lt; 1 hour</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="aws-enterprise-on-ramp-support-plan-247">AWS Enterprise On-Ramp Support Plan (24/7)</h2>
+
+<ul>
+  <li>Intended to be used if you have production or business critical workloads</li>
+  <li>All of Business Support Plan +</li>
+  <li>Access to a pool of Technical Account Managers (TAM)</li>
+  <li>Concierge Support Team (for billing and account best practices)</li>
+  <li>Infrastructure Event Management, Well-Architected &amp; Operations Reviews</li>
+  <li>Case severity / response times:
+    <ul>
+      <li>Production system impaired: &lt; 4 hours</li>
+      <li>Production system down: &lt; 1 hour</li>
+      <li>Business-critical system down: &lt; 30 minutes</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="aws-enterprise-support-plan-247">AWS Enterprise Support Plan (24/7)</h2>
+
+<ul>
+  <li>Intended to be used if you have mission critical workloads</li>
+  <li>All of Business Support Plan +</li>
+  <li>Access to a designated Technical Account Manager (TAM)</li>
+  <li>Concierge Support Team (for billing and account best practices)</li>
+  <li>Infrastructure Event Management, Well-Architected &amp; Operations Reviews</li>
+  <li>Case severity / response times:
+    <ul>
+      <li>Production system impaired: &lt; 4 hours</li>
+      <li>Production system down: &lt; 1 hour</li>
+      <li>Business-critical system down: &lt; 15 minutes</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="account-best-practices---summary">Account Best Practices - Summary</h2>
+
+<ul>
+  <li>Operate multiple accounts using Organizations</li>
+  <li>Use SCP (service control policies) to restrict account power</li>
+  <li>Easily setup multiple accounts with best-practices with AWS Control Tower</li>
+  <li>Use Tags &amp; Cost Allocation Tags for easy management &amp; billing</li>
+  <li>IAM guidelines: MFA, least-privilege, password policy, password rotation</li>
+  <li>Config to record all resources configurations &amp; compliance over time</li>
+  <li>CloudFormation to deploy stacks across accounts and regions</li>
+  <li>Trusted Advisor to get insights, Support Plan adapted to your needs</li>
+  <li>Send Service Logs and Access Logs to S3 or CloudWatch Logs</li>
+  <li>CloudTrail to record API calls made within your account</li>
+  <li>If your Account is compromised: change the root password, delete and rotate all passwords / keys, contact the AWS support</li>
+</ul>
+
+<h2 id="billing-and-costing-tools---summary">Billing and Costing Tools - Summary</h2>
+
+<ul>
+  <li><strong>Compute Optimizer</strong>: recommends resources’ configurations to reduce cost</li>
+  <li><strong>Pricing Calculator</strong>: cost of services on AWS</li>
+  <li><strong>Billing Dashboard</strong>: high level overview + free tier dashboard</li>
+  <li><strong>Cost Allocation Tags</strong>: tag resources to create detailed reports</li>
+  <li><strong>Cost and Usage Reports</strong>: most comprehensive billing dataset</li>
+  <li><strong>Cost Explorer</strong>: View current usage (detailed) and forecast usage</li>
+  <li><strong>Billing Alarms</strong>: in us-east-1 – track overall and per-service billing</li>
+  <li><strong>Budgets</strong>: more advanced – track usage, costs, RI, and get alerts</li>
+  <li><strong>Savings Plans</strong>: easy way to save based on long-term usage of AWS</li>
+  <li><strong>Cost Anomaly Detection</strong>: detect unusual spends using Machine Learning</li>
+  <li><strong>Service Quotas</strong>: notify you when you’re close to service quota threshold</li>
+</ul>
+
+
+<footer>
+  <!-- New Footer Navigation -->
+<div class="footer-nav">
+<nav>
+    <ul>
+        <li><a href="chapter15.html">Previous</a></li>
+        <li><a href="chapter17.html">Next</a></li>
+        <li><a href="Notes.html">Home</a></li>
+    </ul>
+</nav>
+</div>
+<div class="footer-content">
+<div class="footer-info">
+    <p><strong>Jawahar Parvez</strong></p>
+    <p>Email: <a href="mailto:Jawaharparvez@gmail.com">Jawaharparvez@gmail.com</a></p>
+</div>
+
+<div class="social-links">
+    <a href="https://instagram.com/iamtheparvez" target="_blank" title="Instagram">
+        <i class="fab fa-instagram"></i> Instagram
+    </a>
+    <a href="https://github.com/Jawaharparvez" target="_blank" title="GitHub">
+        <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/jawaharparvez" target="_blank" title="LinkedIn">
+        <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+</div>
+
+<div class="copyright">
+    <p>&copy; 2025 Jawahar Parvez. All rights reserved.</p>
+</div>
+</div>
+
+
+</footer>
+
+</main>
+</body>
+</html>

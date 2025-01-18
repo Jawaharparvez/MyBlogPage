@@ -1,0 +1,214 @@
+/* Reset global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'IBM Plex Sans', sans-serif; /* Serif font for readability */
+    background-color: #eeeeee; /* Light gray background */
+    color: #000000; /* Default text color */
+    margin: 20px;
+    padding: 0;
+    line-height: 1.6;
+}
+
+h1, h2, h3 {
+    margin-bottom: 20px;
+    color: #000000;
+}
+
+h1 {
+    color: #000000;
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    color: rgb(18, 18, 46);
+}
+
+main {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+ul, ol {
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+
+ul li, ol li {
+    margin-bottom: 10px;
+}
+
+ul li a, ol li a {
+    text-decoration: none;
+    color: #0073e6;
+    /* Default black color for links */
+    font-weight: bold;
+}
+
+ul li a:hover, ol li a:hover {
+    color: #9aa1a9; /* Darker blue for hover effect */
+    text-decoration: dotted;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.model, .cloud-type {
+    background-color: #e9ecef;
+    padding: 15px;
+    margin-top: 10px;
+    border-left: 5px solid #0073e6;
+}
+
+/* Styling for specific content */
+strong {
+    font-weight: bold;
+}
+
+em {
+    font-style: italic;
+}
+
+
+
+/* Footer Styles */
+footer {
+    background-color: #000000;
+    color: #fff;
+    font-family: 'IBM Plex Sans', sans-serif;
+    padding: 20px 0;
+    text-align: left;
+    margin-top: 40px;
+    font-size: 0.9rem;
+  }
+  
+  footer .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  footer .footer-info {
+    margin-bottom: 15px;
+  }
+  
+  footer .footer-info p {
+    margin: 5px 0;
+  }
+  
+  footer .footer-info a {
+    text-decoration: none;
+    color: #f1f1f1;
+    font-weight: lighter;
+    transition: color 0.3s;
+  }
+  
+  footer .footer-info a:hover {
+    color: #0073e6; /* Blue hover color */
+  }
+  
+  footer .social-links {
+    margin-top: 15px;
+  }
+  
+  footer .social-links a {
+    margin: 0 10px;
+    font-size: 1.3rem;
+    color: #f1f1f1;
+    transition: color 0.3s;
+  }
+  
+  footer .social-links a:hover {
+    color: #0073e6; /* Blue hover color */
+  }
+  
+  footer .copyright {
+    margin-top: 20px;
+    font-size: 0.8rem;
+    color: #ccc;
+  }
+  
+  /* Footer Navigation Styles */
+  footer .footer-nav {
+    margin-top: 5px;
+    margin-right: 15px;
+    text-align: center;
+  }
+  
+  footer .footer-nav nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: right;
+  }
+  
+  footer .footer-nav nav ul li {
+    margin: 0 15px;
+  }
+  
+  footer .footer-nav nav ul li a {
+    text-decoration: none;
+    color: #f1f1f1;
+    font-weight: lighter;
+    font-size: 1rem;
+    transition: color 0.3s;
+  }
+  
+  footer .footer-nav nav ul li a:hover {
+    color: #0073e6; /* Blue hover color */
+  }
+  
+
+
+
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+    }
+
+    ul, ol {
+        margin-left: 20px;
+    }
+
+    table {
+        font-size: 0.9rem;
+    }
+}

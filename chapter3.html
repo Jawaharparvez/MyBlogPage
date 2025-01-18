@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>EC2: Virtual Machines</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="chapter.css">
+</head>
+<body>
+  <main id="content" class="main-content" role="main">
+    <h1 id="ec2-virtual-machines">EC2: Virtual Machines</h1>
+
+<ul>
+  <li><a href="#ec2-virtual-machines">EC2: Virtual Machines</a>
+    <ul>
+      <li><a href="#what-is-amazon-ec2">What is Amazon EC2?</a>
+        <ul>
+          <li><a href="#ec2-sizing--configuration-options">EC2 Sizing \&amp; Configuration Options</a></li>
+          <li><a href="#ec2-user-data">EC2 User Data</a></li>
+          <li><a href="#ec2-instance-types---overview">EC2 Instance Types - Overview</a>
+            <ul>
+              <li><a href="#general-purpose-instances">General Purpose Instances</a></li>
+              <li><a href="#compute-optimized-instances">Compute Optimized Instances</a></li>
+              <li><a href="#memory-optimized-instances">Memory Optimized Instances</a></li>
+              <li><a href="#storage-optimized-instances">Storage Optimized Instances</a></li>
+            </ul>
+          </li>
+          <li><a href="#ec2-instance-types-example">EC2 Instance Types: Example</a></li>
+        </ul>
+      </li>
+      <li><a href="#introduction-to-security-groups">Introduction to Security Groups</a>
+        <ul>
+          <li><a href="#common-use-cases">Common Use Cases</a></li>
+        </ul>
+      </li>
+      <li><a href="#deeper-dive">Deeper Dive</a>
+        <ul>
+          <li><a href="#security-groups-diagram">Security Groups Diagram</a></li>
+          <li><a href="#examples-of-security-group-rules">Examples of Security Group Rules</a></li>
+          <li><a href="#good-to-know">Good to Know</a></li>
+        </ul>
+      </li>
+      <li><a href="#classic-ports-to-know">Classic Ports to Know</a></li>
+      <li><a href="#ec2-instance-launch-types">EC2 Instance Launch Types</a>
+        <ul>
+          <li><a href="#on-demand-instance">On Demand Instance</a></li>
+          <li><a href="#reserved-instances">Reserved Instances</a></li>
+          <li><a href="#savings-plans">Savings Plans</a></li>
+          <li><a href="#spot-instances">Spot Instances</a></li>
+          <li><a href="#dedicated-hosts">Dedicated Hosts</a></li>
+          <li><a href="#dedicated-instances">Dedicated Instances</a></li>
+          <li><a href="#capacity-reservations">Capacity Reservations</a></li>
+          <li><a href="#ec2-instance-launch-types-comparison">EC2 Instance Launch Types Comparison</a></li>
+        </ul>
+      </li>
+      <li><a href="#which-purchasing-option-is-right-for-my-use-case">Which purchasing option is right for my use case?</a></li>
+      <li><a href="#price-comparison-example--m4large--us-east-1">Price Comparison Example – m4.large – us-east-1</a></li>
+      <li><a href="#shared-responsibility-model-for-ec2">Shared Responsibility Model for EC2</a></li>
+      <li><a href="#ec2-section--summary">EC2 Section – Summary</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="what-is-amazon-ec2">What is Amazon EC2?</h2>
+
+<ul>
+  <li><strong>Amazon Elastic Compute Cloud (EC2)</strong> is a scalable compute service that allows users to rent virtual servers in the cloud.</li>
+  <li>It provides flexibility to scale compute resources up or down based on demand, offering a cost-effective solution for applications with variable workloads.</li>
+  <li>Key features include:
+    <ul>
+      <li><strong>On-Demand Instances</strong>: Pay for compute capacity by the hour or second, with no long-term commitments.</li>
+      <li><strong>Reserved Instances</strong>: Make a one-time payment for a significant discount on instance usage over a one- or three-year term.</li>
+      <li><strong>Spot Instances</strong>: Bid for unused EC2 capacity at a potentially lower price, allowing cost savings for flexible workloads.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="ec2-sizing--configuration-options">EC2 Sizing &amp; Configuration Options</h3>
+
+<ul>
+  <li>EC2 allows for customized sizing and configurations, which include:
+    <ul>
+      <li><strong>Instance Type</strong>: Selecting the appropriate type based on the application’s performance requirements.</li>
+      <li><strong>Storage Options</strong>: Using Amazon EBS for persistent block storage or instance store for temporary storage.</li>
+      <li><strong>Networking</strong>: Configuring VPCs, subnets, and security groups to control access and manage traffic.</li>
+      <li><strong>Elastic Load Balancing</strong>: Distributing incoming traffic across multiple EC2 instances to enhance availability and fault tolerance.</li>
+      <li><strong>Auto Scaling</strong>: Automatically adjusting the number of instances based on demand, ensuring the application has the necessary resources.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="ec2-user-data">EC2 User Data</h3>
+
+<ul>
+  <li><strong>User data</strong> is a powerful feature for automating the setup of EC2 instances.</li>
+  <li>It can be specified at instance launch and is executed on the instance when it first boots.</li>
+  <li>bootstrapping means launching commands when a machine starts</li>
+  <li>That script is <strong>only run once</strong> at the instance <strong>first start</strong></li>
+  <li><strong>Common use cases include</strong>:
+    <ul>
+      <li>Installing software packages (e.g., <code class="language-plaintext highlighter-rouge">yum install httpd -y</code> for Apache).</li>
+      <li>Downloading configuration files or scripts from Amazon S3.</li>
+      <li>Configuring system settings and services (e.g., starting an application server).</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="ec2-instance-types---overview">EC2 Instance Types - Overview</h3>
+
+<p>Amazon EC2 offers a variety of instance types, each designed to meet specific application requirements.(<a href="https://aws.amazon.com/ec2/instance-types/">https://aws.amazon.com/ec2/instance-types/</a>)</p>
+
+<h4 id="general-purpose-instances">General Purpose Instances</h4>
+
+<ul>
+  <li>General purpose instances provide a balanced mix of compute, memory, and network resources.</li>
+  <li>They are suitable for a variety of workloads and can handle different application types effectively.</li>
+  <li><strong>Use Cases</strong>:
+    <ul>
+      <li>Web servers and applications</li>
+      <li>Small to medium-sized databases</li>
+      <li>Development and testing environments</li>
+      <li>Enterprise applications</li>
+    </ul>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Instance Type</strong></th>
+      <th><strong>vCPUs</strong></th>
+      <th><strong>Memory (GiB)</strong></th>
+      <th><strong>Network Performance</strong></th>
+      <th><strong>Storage</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>t4g.micro</strong></td>
+      <td>2</td>
+      <td>1</td>
+      <td>Up to 5 Gigabit</td>
+      <td>EBS only</td>
+    </tr>
+    <tr>
+      <td><strong>t3.micro</strong></td>
+      <td>2</td>
+      <td>1</td>
+      <td>Up to 5 Gigabit</td>
+      <td>EBS only</td>
+    </tr>
+    <tr>
+      <td><strong>m5.large</strong></td>
+      <td>2</td>
+      <td>8</td>
+      <td>Up to 10 Gigabit</td>
+      <td>EBS only</td>
+    </tr>
+    <tr>
+      <td><strong>m5.xlarge</strong></td>
+      <td>4</td>
+      <td>16</td>
+      <td>Up to 10 Gigabit</td>
+      <td>EBS only</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="compute-optimized-instances">Compute Optimized Instances</h4>
+
+<ul>
+  <li>Compute optimized instances are designed for applications that require high-performance processors and are well-suited for compute-intensive workloads.</li>
+  <li><strong>Use Cases</strong>:
+    <ul>
+      <li>High-performance web servers</li>
+      <li>Batch processing</li>
+      <li>Data analytics</li>
+      <li>Machine learning inference</li>
+    </ul>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Instance Type</strong></th>
+      <th><strong>vCPUs</strong></th>
+      <th><strong>Memory (GiB)</strong></th>
+      <th><strong>Network Performance</strong></th>
+      <th><strong>Storage</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>c5.large</strong></td>
+      <td>2</td>
+      <td>4</td>
+      <td>Up to 10 Gigabit</td>
+      <td>EBS only</td>
+    </tr>
+    <tr>
+      <td><strong>c5.xlarge</strong></td>
+      <td>4</td>
+      <td>8</td>
+      <td>Up to 10 Gigabit</td>
+      <td>EBS only</td>
+    </tr>
+    <tr>
+      <td><strong>c5.2xlarge</strong></td>
+      <td>8</td>
+      <td>16</td>
+      <td>Up to 10 Gigabit</td>
+      <td>EBS only</td>
+    </tr>
+    <tr>
+      <td><strong>c5n.9xlarge</strong></td>
+      <td>36</td>
+      <td>96</td>
+      <td>10 Gigabit</td>
+      <td>EBS only</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="memory-optimized-instances">Memory Optimized Instances</h4>
+
+<ul>
+  <li>Memory optimized instances provide high memory bandwidth and are optimized for applications that require large amounts of memory.</li>
+  <li><strong>Use Cases</strong>:
+    <ul>
+      <li>High-performance databases (e.g., SAP HANA)</li>
+      <li>In-memory caches (e.g., Redis, Memcached)</li>
+      <li>Real-time big data analytics</li>
+      <li>Data mining applications</li>
+    </ul>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Instance Type</strong></th>
+      <th><strong>vCPUs</strong></th>
+      <th><strong>Memory (GiB)</strong></th>
+      <th><strong>Network Performance</strong></th>
+      <th><strong>Storage</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>r5.large</strong></td>
+      <td>2</td>
+      <td>16</td>
+      <td>Up to 10 Gigabit</td>
+      <td>EBS only</td>
+    </tr>
+    <tr>
+      <td><strong>r5.xlarge</strong></td>
+      <td>4</td>
+      <td>32</td>
+      <td>Up to 10 Gigabit</td>
+      <td>EBS only</td>
+    </tr>
+    <tr>
+      <td><strong>r5.4xlarge</strong></td>
+      <td>16</td>
+      <td>128</td>
+      <td>Up to 10 Gigabit</td>
+      <td>EBS only</td>
+    </tr>
+    <tr>
+      <td><strong>r5b.12xlarge</strong></td>
+      <td>48</td>
+      <td>384</td>
+      <td>10 Gigabit</td>
+      <td>EBS only</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="storage-optimized-instances">Storage Optimized Instances</h4>
+
+<ul>
+  <li>Storage optimized instances are designed for applications that require high, sequential read and write access to large datasets.</li>
+  <li><strong>Use Cases</strong>:
+    <ul>
+      <li>Data warehousing applications</li>
+      <li>Hadoop distributed computing</li>
+      <li>High-frequency trading applications</li>
+      <li>NoSQL databases (e.g., Cassandra)</li>
+    </ul>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Instance Type</strong></th>
+      <th><strong>vCPUs</strong></th>
+      <th><strong>Memory (GiB)</strong></th>
+      <th><strong>Network Performance</strong></th>
+      <th><strong>Storage</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>i3.large</strong></td>
+      <td>2</td>
+      <td>15</td>
+      <td>Up to 10 Gigabit</td>
+      <td>1 x 475 GB NVMe SSD</td>
+    </tr>
+    <tr>
+      <td><strong>i3.xlarge</strong></td>
+      <td>4</td>
+      <td>30</td>
+      <td>Up to 10 Gigabit</td>
+      <td>1 x 950 GB NVMe SSD</td>
+    </tr>
+    <tr>
+      <td><strong>i3.2xlarge</strong></td>
+      <td>8</td>
+      <td>61</td>
+      <td>Up to 10 Gigabit</td>
+      <td>1 x 1.9 TB NVMe SSD</td>
+    </tr>
+    <tr>
+      <td><strong>d2.8xlarge</strong></td>
+      <td>36</td>
+      <td>244</td>
+      <td>Up to 10 Gigabit</td>
+      <td>12 x 2 TB HDD</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="ec2-instance-types-example">EC2 Instance Types: Example</h3>
+
+<p>Here’s a quick overview of some example instance types in each category, along with their characteristics:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Instance Type</strong></th>
+      <th><strong>vCPUs</strong></th>
+      <th><strong>Memory (GiB)</strong></th>
+      <th><strong>Storage</strong></th>
+      <th><strong>Use Case</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>t3.micro</strong></td>
+      <td>2</td>
+      <td>1</td>
+      <td>EBS only</td>
+      <td>General-purpose applications with burstable performance; suitable for low-traffic web servers or development environments.</td>
+    </tr>
+    <tr>
+      <td><strong>c5.large</strong></td>
+      <td>2</td>
+      <td>4</td>
+      <td>EBS only</td>
+      <td>Compute-intensive applications like gaming, web servers, and machine learning inference.</td>
+    </tr>
+    <tr>
+      <td><strong>m5.xlarge</strong></td>
+      <td>4</td>
+      <td>16</td>
+      <td>EBS only</td>
+      <td>Balanced workloads, such as small databases and caching fleets. Ideal for web applications.</td>
+    </tr>
+    <tr>
+      <td><strong>r5.xlarge</strong></td>
+      <td>4</td>
+      <td>32</td>
+      <td>EBS only</td>
+      <td>Memory-intensive applications such as databases, in-memory caches, and analytics workloads.</td>
+    </tr>
+    <tr>
+      <td><strong>i3.2xlarge</strong></td>
+      <td>8</td>
+      <td>61</td>
+      <td>1 x 2.5 TB NVMe SSD</td>
+      <td>Storage-intensive applications like NoSQL databases, data warehousing, and big data analytics.</td>
+    </tr>
+    <tr>
+      <td><strong>p3.2xlarge</strong></td>
+      <td>8</td>
+      <td>61</td>
+      <td>EBS only</td>
+      <td>GPU-accelerated computing for machine learning, high-performance computing (HPC), and graphics-intensive applications.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>t2.micro is part of the AWS free tier (up to 750 hours per month)</p>
+
+<h2 id="introduction-to-security-groups">Introduction to Security Groups</h2>
+
+<ul>
+  <li><strong>Security Groups</strong> are <strong>virtual firewalls</strong> that control inbound and outbound traffic to Amazon EC2 instances.</li>
+  <li>They act at the instance level, not the subnet level, and provide a way to manage access to resources within a VPC (Virtual Private Cloud).</li>
+  <li>Security groups can be associated with multiple instances and can be modified at any time, allowing for flexible management of network access.</li>
+  <li><strong>Key Features</strong>:
+    <ul>
+      <li>By default, all inbound traffic is denied, and all outbound traffic is allowed.</li>
+      <li>You can specify rules based on protocol (TCP, UDP, ICMP), port number, and source IP address or CIDR block.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="common-use-cases">Common Use Cases</h3>
+
+<ul>
+  <li>Restricting access to an application server (allowing only specific IPs).</li>
+  <li>Allowing traffic from specific ports (e.g., HTTP/HTTPS).</li>
+  <li>Isolating database instances from public access.</li>
+</ul>
+
+<h2 id="deeper-dive">Deeper Dive</h2>
+
+<ul>
+  <li><strong>Inbound Rules</strong>: Define the traffic allowed into your instances.</li>
+  <li><strong>Outbound Rules</strong>: Define the traffic allowed out from your instances.</li>
+  <li>Each rule includes:
+    <ul>
+      <li><strong>Type</strong>: The protocol used (e.g., HTTP, SSH).</li>
+      <li><strong>Protocol</strong>: The protocol number (TCP = 6, UDP = 17).</li>
+      <li><strong>Port Range</strong>: The port(s) affected by the rule.</li>
+      <li><strong>Source/Destination</strong>: The IP address or CIDR range from which traffic is allowed.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="security-groups-diagram">Security Groups Diagram</h3>
+
+<p><img src="/images/Security_Groups_Diagram.png" alt="Security Groups Diagram"></p>
+
+<h3 id="examples-of-security-group-rules">Examples of Security Group Rules</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Rule Type</strong></th>
+      <th><strong>Protocol</strong></th>
+      <th><strong>Port Range</strong></th>
+      <th><strong>Source/Destination</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Inbound Rule</td>
+      <td>TCP</td>
+      <td>22</td>
+      <td>203.0.113.0/24 (SSH Access)</td>
+    </tr>
+    <tr>
+      <td>Inbound Rule</td>
+      <td>TCP</td>
+      <td>80</td>
+      <td>0.0.0.0/0 (HTTP Access)</td>
+    </tr>
+    <tr>
+      <td>Outbound Rule</td>
+      <td>All Traffic</td>
+      <td>All</td>
+      <td>0.0.0.0/0</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="good-to-know">Good to Know</h3>
+
+<ul>
+  <li><strong>Limits</strong>: Each security group can have up to 60 inbound and 60 outbound rules by default (this limit can be increased by requesting through AWS Support).</li>
+  <li><strong>Default Security Group</strong>: When you create a VPC, a default security group is automatically created, which allows all outbound traffic and denies all inbound traffic by default.</li>
+  <li><strong>Multiple Security Groups</strong>: You can assign multiple security groups to a single EC2 instance, enabling fine-grained control over traffic.</li>
+  <li><strong>Security Best Practices</strong>:
+    <ul>
+      <li>Apply the principle of least privilege (only allow necessary traffic).</li>
+      <li>Regularly review and audit security group rules.</li>
+      <li>Use descriptive names and tags for easy management.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="classic-ports-to-know">Classic Ports to Know</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Port Number</strong></th>
+      <th><strong>Protocol</strong></th>
+      <th><strong>Service</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>20</td>
+      <td>TCP</td>
+      <td>FTP (Data Transfer)</td>
+      <td>Used for transferring files over FTP.</td>
+    </tr>
+    <tr>
+      <td>21</td>
+      <td>TCP</td>
+      <td>FTP (Control)</td>
+      <td>Used for controlling file transfer sessions.</td>
+    </tr>
+    <tr>
+      <td>22</td>
+      <td>TCP</td>
+      <td>SSH</td>
+      <td>Secure Shell for secure logins and command execution.</td>
+    </tr>
+    <tr>
+      <td>80</td>
+      <td>TCP</td>
+      <td>HTTP</td>
+      <td>Hypertext Transfer Protocol for web traffic.</td>
+    </tr>
+    <tr>
+      <td>443</td>
+      <td>TCP</td>
+      <td>HTTPS</td>
+      <td>Secure HTTP for secure web traffic.</td>
+    </tr>
+    <tr>
+      <td>3389</td>
+      <td>TCP</td>
+      <td>RDP</td>
+      <td>Used for Remote Desktop Protocol, allowing users to connect to and control remote Windows machines.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="ec2-instance-launch-types">EC2 Instance Launch Types</h2>
+
+<ul>
+  <li><a href="#on-demand-instance"><strong>On Demand Instances</strong></a>: short workload, predictable pricing</li>
+  <li><a href="#reserved-instances"><strong>Reserved</strong></a>: (1 &amp; 3 years)
+    <ul>
+      <li><strong>Reserved Instances</strong>: long workloads</li>
+      <li><strong>Convertible Reserved Instances</strong>: long workloads with flexible instances</li>
+    </ul>
+  </li>
+  <li><a href="#savings-plans"><strong>Savings Plans</strong></a> (1 &amp; 3 years): commitment to an amount of usage, long workload</li>
+  <li><a href="#spot-instances"><strong>Spot Instances</strong></a>: short workloads, for cheap, can lose instances</li>
+  <li><a href="#dedicated-instances"><strong>Dedicated Instances</strong></a>: no other customers will share your hardware</li>
+  <li><a href="#dedicated-hosts"><strong>Dedicated Hosts</strong></a>: book an entire physical server, control instance placement</li>
+  <li><a href="#capacity-reservations"><strong>Capacity Reservations</strong></a>: reserve capacity in a specific AZ for any duration</li>
+</ul>
+
+<h3 id="on-demand-instance">On Demand Instance</h3>
+
+<ul>
+  <li>Pay for what you use:
+    <ul>
+      <li>Linux or Windows - billing per second, after the first minute</li>
+      <li>All other operating systems - billing per hour</li>
+    </ul>
+  </li>
+  <li>Has the highest cost but no upfront payment</li>
+  <li>No long-term commitment</li>
+  <li>Recommended for <strong>short-term</strong> and <strong>un-interrupted workloads</strong>, where you can’t predict how the application will behave</li>
+</ul>
+
+<h3 id="reserved-instances">Reserved Instances</h3>
+
+<ul>
+  <li>Up to 72% discount compared to On-demand</li>
+  <li>You reserve a specific instance attributes (Instance Type, Region, Tenancy, OS)</li>
+  <li>Reservation Period – 1 year (+discount) or 3 years (+++discount)</li>
+  <li>Payment Options – No Upfront (+), Partial Upfront (++), All Upfront (+++)</li>
+  <li>Reserved Instance’s Scope – Regional or Zonal (reserve capacity in an AZ)</li>
+  <li>Recommended for steady-state usage applications (think database)</li>
+  <li>
+    <p>You can buy and sell in the Reserved Instance Marketplace</p>
+  </li>
+  <li>Convertible Reserved Instance
+    <ul>
+      <li>Can change the EC2 instance type, instance family, OS, scope and tenancy</li>
+      <li>Up to 66% discount</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="savings-plans">Savings Plans</h3>
+
+<ul>
+  <li>Get a discount based on long-term usage (up to 72% - same as RIs)</li>
+  <li>Commit to a certain type of usage ($10/hour for 1 or 3 years)</li>
+  <li>
+    <p>Usage beyond EC2 Savings Plans is billed at the On-Demand price</p>
+  </li>
+  <li>Locked to a specific instance family &amp; AWS region (e.g., M5 in us-east-1)</li>
+  <li>Flexible across:
+    <ul>
+      <li>Instance Size (e.g., m5.xlarge, m5.2xlarge)</li>
+      <li>OS (e.g., Linux, Windows)</li>
+      <li>Tenancy (Host, Dedicated, Default)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="spot-instances">Spot Instances</h3>
+
+<ul>
+  <li>Can get a discount of up to 90% compared to On-demand</li>
+  <li>Instances that you can “lose” at any point of time if your max price is less than the current spot price</li>
+  <li>The MOST cost-efficient instances in AWS</li>
+  <li>Useful for workloads that are resilient to failure
+    <ul>
+      <li>Batch jobs</li>
+      <li>Data analysis</li>
+      <li>Image processing</li>
+      <li>Any distributed workloads</li>
+      <li>Workloads with a flexible start and end time</li>
+    </ul>
+  </li>
+  <li>Not suitable for critical jobs or databases</li>
+</ul>
+
+<h3 id="dedicated-hosts">Dedicated Hosts</h3>
+
+<ul>
+  <li>A physical server with EC2 instance capacity fully dedicated to your use</li>
+  <li>Allows you to address compliance requirements and use your existing server- bound software licenses (per-socket, per-core, pe—VM software licenses)</li>
+  <li>Purchasing Options:
+    <ul>
+      <li>On-demand – pay per second for active Dedicated Host</li>
+      <li>Reserved - 1 or 3 years (No Upfront, Partial Upfront, All Upfront)</li>
+    </ul>
+  </li>
+  <li>The most expensive option</li>
+  <li>Useful for software that have complicated licensing model (BYOL – Bring Your Own License)</li>
+  <li>Or for companies that have strong regulatory or compliance needs</li>
+</ul>
+
+<h3 id="dedicated-instances">Dedicated Instances</h3>
+
+<ul>
+  <li>Instances run on hardware that’s dedicated to you</li>
+  <li>May share hardware with other instances in same account</li>
+  <li>No control over instance placement (can move hardware after Stop / Start)</li>
+</ul>
+
+<h3 id="capacity-reservations">Capacity Reservations</h3>
+
+<ul>
+  <li>Reserve On-Demand instances capacity in a specific AZ for any duration</li>
+  <li>You always have access to EC2 capacity when you need it</li>
+  <li>No time commitment (create/cancel anytime), no billing discounts</li>
+  <li>Combine with Regional Reserved Instances and Savings Plans to benefit from billing discounts</li>
+  <li>You’re charged at On-Demand rate whether you run instances or not</li>
+  <li>Suitable for short-term, uninterrupted workloads that needs to be in a specific AZ</li>
+</ul>
+
+<h3 id="ec2-instance-launch-types-comparison">EC2 Instance Launch Types Comparison</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Launch Type</strong></th>
+      <th><strong>Cost Structure</strong></th>
+      <th><strong>Payment Options</strong></th>
+      <th><strong>Commitment</strong></th>
+      <th><strong>Use Case</strong></th>
+      <th><strong>Flexibility</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>On-Demand Instances</strong></td>
+      <td>- Linux/Windows: per second after the first minute <br> - Other OS: billed per hour</td>
+      <td>No upfront payment</td>
+      <td>No long-term commitment</td>
+      <td>Short-term and unpredictable workloads</td>
+      <td>High flexibility; can start/stop anytime</td>
+    </tr>
+    <tr>
+      <td><strong>Reserved Instances</strong></td>
+      <td>Up to 72% discount compared to On-Demand</td>
+      <td>- No Upfront <br> - Partial Upfront <br> - All Upfront</td>
+      <td>1 year or 3 years</td>
+      <td>Steady-state applications (e.g., databases)</td>
+      <td>Reserved capacity in a specific region or AZ</td>
+    </tr>
+    <tr>
+      <td><strong>Savings Plans</strong></td>
+      <td>Up to 72% discount based on long-term usage</td>
+      <td>Commit to a certain usage amount</td>
+      <td>1 year or 3 years</td>
+      <td>Applications with predictable usage patterns</td>
+      <td>Flexible across instance size, OS, and tenancy</td>
+    </tr>
+    <tr>
+      <td><strong>Spot Instances</strong></td>
+      <td>Discount up to 90% compared to On-Demand</td>
+      <td>Pay the Spot price</td>
+      <td>No commitment required</td>
+      <td>Cost-sensitive, resilient workloads (e.g., batch jobs)</td>
+      <td>Instances can be terminated anytime if spot price exceeds your max price</td>
+    </tr>
+    <tr>
+      <td><strong>Dedicated Hosts</strong></td>
+      <td>Most expensive; pay per second for active host</td>
+      <td>- On-Demand <br> - Reserved (1 or 3 years)</td>
+      <td>Long-term commitment possible</td>
+      <td>Compliance-heavy applications or complex licensing models</td>
+      <td>Full control over server; ideal for BYOL scenarios</td>
+    </tr>
+    <tr>
+      <td><strong>Dedicated Instances</strong></td>
+      <td>Higher than shared instances; not the most expensive</td>
+      <td>On-Demand pricing</td>
+      <td>No long-term commitment</td>
+      <td>Workloads needing dedicated hardware but can share resources</td>
+      <td>Limited control over instance placement</td>
+    </tr>
+    <tr>
+      <td><strong>Capacity Reservations</strong></td>
+      <td>Billed at On-Demand rates regardless of instance running</td>
+      <td>No upfront payment</td>
+      <td>No time commitment</td>
+      <td>Ensures EC2 capacity availability in a specific AZ</td>
+      <td>Can create/cancel anytime; no discounts on billing</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="which-purchasing-option-is-right-for-my-use-case">Which purchasing option is right for my use case?</h2>
+
+<ul>
+  <li><strong>On-Demand Instances</strong>:
+    <ul>
+      <li>Staying at a resort whenever we want and paying the full price for each night.</li>
+      <li>Ideal for a startup running a web application with unpredictable traffic spikes.</li>
+    </ul>
+  </li>
+  <li><strong>Reserved Instances</strong>:
+    <ul>
+      <li>Planning a long vacation in advance, allowing us to get a significant discount for booking ahead.</li>
+      <li>Best for a company operating a database server that requires constant uptime for a year.</li>
+    </ul>
+  </li>
+  <li><strong>Savings Plans</strong>:
+    <ul>
+      <li>Committing to a set amount per hour for a specified duration while enjoying any room type</li>
+      <li>Suitable for a SaaS provider that anticipates steady usage of compute resources over three years.</li>
+    </ul>
+  </li>
+  <li><strong>Spot Instances</strong>:
+    <ul>
+      <li>Bidding for available rooms; the highest bidder secures the room, but they can be asked to leave at any moment.</li>
+      <li>Perfect for a research team processing large data sets where jobs can be paused and resumed.</li>
+    </ul>
+  </li>
+  <li><strong>Dedicated Hosts</strong>:
+    <ul>
+      <li>Renting an entire wing of the resort exclusively for ourselves.</li>
+      <li>Appropriate for a financial institution needing to comply with strict regulatory requirements and using custom software licenses.</li>
+    </ul>
+  </li>
+  <li><strong>Dedicated Instances</strong>:
+    <ul>
+      <li>Having a private room that’s solely ours but sharing some amenities with other guests.</li>
+      <li>Great for a business running non-critical applications that need some level of hardware isolation.</li>
+    </ul>
+  </li>
+  <li><strong>Capacity Reservations</strong>:
+    <ul>
+      <li>Booking a room for a set period at full price, even if we don’t end up using it.</li>
+      <li>Useful for an enterprise ensuring EC2 capacity for a new product launch in a specific availability zone.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="price-comparison-example--m4large--us-east-1">Price Comparison Example – m4.large – us-east-1</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Launch Type</strong></th>
+      <th><strong>Hourly Price</strong></th>
+      <th><strong>Monthly Price (Approx.)</strong></th>
+      <th><strong>Notes</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>On-Demand Instance</strong></td>
+      <td>$0.096 per hour</td>
+      <td>$69.12</td>
+      <td>Pay-as-you-go pricing. Ideal for short-term usage.</td>
+    </tr>
+    <tr>
+      <td><strong>Reserved Instances</strong></td>
+      <td>$0.054 per hour (1-year term)</td>
+      <td>$39.24</td>
+      <td>Commit to one year for a significant discount.</td>
+    </tr>
+    <tr>
+      <td><strong>Savings Plans</strong></td>
+      <td>$0.058 per hour (1-year term)</td>
+      <td>$41.76</td>
+      <td>Flexible savings plan applicable to any instance type.</td>
+    </tr>
+    <tr>
+      <td><strong>Spot Instances</strong></td>
+      <td>$0.028 per hour (varies with demand)</td>
+      <td>$20.16</td>
+      <td>Pricing varies; can be interrupted. Best for flexible workloads.</td>
+    </tr>
+    <tr>
+      <td><strong>Dedicated Hosts</strong></td>
+      <td>$0.12 per hour (per host)</td>
+      <td>$86.40</td>
+      <td>Dedicated physical server; pricing per host.</td>
+    </tr>
+    <tr>
+      <td><strong>Dedicated Instances</strong></td>
+      <td>$0.096 per hour</td>
+      <td>$69.12</td>
+      <td>Similar to on-demand but on dedicated hardware.</td>
+    </tr>
+    <tr>
+      <td><strong>Capacity Reservations</strong></td>
+      <td>$0.096 per hour</td>
+      <td>$69.12</td>
+      <td>Reserved capacity at on-demand pricing.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="shared-responsibility-model-for-ec2">Shared Responsibility Model for EC2</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Responsibility</strong></th>
+      <th><strong>AWS Responsibilities</strong></th>
+      <th><strong>User Responsibilities</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Infrastructure Security</strong></td>
+      <td>The security of the underlying infrastructure, including hardware, software, networking, and facilities.</td>
+      <td>Securing the EC2 instances, including operating systems and applications.</td>
+    </tr>
+    <tr>
+      <td><strong>Physical Security</strong></td>
+      <td>Ensures physical security of data centers where EC2 instances run.</td>
+      <td>N/A</td>
+    </tr>
+    <tr>
+      <td><strong>Network Security</strong></td>
+      <td>Implements security measures for the network, including firewalls and DDoS protection.</td>
+      <td>Configuring security groups, network ACLs, and VPC settings.</td>
+    </tr>
+    <tr>
+      <td><strong>Data Protection</strong></td>
+      <td>Provides encryption options for data at rest and in transit.</td>
+      <td>Managing data encryption and access control.</td>
+    </tr>
+    <tr>
+      <td><strong>Access Management</strong></td>
+      <td>Offers IAM services to manage access to AWS resources.</td>
+      <td>Configuring IAM users, roles, and policies for access management.</td>
+    </tr>
+    <tr>
+      <td><strong>Compliance</strong></td>
+      <td>Complies with various compliance standards and certifications for infrastructure.</td>
+      <td>Compliance related to the applications and data hosted on EC2 instances.</td>
+    </tr>
+    <tr>
+      <td><strong>Patch Management</strong></td>
+      <td>Provides a secure and up-to-date infrastructure.</td>
+      <td>Applying patches and updates to the operating system and applications.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="ec2-section--summary">EC2 Section – Summary</h2>
+
+<ul>
+  <li>EC2 Instance: AMI (OS) + Instance Size (CPU + RAM) + Storage + security groups + EC2 User Data</li>
+  <li>Security Groups: Firewall attached to the EC2 instance</li>
+  <li>EC2 User Data: Script launched at the first start of an instance</li>
+  <li>SSH: start a terminal into our EC2 Instances (port 22)</li>
+  <li>EC2 Instance Role: link to IAM roles</li>
+  <li>Purchasing Options: On-Demand, Spot, Reserved (Standard + Convertible + Scheduled), Dedicated Host, Dedicated Instance</li>
+</ul>
+<footer>
+  <!-- New Footer Navigation -->
+<div class="footer-nav">
+<nav>
+    <ul>
+        <li><a href="chapter2.html">Previous</a></li>
+        <li><a href="chapter4.html">Next</a></li>
+        <li><a href="Notes.html">Home</a></li>
+    </ul>
+</nav>
+</div>
+<div class="footer-content">
+<div class="footer-info">
+    <p><strong>Jawahar Parvez</strong></p>
+    <p>Email: <a href="mailto:Jawaharparvez@gmail.com">Jawaharparvez@gmail.com</a></p>
+</div>
+
+<div class="social-links">
+    <a href="https://instagram.com/iamtheparvez" target="_blank" title="Instagram">
+        <i class="fab fa-instagram"></i> Instagram
+    </a>
+    <a href="https://github.com/Jawaharparvez" target="_blank" title="GitHub">
+        <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/jawaharparvez" target="_blank" title="LinkedIn">
+        <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+</div>
+
+<div class="copyright">
+    <p>&copy; 2025 Jawahar Parvez. All rights reserved.</p>
+</div>
+</div>
+
+
+</footer>
+
+</main>
+</body>
+</html>

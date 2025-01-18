@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>EC2 Instance Storage</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="chapter.css">
+</head>
+<body>
+  <main id="content" class="main-content" role="main">
+      <h1 id="ec2-instance-storage">EC2 Instance Storage</h1>
+
+<ul>
+  <li><a href="#ec2-instance-storage">EC2 Instance Storage</a>
+    <ul>
+      <li><a href="#ebs-volumes">EBS Volumes</a>
+        <ul>
+          <li><a href="#whats-an-ebs-volume">What’s an EBS Volume?</a></li>
+          <li><a href="#ebs-volume">EBS Volume</a></li>
+          <li><a href="#ebs--delete-on-termination-attribute">EBS – Delete on Termination Attribute</a></li>
+          <li><a href="#ebs-snapshots">EBS Snapshots</a></li>
+          <li><a href="#ebs-snapshots-features">EBS Snapshots Features</a></li>
+        </ul>
+      </li>
+      <li><a href="#efs-elastic-file-system">EFS: Elastic File System</a></li>
+      <li><a href="#efs-infrequent-access-efs-ia">EFS Infrequent Access (EFS-IA)</a></li>
+      <li><a href="#amazon-fsx--overview">Amazon FSx – Overview</a>
+        <ul>
+          <li><a href="#amazon-fsx-for-windows-file-server">Amazon FSx for Windows File Server</a></li>
+          <li><a href="#amazon-fsx-for-lustre">Amazon FSx for Lustre</a></li>
+        </ul>
+      </li>
+      <li><a href="#ec2-instance-store">EC2 Instance Store</a></li>
+      <li><a href="#shared-responsibility-model-for-ec2-storage">Shared Responsibility Model for EC2 Storage</a></li>
+      <li><a href="#ami-overview">AMI Overview</a>
+        <ul>
+          <li><a href="#ami-process-from-an-ec2-instance">AMI Process (from an EC2 instance)</a></li>
+        </ul>
+      </li>
+      <li><a href="#ec2-image-builder">EC2 Image Builder</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="ebs-volumes">EBS Volumes</h2>
+
+<ul>
+  <li>AWS official Doc. <a href="https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes.html">https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volumes.html</a></li>
+</ul>
+
+<h3 id="whats-an-ebs-volume">What’s an EBS Volume?</h3>
+
+<ul>
+  <li><strong>Elastic Block Store (EBS)</strong> is a network-attached storage for EC2 instances.</li>
+  <li>Provides persistent, block-level storage volumes.</li>
+  <li>Can be used for databases, file systems, or applications requiring consistent, low-latency performance.</li>
+  <li>It allows your instances to persist data, even after their termination</li>
+  <li>They can only be mounted to one instance at a time</li>
+  <li>They are bound to a specific availability zone</li>
+  <li>Free tier: 30 GB of free EBS storage of type General Purpose (SSD) or Magnetic per month</li>
+</ul>
+
+<h3 id="ebs-volume">EBS Volume</h3>
+
+<ul>
+  <li>Volumes are automatically replicated within an <strong>Availability Zone</strong> (AZ).</li>
+  <li>Types include <strong>General Purpose (gp3/gp2)</strong>, <strong>Provisioned IOPS (io1/io2)</strong>, <strong>Throughput Optimized (st1)</strong>, and <strong>Cold (sc1)</strong>.</li>
+  <li>Volumes can be attached to one EC2 instance at a time but can be detached and re-attached.</li>
+  <li>Use case: preserve root volume when instance is terminated</li>
+</ul>
+
+<p><img src="/images/EBS.png" alt="Elastic File System"></p>
+
+<h3 id="ebs--delete-on-termination-attribute">EBS – Delete on Termination Attribute</h3>
+
+<ul>
+  <li>Controls whether the EBS volume is automatically deleted when the associated EC2 instance is terminated.
+    <ul>
+      <li>By default, the root EBS volume is deleted (attribute enabled)</li>
+      <li>By default, any other attached EBS volume is not deleted (attribute disabled)</li>
+    </ul>
+  </li>
+  <li>Can be enabled or disabled based on the need to persist data after instance termination.</li>
+</ul>
+
+<h3 id="ebs-snapshots">EBS Snapshots</h3>
+
+<ul>
+  <li>Point-in-time backup of EBS volumes.</li>
+  <li>Stored in Amazon S3 and can be used to restore or create new EBS volumes.</li>
+</ul>
+
+<h3 id="ebs-snapshots-features">EBS Snapshots Features</h3>
+
+<ul>
+  <li><strong>Incremental Backups</strong>: Only the blocks changed since the last snapshot are saved.</li>
+  <li>Can be used across different regions or accounts by copying snapshots.</li>
+  <li>Snapshots can be automated via <strong>Amazon Data Lifecycle Manager (DLM)</strong>.</li>
+  <li>EBS Snapshot Archive
+    <ul>
+      <li>Move a Snapshot to an ”archive tier” that is 75% cheaper</li>
+      <li>Takes within 24 to 72 hours for restoring the archive</li>
+    </ul>
+  </li>
+  <li>Recycle Bin for EBS Snapshots
+    <ul>
+      <li>Setup rules to retain deleted snapshots so you can recover them after an accidental deletion</li>
+      <li>Specify retention (from 1 day to 1 year)</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="efs-elastic-file-system">EFS: Elastic File System</h2>
+
+<ul>
+  <li>Fully managed <strong>NFS (Network File System)</strong> for EC2 instances that can be mounted on 100s of EC2.</li>
+  <li>Can scale automatically as data grows.</li>
+  <li>Accessible from multiple AZs, providing high availability and durability.</li>
+</ul>
+
+<p><img src="/images/EFS.png" alt="Elastic File System"></p>
+
+<h2 id="efs-infrequent-access-efs-ia">EFS Infrequent Access (EFS-IA)</h2>
+
+<ul>
+  <li>Lower-cost storage class for data not accessed frequently.</li>
+  <li>Up to 92% lower cost compared to EFS Standard</li>
+  <li>Allows cost savings by automatically moving infrequently accessed files to <strong>EFS-IA</strong>.</li>
+  <li>Provides the same high availability as standard EFS.</li>
+  <li>Example: move files that are not accessed for 60 days to EFS-IA</li>
+</ul>
+
+<h2 id="amazon-fsx--overview">Amazon FSx – Overview</h2>
+
+<ul>
+  <li>Fully managed service providing file systems optimized for different workloads.</li>
+  <li>Launch 3rd party high-performance file systems on AWS</li>
+  <li>Fully managed service
+    <ul>
+      <li>FSx for Lustre</li>
+      <li>FSx for Windows File Server</li>
+      <li>FSx for NetApp ONTAP</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="amazon-fsx-for-windows-file-server">Amazon FSx for Windows File Server</h3>
+
+<ul>
+  <li>Provides fully managed file storage built on Windows Server.</li>
+  <li>Supports <strong>SMB protocol</strong> &amp; <strong>Windows NTFS</strong></li>
+  <li>Integration with <strong>Active Directory</strong>, and <strong>Windows-based applications</strong>.</li>
+  <li>Can be accessed from AWS or your on-premise infrastructure</li>
+</ul>
+
+<h3 id="amazon-fsx-for-lustre">Amazon FSx for Lustre</h3>
+
+<ul>
+  <li>High-performance file system optimized for compute-heavy workloads.</li>
+  <li>Designed for applications needing fast storage</li>
+  <li>Like machine learning, high-performance computing, or video processing.</li>
+  <li>Scales up to 100s GB/s, millions of IOPS, sub-ms latencies</li>
+</ul>
+
+<h2 id="ec2-instance-store">EC2 Instance Store</h2>
+
+<ul>
+  <li><strong>Ephemeral storage</strong> directly attached to the EC2 instance.</li>
+  <li>EBS volumes are network drives with good but “limited” performance</li>
+  <li>High I/O performance but non-persistent (data is lost when the instance stops or terminates).</li>
+  <li>Ideal for temporary storage of data like caches, buffers, or temporary files.</li>
+  <li>Good for buffer / cache / scratch data / temporary content</li>
+  <li>Risk of data loss if hardware fails</li>
+  <li>Backups and Replication are your responsibility</li>
+</ul>
+
+<h2 id="shared-responsibility-model-for-ec2-storage">Shared Responsibility Model for EC2 Storage</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>AWS Responsibilities</strong></th>
+      <th><strong>User Responsibilities</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Ensure durability and availability of EBS and EFS storage</td>
+      <td>Back up data via snapshots, EFS replication, etc.</td>
+    </tr>
+    <tr>
+      <td>Data replication within the AZ for EBS volumes</td>
+      <td>Manage access and encryption of storage resources</td>
+    </tr>
+    <tr>
+      <td>Provide encryption capabilities (KMS integration)</td>
+      <td>Apply encryption for sensitive data at rest</td>
+    </tr>
+    <tr>
+      <td>Replacing faulty hardware</td>
+      <td>Responsibility of any data on the drives</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="ami-overview">AMI Overview</h2>
+
+<ul>
+  <li><strong>Amazon Machine Image (AMI)</strong>: Template used to launch EC2 instances.</li>
+  <li>An AMI contains an operating system, application server, and applications.</li>
+  <li>AMI are a customization of an EC2 instance
+    <ul>
+      <li>You add your own software, configuration, operating system, monitoring…</li>
+      <li>Faster boot / configuration time because all your software is pre-packaged</li>
+    </ul>
+  </li>
+  <li>AMI are built for a specific region (and can be copied across regions)</li>
+  <li>You can launch EC2 instances from:
+    <ul>
+      <li>A Public AMI: AWS provided</li>
+      <li>Your own AMI: you make and maintain them yourself</li>
+      <li>An AWS Marketplace AMI: an AMI someone else made (and potentially sells)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="ami-process-from-an-ec2-instance">AMI Process (from an EC2 instance)</h3>
+
+<ol>
+  <li>Launch an EC2 instance.</li>
+  <li>Configure the instance with applications or settings.</li>
+  <li>Create an AMI from the running instance, which can be used to launch new EC2 instances with the same configuration.</li>
+</ol>
+
+<h2 id="ec2-image-builder">EC2 Image Builder</h2>
+
+<ul>
+  <li>Automates the process of creating and maintaining custom AMIs.</li>
+  <li>Helps create compliant, secure, and up-to-date machine images.</li>
+  <li>Allows integration with services like <strong>AWS Systems Manager</strong> for automation and lifecycle management.</li>
+  <li>Can be run on a schedule (weekly, whenever packages are updated, etc…)</li>
+  <li>Free service (only pay for the underlying resources)</li>
+</ul>
+
+<footer>
+  <!-- New Footer Navigation -->
+<div class="footer-nav">
+<nav>
+    <ul>
+        <li><a href="chapter3.html">Previous</a></li>
+        <li><a href="chapter5.html">Next</a></li>
+        <li><a href="Notes.html">Home</a></li>
+    </ul>
+</nav>
+</div>
+<div class="footer-content">
+<div class="footer-info">
+    <p><strong>Jawahar Parvez</strong></p>
+    <p>Email: <a href="mailto:Jawaharparvez@gmail.com">Jawaharparvez@gmail.com</a></p>
+</div>
+
+<div class="social-links">
+    <a href="https://instagram.com/iamtheparvez" target="_blank" title="Instagram">
+        <i class="fab fa-instagram"></i> Instagram
+    </a>
+    <a href="https://github.com/Jawaharparvez" target="_blank" title="GitHub">
+        <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/jawaharparvez" target="_blank" title="LinkedIn">
+        <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+</div>
+
+<div class="copyright">
+    <p>&copy; 2025 Jawahar Parvez. All rights reserved.</p>
+</div>
+</div>
+
+
+</footer>
+
+</main>
+</body>
+</html>

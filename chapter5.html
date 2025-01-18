@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Elastic Load Balancing &amp; Auto Scaling Groups</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="chapter.css">
+</head>
+<body>
+  <main id="content" class="main-content" role="main">
+    <h1 id="elastic-load-balancing--auto-scaling-groups">Elastic Load Balancing &amp; Auto Scaling Groups</h1>
+
+<ul>
+  <li><a href="#elastic-load-balancing--auto-scaling-groups">Elastic Load Balancing \&amp; Auto Scaling Groups</a>
+    <ul>
+      <li><a href="#scalability--high-availability">Scalability \&amp; High Availability</a></li>
+      <li><a href="#vertical-scalability">Vertical Scalability</a></li>
+      <li><a href="#horizontal-scalability">Horizontal Scalability</a></li>
+      <li><a href="#high-availability">High Availability</a></li>
+      <li><a href="#high-availability--scalability-for-ec2">High Availability \&amp; Scalability for EC2</a></li>
+      <li><a href="#scalability-vs-elasticity-vs-agility">Scalability vs Elasticity (vs Agility)</a></li>
+      <li><a href="#what-is-load-balancing">What is Load Balancing?</a>
+        <ul>
+          <li><a href="#why-use-a-load-balancer">Why Use a Load Balancer?</a></li>
+          <li><a href="#why-use-an-elastic-load-balancer">Why Use an Elastic Load Balancer?</a>
+            <ul>
+              <li><a href="#types-of-elb">Types of ELB</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li><a href="#whats-an-auto-scaling-group">What’s an Auto Scaling Group?</a>
+        <ul>
+          <li><a href="#auto-scaling-group-scaling-strategies">Auto Scaling Group Scaling Strategies</a></li>
+        </ul>
+      </li>
+      <li><a href="#elb--asg-summary">ELB \&amp; ASG Summary</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="scalability--high-availability">Scalability &amp; High Availability</h2>
+
+<ul>
+  <li><strong>Scalability</strong>: Ability of a system to handle an increase in load by adapting to the demand.</li>
+  <li><strong>High Availability</strong>: Ensures a system is operational and accessible for a high percentage of time, often achieved by reducing the impact of failures.</li>
+  <li>There are two kinds of scalability:
+    <ul>
+      <li>Vertical Scalability</li>
+      <li>Horizontal Scalability (= elasticity)</li>
+    </ul>
+  </li>
+  <li>Scalability is linked but different to High Availability</li>
+</ul>
+
+<h2 id="vertical-scalability">Vertical Scalability</h2>
+
+<ul>
+  <li>Increasing the capacity of a single instance (e.g., moving from t3.medium to t3.large).</li>
+  <li>Suitable for databases or applications where upgrading a single resource is more efficient.</li>
+  <li>Limited by hardware constraints (can only scale up to a certain point).</li>
+</ul>
+
+<h2 id="horizontal-scalability">Horizontal Scalability</h2>
+
+<ul>
+  <li>Adding more instances (servers) to distribute the load across multiple resources.</li>
+  <li>Achieved through technologies like <strong>Auto Scaling Groups (ASG)</strong> and <strong>Elastic Load Balancing (ELB)</strong>.</li>
+  <li>Preferred for applications needing resilience and distributed workloads.</li>
+  <li>Horizontal scaling implies distributed systems.</li>
+</ul>
+
+<h2 id="high-availability">High Availability</h2>
+
+<ul>
+  <li>Implemented by deploying resources across multiple <strong>Availability Zones</strong> (AZs).</li>
+  <li>Ensures failover and redundancy in case of failures in one AZ.</li>
+  <li>High Availability usually goes hand in hand with horizontal scaling</li>
+</ul>
+
+<h2 id="high-availability--scalability-for-ec2">High Availability &amp; Scalability for EC2</h2>
+
+<ul>
+  <li>Vertical Scaling: Increase instance size (= scale up / down)
+    <ul>
+      <li>From: t2.nano - 0.5G of RAM, 1 vCPU</li>
+      <li>To: u-12tb1.metal – 12.3 TB of RAM, 448 vCPUs</li>
+    </ul>
+  </li>
+  <li>Horizontal Scaling: Increase number of instances (= scale out / in)
+    <ul>
+      <li>Auto Scaling Group</li>
+      <li>Load Balancer</li>
+    </ul>
+  </li>
+  <li>High Availability: Run instances for the same application across multi AZ
+    <ul>
+      <li>Auto Scaling Group multi AZ</li>
+      <li>Load Balancer multi AZ</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="scalability-vs-elasticity-vs-agility">Scalability vs Elasticity (vs Agility)</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Term</strong></th>
+      <th><strong>Definition</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Scalability</strong></td>
+      <td>Ability to increase or decrease the capacity to handle varying levels of traffic or load.</td>
+    </tr>
+    <tr>
+      <td><strong>Elasticity</strong></td>
+      <td>Automatically adjusts resources up or down based on the load in real-time, preventing under or over-provisioning.</td>
+    </tr>
+    <tr>
+      <td><strong>Agility</strong></td>
+      <td>The ability to deploy and manage resources quickly and efficiently in response to changing demands.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="what-is-load-balancing">What is Load Balancing?</h2>
+
+<ul>
+  <li>Distributes incoming traffic across multiple targets (EC2 instances, containers, IP addresses) to ensure that no single resource is overwhelmed.</li>
+</ul>
+
+<h3 id="why-use-a-load-balancer">Why Use a Load Balancer?</h3>
+
+<ul>
+  <li>Ensures application fault tolerance and high availability by spreading the load across multiple servers.</li>
+  <li>Protects against failures in a single resource by rerouting traffic automatically.</li>
+  <li>Do regular health checks to your instances</li>
+  <li>Provide SSL termination (HTTPS) for your websites</li>
+</ul>
+
+<h3 id="why-use-an-elastic-load-balancer">Why Use an Elastic Load Balancer?</h3>
+
+<ul>
+  <li><strong>Elastic Load Balancer (ELB)</strong> is a fully managed service that automatically distributes incoming application traffic across multiple targets in one or more Availability Zones.</li>
+  <li>It improves fault tolerance, enhances performance, and scales according to demand.</li>
+  <li>AWS guarantees that it will be working</li>
+  <li>AWS takes care of upgrades, maintenance, high availability</li>
+  <li>AWS provides only a few configuration knobs</li>
+</ul>
+
+<h4 id="types-of-elb">Types of ELB</h4>
+
+<ol>
+  <li><strong>Application Load Balancer (ALB)</strong>: For HTTP and HTTPS traffic, operates at Layer 7 (application level).</li>
+  <li><strong>Network Load Balancer (NLB)</strong>: Handles high-performance traffic at Layer 4 (transport level).</li>
+  <li><strong>Classic Load Balancer</strong>: (slowly retiring) – Layer 4 &amp; 7</li>
+</ol>
+
+<h2 id="whats-an-auto-scaling-group">What’s an Auto Scaling Group?</h2>
+
+<ul>
+  <li>An <strong>Auto Scaling Group (ASG)</strong> ensures the right number of EC2 instances are running to handle the load.</li>
+  <li>Automatically adjusts the number of instances based on metrics such as CPU utilization or custom-defined thresholds.</li>
+  <li>Can span across multiple AZs to ensure high availability.</li>
+  <li>In real-life, the load on your websites and application can change</li>
+  <li>In the cloud, you can create and get rid of servers very quickly</li>
+  <li>The goal of an Auto Scaling Group (ASG) is to:
+    <ul>
+      <li>Scale out (add EC2 instances) to match an increased load</li>
+      <li>Scale in (remove EC2 instances) to match a decreased load</li>
+      <li>Ensure we have a minimum and a maximum number of machines running</li>
+      <li>Automatically register new instances to a load balancer</li>
+      <li>Replace unhealthy instances</li>
+    </ul>
+  </li>
+  <li>Cost Savings: only run at an optimal capacity (principle of the cloud)</li>
+</ul>
+
+<h3 id="auto-scaling-group-scaling-strategies">Auto Scaling Group Scaling Strategies</h3>
+
+<ul>
+  <li><strong>Manual Scaling</strong>: Adjusting the number of instances manually based on load prediction.</li>
+  <li><strong>Dynamic Scaling</strong>: Automatically adjusts the number of instances based on demand (e.g., CPU usage).
+    <ul>
+      <li>Simple / Step Scaling
+        <ul>
+          <li>When a CloudWatch alarm is triggered (example CPU &gt; 70%), then add 2 units</li>
+          <li>When a CloudWatch alarm is triggered (example CPU &lt; 30%), then remove 1</li>
+        </ul>
+      </li>
+      <li>Target Tracking Scaling
+        <ul>
+          <li>Example: I want the average ASG CPU to stay at around 40%</li>
+        </ul>
+      </li>
+      <li>Scheduled Scaling
+        <ul>
+          <li>Anticipate a scaling based on known usage patterns</li>
+          <li>Example: increase the min. capacity to 10 at 5 pm on Fridays</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Predictive Scaling</strong>: Uses machine learning to predict future traffic patterns and scales proactively.</li>
+</ul>
+
+<h2 id="elb--asg-summary">ELB &amp; ASG Summary</h2>
+
+<ul>
+  <li>High Availability vs Scalability (vertical and horizontal) vs Elasticity vs Agility in the Cloud</li>
+  <li>Elastic Load Balancers (ELB)
+    <ul>
+      <li>Distribute traffic across backend EC2 instances, can be Multi-AZ</li>
+      <li>Supports health checks</li>
+      <li>3 types: Application LB (HTTP – L7), Network LB (TCP – L4), Classic LB (old)</li>
+    </ul>
+  </li>
+  <li>Auto Scaling Groups (ASG)
+    <ul>
+      <li>Implement Elasticity for your application, across multiple AZ</li>
+      <li>Scale EC2 instances based on the demand on your system, replace unhealthy</li>
+      <li>Integrated with the ELB</li>
+    </ul>
+  </li>
+</ul>
+
+
+<footer>
+  <!-- New Footer Navigation -->
+<div class="footer-nav">
+<nav>
+    <ul>
+        <li><a href="chapter4.html">Previous</a></li>
+        <li><a href="chapter6.html">Next</a></li>
+        <li><a href="Notes.html">Home</a></li>
+    </ul>
+</nav>
+</div>
+<div class="footer-content">
+<div class="footer-info">
+    <p><strong>Jawahar Parvez</strong></p>
+    <p>Email: <a href="mailto:Jawaharparvez@gmail.com">Jawaharparvez@gmail.com</a></p>
+</div>
+
+<div class="social-links">
+    <a href="https://instagram.com/iamtheparvez" target="_blank" title="Instagram">
+        <i class="fab fa-instagram"></i> Instagram
+    </a>
+    <a href="https://github.com/Jawaharparvez" target="_blank" title="GitHub">
+        <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/jawaharparvez" target="_blank" title="LinkedIn">
+        <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+</div>
+
+<div class="copyright">
+    <p>&copy; 2025 Jawahar Parvez. All rights reserved.</p>
+</div>
+</div>
+
+
+</footer>
+
+</main>
+</body>
+</html>   
+      

@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Amazon S3</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="chapter.css">
+</head>
+<body>
+  <main id="content" class="main-content" role="main">
+    <h1 id="amazon-s3">Amazon S3</h1>
+
+<ul>
+  <li><a href="#amazon-s3">Amazon S3</a>
+    <ul>
+      <li><a href="#s3-use-cases">S3 Use cases</a></li>
+      <li><a href="#amazon-s3-overview---buckets">Amazon S3 Overview - Buckets</a></li>
+      <li><a href="#amazon-s3-overview---objects">Amazon S3 Overview - Objects</a></li>
+      <li><a href="#s3-security">S3 Security</a></li>
+      <li><a href="#s3-bucket-policies">S3 Bucket Policies</a></li>
+      <li><a href="#bucket-settings-for-block-public-access">Bucket settings for Block Public Access</a></li>
+      <li><a href="#s3-websites">S3 Websites</a></li>
+      <li><a href="#s3---versioning">S3 - Versioning</a></li>
+      <li><a href="#s3-access-logs">S3 Access Logs</a></li>
+      <li><a href="#s3-replication-crr--srr">S3 Replication (CRR \&amp; SRR)</a></li>
+      <li><a href="#s3-storage-classes">S3 Storage Classes</a>
+        <ul>
+          <li><a href="#s3-durability-and-availability">S3 Durability and Availability</a></li>
+          <li><a href="#s3-standard-general-purpose">S3 Standard General Purpose</a></li>
+          <li><a href="#s3-storage-classes---infrequent-access">S3 Storage Classes - Infrequent Access</a>
+            <ul>
+              <li><a href="#s3-standard-infrequent-access-s3-standard-ia">S3 Standard Infrequent Access (S3 Standard-IA)</a></li>
+              <li><a href="#s3-one-zone-infrequent-access-s3-one-zone-ia">S3 One Zone Infrequent Access (S3 One Zone-IA)</a></li>
+            </ul>
+          </li>
+          <li><a href="#amazon-s3-glacier-storage-classes">Amazon S3 Glacier Storage Classes</a>
+            <ul>
+              <li><a href="#amazon-s3-glacier-instant-retrieval">Amazon S3 Glacier Instant Retrieval</a></li>
+              <li><a href="#amazon-s3-glacier-flexible-retrieval-formerly-amazon-s3-glacier">Amazon S3 Glacier Flexible Retrieval (formerly Amazon S3 Glacier)</a></li>
+              <li><a href="#amazon-s3-glacier-deep-archive---for-long-term-storage">Amazon S3 Glacier Deep Archive - for long term storage</a></li>
+            </ul>
+          </li>
+          <li><a href="#s3-intelligent-tiering">S3 Intelligent-Tiering</a></li>
+        </ul>
+      </li>
+      <li><a href="#s3-object-lock--glacier-vault-lock">S3 Object Lock \&amp; Glacier Vault Lock</a></li>
+      <li><a href="#shared-responsibility-model-for-s3">Shared Responsibility Model for S3</a></li>
+      <li><a href="#aws-snow-family">AWS Snow Family</a>
+        <ul>
+          <li><a href="#data-migrations-with-aws-snow-family">Data Migrations with AWS Snow Family</a></li>
+          <li><a href="#time-to-transfer">Time to Transfer</a></li>
+          <li><a href="#snowball-edge-for-data-transfers">Snowball Edge (for data transfers)</a></li>
+          <li><a href="#aws-snowcone">AWS Snowcone</a></li>
+          <li><a href="#aws-snowmobile">AWS Snowmobile</a></li>
+          <li><a href="#snow-family---usage-process">Snow Family - Usage Process</a></li>
+        </ul>
+      </li>
+      <li><a href="#what-is-edge-computing">What is Edge Computing?</a></li>
+      <li><a href="#snow-family---edge-computing">Snow Family - Edge Computing</a></li>
+      <li><a href="#aws-opshub">AWS OpsHub</a></li>
+      <li><a href="#hybrid-cloud-for-storage">Hybrid Cloud for Storage</a></li>
+      <li><a href="#aws-storage-gateway">AWS Storage Gateway</a></li>
+      <li><a href="#amazon-s3---summary">Amazon S3 - Summary</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="s3-use-cases">S3 Use cases</h2>
+
+<ul>
+  <li>Backup and storage</li>
+  <li>Disaster Recovery</li>
+  <li>Archive</li>
+  <li>Hybrid Cloud storage</li>
+  <li>Application hosting</li>
+  <li>Media hosting</li>
+  <li>Data lakes &amp; big data analytics</li>
+  <li>Software delivery</li>
+  <li>Static website</li>
+</ul>
+
+<h2 id="amazon-s3-overview---buckets">Amazon S3 Overview - Buckets</h2>
+
+<ul>
+  <li>Amazon S3 allows people to store objects (files) in “buckets” (directories)</li>
+  <li>Buckets must have a globally unique name (across all regions all accounts)</li>
+  <li>Buckets are defined at the region level</li>
+  <li>S3 looks like a global service but buckets are created in a region</li>
+  <li>Naming convention
+    <ul>
+      <li>No uppercase</li>
+      <li>No underscore</li>
+      <li>3-63 characters long</li>
+      <li>Not an IP</li>
+      <li>Must start with lowercase letter or number</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="amazon-s3-overview---objects">Amazon S3 Overview - Objects</h2>
+
+<ul>
+  <li>Objects (files) have a Key</li>
+  <li>The key is the FULL path:
+    <ul>
+      <li>s3://my-bucket/my_file.txt</li>
+      <li>s3://my-bucket/my_folder1/another_folder/my_file.txt</li>
+    </ul>
+  </li>
+  <li>The key is composed of <strong>prefix</strong> + <strong>object name</strong>
+    <ul>
+      <li>s3://my-bucket/my_folder1/another_folder/my_file.txt</li>
+    </ul>
+  </li>
+  <li>There’s no concept of “directories” within buckets (although the UI will trick you to think otherwise)</li>
+  <li>Just keys with very long names that contain slashes (“/”)</li>
+  <li>Object values are the content of the body:
+    <ul>
+      <li>Max Object Size is 5TB (5000GB)</li>
+      <li>If uploading more than 5GB, must use “multi-part upload”</li>
+    </ul>
+  </li>
+  <li>Metadata (list of text key / value pairs – system or user metadata)
+    <ul>
+      <li>Tags (Unicode key / value pair – up to 10) – useful for security / lifecycle</li>
+      <li>Version ID (if versioning is enabled)</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="s3-security">S3 Security</h2>
+
+<ul>
+  <li><strong>User based</strong>
+    <ul>
+      <li>IAM policies - which API calls should be allowed for a specific user from IAM console</li>
+    </ul>
+  </li>
+  <li><strong>Resource Based</strong>
+    <ul>
+      <li>Bucket Policies - bucket wide rules from the S3 console - allows cross account</li>
+      <li>Object Access Control List (ACL) – finer grain</li>
+      <li>Bucket Access Control List (ACL) – less common</li>
+    </ul>
+  </li>
+  <li><strong>Note:</strong> an IAM principal can access an S3 object if
+    <ul>
+      <li>the user IAM permissions allow it OR the resource policy ALLOWS it</li>
+      <li>AND there’s no explicit DENY</li>
+    </ul>
+  </li>
+  <li><strong>Encryption:</strong> encrypt objects in Amazon S3 using encryption keys</li>
+</ul>
+
+<h2 id="s3-bucket-policies">S3 Bucket Policies</h2>
+
+<ul>
+  <li>JSON based policies
+    <ul>
+      <li>Resources: buckets and objects</li>
+      <li>Actions: Set of API to Allow or Deny</li>
+      <li>Effect: Allow / Deny
+ Principal: The account or user to apply the policy to</li>
+    </ul>
+  </li>
+  <li>Use S3 bucket for policy to:
+    <ul>
+      <li>Grant public access to the bucket</li>
+      <li>Force objects to be encrypted at upload</li>
+      <li>Grant access to another account (Cross Account)</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Statement"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"sid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PublicRead"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"Principal"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"Action"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"s3:GetObject"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"arn:aws:s3::examplebucket/*"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="bucket-settings-for-block-public-access">Bucket settings for Block Public Access</h2>
+
+<ul>
+  <li>Block all public access: On
+    <ul>
+      <li>Block public access to buckets and objects granted through new access control lists (ACLS): On</li>
+      <li>Block public access to buckets and objects granted through any access control lists (ACLS): On</li>
+      <li>Block public access to buckets and objects granted through new public bucket or access point policies: On</li>
+      <li>Block public and cross-account access to buckets and objects through any public bucket or access point policies: On</li>
+    </ul>
+  </li>
+  <li>These settings were created to prevent company data leaks</li>
+  <li>If you know your bucket should never be public, leave these on</li>
+  <li>Can be set at the account level</li>
+</ul>
+
+<h2 id="s3-websites">S3 Websites</h2>
+
+<ul>
+  <li>S3 can host static websites and have them accessible on the www</li>
+  <li>The website URL will be:</li>
+  <li>bucket-name.s3-website-AWS-region.amazonaws.com
+OR</li>
+  <li>bucket-name.s3-website.AWS-region.amazonaws.com</li>
+  <li><strong>If you get a 403 (Forbidden) error, make sure the bucket policy allows public reads!</strong></li>
+</ul>
+
+<h2 id="s3---versioning">S3 - Versioning</h2>
+
+<ul>
+  <li>You can version your files in Amazon S3</li>
+  <li>It is enabled at the bucket level</li>
+  <li>Same key overwrite will increment the “version”: 1, 2, 3….</li>
+  <li>It is best practice to version your buckets
+    <ul>
+      <li>Protect against unintended deletes (ability to restore a version)</li>
+      <li>Easy roll back to previous version</li>
+    </ul>
+  </li>
+  <li>Notes:
+    <ul>
+      <li>Any file that is not versioned prior to enabling versioning will have version “null”</li>
+      <li>Suspending versioning does not delete the previous versions</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="s3-access-logs">S3 Access Logs</h2>
+
+<ul>
+  <li>For audit purpose, you may want to log all access to S3 buckets</li>
+  <li>Any request made to S3, from any account, authorized or denied, will be logged into another S3 bucket</li>
+  <li>That data can be analyzed using data analysis tools…</li>
+  <li>Very helpful to come down to the root cause of an issue, or audit usage, view suspicious patterns, etc…</li>
+</ul>
+
+<h2 id="s3-replication-crr--srr">S3 Replication (CRR &amp; SRR)</h2>
+
+<ul>
+  <li>Must enable versioning in source and destination</li>
+  <li>Cross Region Replication (CRR)</li>
+  <li>Same Region Replication (SRR)</li>
+  <li>Buckets can be in different accounts</li>
+  <li>Copying is asynchronous</li>
+  <li>Must give proper IAM permissions to S3</li>
+  <li>CRR - Use cases: compliance, lower latency access, replication across accounts</li>
+  <li>SRR – Use cases: log aggregation, live replication between production and test accounts</li>
+</ul>
+
+<h2 id="s3-storage-classes">S3 Storage Classes</h2>
+
+<ul>
+  <li><a href="#s3-standard-general-purpose">Amazon S3 Standard - General Purpose</a></li>
+  <li><a href="#s3-standard-infrequent-access-s3-standard-ia">Amazon S3 Standard - Infrequent Access (IA)</a></li>
+  <li><a href="#s3-one-zone-infrequent-access-s3-one-zone-ia">Amazon S3 One Zone - Infrequent Access</a></li>
+  <li><a href="#amazon-s3-glacier-instant-retrieval">Amazon S3 Glacier Instant Retrieval</a></li>
+  <li><a href="#amazon-s3-glacier-flexible-retrieval-formerly-amazon-s3-glacier">Amazon S3 Glacier Flexible Retrieval</a></li>
+  <li><a href="#amazon-s3-glacier-deep-archive-–-for-long-term-storage">Amazon S3 Glacier Deep Archive</a></li>
+  <li>
+    <p><a href="#s3-intelligent-tiering">Amazon S3 Intelligent Tiering</a></p>
+  </li>
+  <li>Can move between classes manually or using S3 Lifecycle configurations</li>
+</ul>
+
+<h3 id="s3-durability-and-availability">S3 Durability and Availability</h3>
+
+<ul>
+  <li>Durability:
+    <ul>
+      <li>High durability (99.999999999%, 11 9’s) of objects across multiple AZ</li>
+      <li>If you store 10,000,000 objects with Amazon S3, you can on average expect to incur a loss of a single object once every 10,000 years</li>
+      <li>Same for all storage classes</li>
+    </ul>
+  </li>
+  <li>Availability:
+    <ul>
+      <li>Measures how readily available a service is</li>
+      <li>Varies depending on storage class</li>
+      <li>Example: S3 standard has 99.99% availability = not available 53 minutes a year</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="s3-standard-general-purpose">S3 Standard General Purpose</h3>
+
+<ul>
+  <li>99.99% Availability</li>
+  <li>Used for frequently accessed data</li>
+  <li>Low latency and high throughput</li>
+  <li>Sustain 2 concurrent facility failures</li>
+  <li>Use Cases: Big Data analytics, mobile &amp; gaming applications, content distribution…</li>
+</ul>
+
+<h3 id="s3-storage-classes---infrequent-access">S3 Storage Classes - Infrequent Access</h3>
+
+<ul>
+  <li>For data that is less frequently accessed, but requires rapid access when needed</li>
+  <li>Lower cost than S3 Standard</li>
+</ul>
+
+<h4 id="s3-standard-infrequent-access-s3-standard-ia">S3 Standard Infrequent Access (S3 Standard-IA)</h4>
+
+<ul>
+  <li>99.9% Availability</li>
+  <li>Use cases: Disaster Recovery, backups</li>
+</ul>
+
+<h4 id="s3-one-zone-infrequent-access-s3-one-zone-ia">S3 One Zone Infrequent Access (S3 One Zone-IA)</h4>
+
+<ul>
+  <li>High durability (99.999999999%) in a single AZ; data lost when AZ is destroyed</li>
+  <li>99.5% Availability</li>
+  <li>Use Cases: Storing secondary backup copies of on-premise data, or data you can recreate</li>
+</ul>
+
+<h3 id="amazon-s3-glacier-storage-classes">Amazon S3 Glacier Storage Classes</h3>
+
+<ul>
+  <li>Low-cost object storage meant for archiving / backup</li>
+  <li>Pricing: price for storage + object retrieval cost</li>
+</ul>
+
+<h4 id="amazon-s3-glacier-instant-retrieval">Amazon S3 Glacier Instant Retrieval</h4>
+
+<ul>
+  <li>Millisecond retrieval, great for data accessed once a quarter</li>
+  <li>Minimum storage duration of 90 days</li>
+</ul>
+
+<h4 id="amazon-s3-glacier-flexible-retrieval-formerly-amazon-s3-glacier">Amazon S3 Glacier Flexible Retrieval (formerly Amazon S3 Glacier)</h4>
+
+<ul>
+  <li>Expedited (1 to 5 minutes), Standard (3 to 5 hours), Bulk (5 to 12 hours) – free</li>
+  <li>Minimum storage duration of 90 days</li>
+</ul>
+
+<h4 id="amazon-s3-glacier-deep-archive---for-long-term-storage">Amazon S3 Glacier Deep Archive - for long term storage</h4>
+
+<ul>
+  <li>Standard (12 hours), Bulk (48 hours)</li>
+  <li>Minimum storage duration of 180 days</li>
+</ul>
+
+<h3 id="s3-intelligent-tiering">S3 Intelligent-Tiering</h3>
+
+<ul>
+  <li>Small monthly monitoring and auto-tiering fee</li>
+  <li>Moves objects automatically between Access Tiers based on usage</li>
+  <li>There are no retrieval charges in S3 Intelligent-Tiering</li>
+  <li>Frequent Access tier (automatic): default tier</li>
+  <li>Infrequent Access tier (automatic): objects not accessed for 30 days</li>
+  <li>Archive Instant Access tier (automatic): objects not accessed for 90 days</li>
+  <li>Archive Access tier (optional): configurable from 90 days to 700+ days</li>
+  <li>Deep Archive Access tier (optional): config. from 180 days to 700+ days</li>
+</ul>
+
+<h2 id="s3-object-lock--glacier-vault-lock">S3 Object Lock &amp; Glacier Vault Lock</h2>
+
+<ul>
+  <li>S3 Object Lock
+    <ul>
+      <li>Adopt a WORM (Write Once Read Many) model</li>
+      <li>Block an object version deletion for a specified amount of time</li>
+    </ul>
+  </li>
+  <li>Glacier Vault Lock
+    <ul>
+      <li>Adopt a WORM (Write Once Read Many) model</li>
+      <li>Lock the policy for future edits (can no longer be changed)</li>
+      <li>Helpful for compliance and data retention</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="shared-responsibility-model-for-s3">Shared Responsibility Model for S3</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>AWS</th>
+      <th>YOU</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Infrastructure (global security, durability, availability, sustain concurrent loss of data in two facilities)</td>
+      <td>S3 Versioning, S3 Bucket Policies, S3 Replication Setup</td>
+    </tr>
+    <tr>
+      <td>Configuration and vulnerability analysis</td>
+      <td>Logging and Monitoring, S3 Storage Classes</td>
+    </tr>
+    <tr>
+      <td>Compliance validation</td>
+      <td>Data encryption at rest and in transit</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="aws-snow-family">AWS Snow Family</h2>
+
+<ul>
+  <li>Highly-secure, portable devices to collect and process data at the edge, and migrate data into and out of AWS</li>
+  <li>Data migration:
+    <ul>
+      <li>Snowcone</li>
+      <li>Snowball Edge</li>
+      <li>Snowmobile</li>
+    </ul>
+  </li>
+  <li>Edge computing:
+    <ul>
+      <li>Snowcone</li>
+      <li>Snowball Edge</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="data-migrations-with-aws-snow-family">Data Migrations with AWS Snow Family</h3>
+
+<ul>
+  <li>
+    <p><strong>AWS Snow Family: offline devices to perform data migrations</strong> If it takes more than a week to transfer over the network, use Snowball devices!</p>
+  </li>
+  <li>
+    <p>Challenges:</p>
+    <ul>
+      <li>Limited connectivity</li>
+      <li>Limited bandwidth</li>
+      <li>High network cost</li>
+      <li>Shared bandwidth (can’t maximize the line)</li>
+      <li>Connection stability</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="time-to-transfer">Time to Transfer</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Data</th>
+      <th>100 Mbps</th>
+      <th>1Gbps</th>
+      <th>10Gbps</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>10 TB</td>
+      <td>12 days</td>
+      <td>30 hours</td>
+      <td>3 hours</td>
+    </tr>
+    <tr>
+      <td>100 TB</td>
+      <td>124 days</td>
+      <td>12 days</td>
+      <td>30 hours</td>
+    </tr>
+    <tr>
+      <td>1 PB</td>
+      <td>3 years</td>
+      <td>124 days</td>
+      <td>12 days</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="snowball-edge-for-data-transfers">Snowball Edge (for data transfers)</h3>
+
+<ul>
+  <li>Physical data transport solution: move TBs or PBs of data in or out of AWS</li>
+  <li>Alternative to moving data over the network (and paying network fees)</li>
+  <li>Pay per data transfer job</li>
+  <li>Provide block storage and Amazon S3-compatible object storage</li>
+  <li>Snowball Edge Storage Optimized
+    <ul>
+      <li>80 TB of HDD capacity for block volume and S3 compatible object storage</li>
+    </ul>
+  </li>
+  <li>Snowball Edge Compute Optimized
+    <ul>
+      <li>42 TB of HDD capacity for block volume and S3 compatible object storage</li>
+    </ul>
+  </li>
+  <li>Use cases: large data cloud migrations, DC decommission, disaster recovery</li>
+</ul>
+
+<h3 id="aws-snowcone">AWS Snowcone</h3>
+
+<ul>
+  <li>Small, portable computing, anywhere, rugged &amp; secure, withstands harsh environments</li>
+  <li>Light (4.5 pounds, 2.1 kg)</li>
+  <li>Device used for edge computing, storage, and data transfer</li>
+  <li><strong>8 TBs of usable storage</strong></li>
+  <li>Use Snowcone where Snowball does not fit (space-constrained environment)</li>
+  <li>Must provide your own battery / cables</li>
+  <li>Can be sent back to AWS offline, or connect it to internet and use <strong>AWS DataSync</strong> to send data</li>
+</ul>
+
+<h3 id="aws-snowmobile">AWS Snowmobile</h3>
+
+<ul>
+  <li>Transfer exabytes of data (1 EB = 1,000 PB = 1,000,000 TBs)</li>
+  <li>Each Snowmobile has 100 PB of capacity (use multiple in parallel)</li>
+  <li>High security: temperature controlled, GPS, 24/7 video surveillance</li>
+  <li><strong>Better than Snowball if you transfer more than 10 PB</strong></li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Properties</th>
+      <th>Snowcone</th>
+      <th>Snowball Edge Storage Optimized</th>
+      <th>Snowmobile</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Storage Capacity</td>
+      <td>8 TB usable</td>
+      <td>80 TB usable</td>
+      <td>&lt; 100 PB</td>
+    </tr>
+    <tr>
+      <td>Migration Size</td>
+      <td>Up to 24 TB, online and offline</td>
+      <td>Up to petabytes, offline</td>
+      <td>Up to exabytes, offline</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="snow-family---usage-process">Snow Family - Usage Process</h3>
+
+<ol>
+  <li>Request Snowball devices from the AWS console for delivery</li>
+  <li>Install the snowball client / AWS OpsHub on your servers</li>
+  <li>Connect the snowball to your servers and copy files using the client</li>
+  <li>Ship back the device when you’re done (goes to the right AWS facility)</li>
+  <li>Data will be loaded into an S3 bucket</li>
+  <li>Snowball is completely wiped</li>
+</ol>
+
+<h2 id="what-is-edge-computing">What is Edge Computing?</h2>
+
+<ul>
+  <li>Process data while it’s being created on an edge location
+    <ul>
+      <li>A truck on the road, a ship on the sea, a mining station underground…</li>
+    </ul>
+  </li>
+  <li>These locations may have
+    <ul>
+      <li>Limited / no internet access</li>
+      <li>Limited / no easy access to computing power</li>
+    </ul>
+  </li>
+  <li>We setup a <strong>Snowball Edge / Snowcone</strong> device to do edge computing</li>
+  <li>Use cases of Edge Computing:
+    <ul>
+      <li>Preprocess data</li>
+      <li>Machine learning at the edge</li>
+      <li>Transcoding media streams</li>
+    </ul>
+  </li>
+  <li>Eventually (if need be) we can ship back the device to AWS (for transferring data for example)</li>
+</ul>
+
+<h2 id="snow-family---edge-computing">Snow Family - Edge Computing</h2>
+
+<ul>
+  <li><strong>Snowcone (smaller)</strong>
+    <ul>
+      <li>2 CPUs, 4 GB of memory, wired or wireless access</li>
+      <li>USB-C power using a cord or the optional battery</li>
+    </ul>
+  </li>
+  <li><strong>Snowball Edge – Compute Optimized</strong>
+    <ul>
+      <li>52 vCPUs, 208 GiB of RAM</li>
+      <li>Optional GPU (useful for video processing or machine learning)</li>
+      <li>42 TB usable storage</li>
+    </ul>
+  </li>
+  <li><strong>Snowball Edge – Storage Optimized</strong>
+    <ul>
+      <li>Up to 40 vCPUs, 80 GiB of RAM</li>
+      <li>Object storage clustering available</li>
+    </ul>
+  </li>
+  <li>All: Can run EC2 Instances &amp; AWS Lambda functions (using AWS IoT Greengrass)</li>
+  <li>Long-term deployment options: 1 and 3 years discounted pricing</li>
+</ul>
+
+<h2 id="aws-opshub">AWS OpsHub</h2>
+
+<ul>
+  <li>Historically, to use Snow Family devices, you needed a CLI (Command Line Interface tool)</li>
+  <li>Today, you can use <strong>AWS OpsHub</strong> (a software you install on your computer / laptop) to manage your Snow Family Device
+    <ul>
+      <li>Unlocking and configuring single or clustered devices</li>
+      <li>Transferring files</li>
+      <li>Launching and managing instances running on Snow Family Devices</li>
+      <li>Monitor device metrics (storage capacity, active instances on your device)</li>
+      <li>Launch compatible AWS services on your devices (ex: Amazon EC2 instances, AWS DataSync, Network File System (NFS))</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="hybrid-cloud-for-storage">Hybrid Cloud for Storage</h2>
+
+<ul>
+  <li>AWS is pushing for ”hybrid cloud”
+    <ul>
+      <li>Part of your infrastructure is on-premises</li>
+      <li>Part of your infrastructure is on the cloud</li>
+    </ul>
+  </li>
+  <li>This can be due to
+    <ul>
+      <li>Long cloud migrations</li>
+      <li>Security requirements</li>
+      <li>Compliance requirements</li>
+      <li>IT strategy</li>
+    </ul>
+  </li>
+  <li>S3 is a proprietary storage technology (unlike EFS / NFS), so how do you expose the S3 data on-premise?</li>
+  <li>AWS Storage Gateway!</li>
+</ul>
+
+<h2 id="aws-storage-gateway">AWS Storage Gateway</h2>
+
+<ul>
+  <li>Bridge between on-premise data and cloud data in S3</li>
+  <li>Hybrid storage service to allow on- premises to seamlessly use the AWS Cloud</li>
+  <li>Use cases: disaster recovery, backup &amp; restore, tiered storage</li>
+  <li>Types of Storage Gateway:
+    <ul>
+      <li>File Gateway</li>
+      <li>Volume Gateway</li>
+      <li>Tape Gateway</li>
+    </ul>
+  </li>
+  <li>No need to know the types at the exam</li>
+</ul>
+
+<h2 id="amazon-s3---summary">Amazon S3 - Summary</h2>
+
+<ul>
+  <li>Buckets vs Objects: global unique name, tied to a region</li>
+  <li>S3 security: IAM policy, S3 Bucket Policy (public access), S3 Encryption</li>
+  <li>S3 Websites: host a static website on Amazon S3</li>
+  <li>S3 Versioning: multiple versions for files, prevent accidental deletes</li>
+  <li>S3 Access Logs: log requests made within your S3 bucket</li>
+  <li>S3 Replication: same-region or cross-region, must enable versioning</li>
+  <li>S3 Storage Classes: Standard, IA, 1Z-IA, Intelligent, Glacier, Glacier Deep Archive</li>
+  <li>S3 Lifecycle Rules: transition objects between classes</li>
+  <li>S3 Glacier Vault Lock / S3 Object Lock: WORM (Write Once Read Many)</li>
+  <li>Snow Family: import data onto S3 through a physical device, edge computing</li>
+  <li>OpsHub: desktop application to manage Snow Family devices</li>
+  <li>Storage Gateway: hybrid solution to extend on-premises storage to S3</li>
+</ul>
+
+<footer>
+  <!-- New Footer Navigation -->
+<div class="footer-nav">
+<nav>
+    <ul>
+        <li><a href="chapter5.html">Previous</a></li>
+        <li><a href="chapter7.html">Next</a></li>
+        <li><a href="Notes.html">Home</a></li>
+    </ul>
+</nav>
+</div>
+<div class="footer-content">
+<div class="footer-info">
+    <p><strong>Jawahar Parvez</strong></p>
+    <p>Email: <a href="mailto:Jawaharparvez@gmail.com">Jawaharparvez@gmail.com</a></p>
+</div>
+
+<div class="social-links">
+    <a href="https://instagram.com/iamtheparvez" target="_blank" title="Instagram">
+        <i class="fab fa-instagram"></i> Instagram
+    </a>
+    <a href="https://github.com/Jawaharparvez" target="_blank" title="GitHub">
+        <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/jawaharparvez" target="_blank" title="LinkedIn">
+        <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+</div>
+
+<div class="copyright">
+    <p>&copy; 2025 Jawahar Parvez. All rights reserved.</p>
+</div>
+</div>
+
+
+</footer>
+
+</main>
+</body>
+</html>

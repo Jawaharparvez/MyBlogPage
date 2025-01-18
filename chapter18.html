@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Other AWS Services</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="chapter.css">
+</head>
+<body>
+  <main id="content" class="main-content" role="main">
+      <h1 id="other-aws-services">Other AWS Services</h1>
+
+<ul>
+  <li><a href="#other-aws-services">Other AWS Services</a>
+    <ul>
+      <li><a href="#amazon-workspaces">Amazon WorkSpaces</a></li>
+      <li><a href="#amazon-appstream-20">Amazon AppStream 2.0</a></li>
+      <li><a href="#amazon-sumerian">Amazon Sumerian</a></li>
+      <li><a href="#aws-iot-core">AWS IoT Core</a></li>
+      <li><a href="#amazon-elastic-transcoder">Amazon Elastic Transcoder</a></li>
+      <li><a href="#aws-appsync">AWS AppSync</a></li>
+      <li><a href="#aws-amplify">AWS Amplify</a></li>
+      <li><a href="#aws-device-farm">AWS Device Farm</a></li>
+      <li><a href="#aws-backup">AWS Backup</a></li>
+      <li><a href="#aws-elastic-disaster-recovery-drs">AWS Elastic Disaster Recovery (DRS)</a></li>
+      <li><a href="#aws-datasync">AWS DataSync</a></li>
+      <li><a href="#aws-application-discovery-service">AWS Application Discovery Service</a></li>
+      <li><a href="#aws-application-migration-service-mgn">AWS Application Migration Service (MGN)</a></li>
+      <li><a href="#aws-migration-evaluator">AWS Migration Evaluator</a></li>
+      <li><a href="#aws-migration-hub">AWS Migration Hub</a></li>
+      <li><a href="#aws-fault-injection-simulator-fis">AWS Fault Injection Simulator (FIS)</a></li>
+      <li><a href="#aws-step-functions">AWS Step Functions</a></li>
+      <li><a href="#aws-ground-station">AWS Ground Station</a></li>
+      <li><a href="#aws-pinpoint">AWS Pinpoint</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="amazon-workspaces">Amazon WorkSpaces</h2>
+
+<ul>
+  <li>Managed Desktop as a Service (DaaS) solution to provision Windows or Linux desktops</li>
+  <li>Eliminates management of on-premise VDI (Virtual Desktop Infrastructure)</li>
+  <li>Scalable to thousands of users quickly</li>
+  <li>Secured data with integration to KMS</li>
+  <li>Pay-as-you-go service with monthly or hourly rates</li>
+</ul>
+
+<h2 id="amazon-appstream-20">Amazon AppStream 2.0</h2>
+
+<ul>
+  <li>Desktop Application Streaming Service</li>
+  <li>Deliver applications to any computer without provisioning infrastructure</li>
+  <li>Applications are delivered from within a web browser</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Amazon AppStream 2.0</th>
+      <th>WorkSpaces</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Stream a desktop application to web browsers (no need to connect to a VDI)</td>
+      <td>Fully managed VDI and desktop available</td>
+    </tr>
+    <tr>
+      <td>Works with any device (that has a web browser)</td>
+      <td>Users connect to the VDI and open native or WAM applications</td>
+    </tr>
+    <tr>
+      <td>Configure an instance type per application type (CPU, RAM, GPU)</td>
+      <td>Workspaces are on-demand or always on</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="amazon-sumerian">Amazon Sumerian</h2>
+
+<ul>
+  <li>Create and run virtual reality (VR), augmented reality (AR), and 3D applications</li>
+  <li>Quickly create 3D models with animations</li>
+  <li>Ready-to-use templates and assets - no programming or 3D expertise required</li>
+  <li>Accessible via web-browser URLs or on popular hardware for AR/VR</li>
+  <li>Example: <a href="https://docs.aws.amazon.com/sumerian/latest/userguide/gettingstartedshowcase.html">https://docs.aws.amazon.com/sumerian/latest/userguide/gettingstartedshowcase.html</a></li>
+</ul>
+
+<h2 id="aws-iot-core">AWS IoT Core</h2>
+
+<ul>
+  <li>IoT stands for “Internet of Things” – the network of internet-connected devices that collect and transfer data</li>
+  <li>Connect IoT devices to AWS Cloud serverlessly, securely, and scalably</li>
+  <li>Applications can communicate with devices even when they aren’t connected</li>
+  <li>Integrates with many AWS services (Lambda, S3, SageMaker, etc.)</li>
+  <li>Build IoT applications that gather, process, analyze, and act on data</li>
+</ul>
+
+<h2 id="amazon-elastic-transcoder">Amazon Elastic Transcoder</h2>
+
+<ul>
+  <li>Convert media files stored in S3 into formats required by consumer playback devices (phones, etc.)</li>
+  <li>Benefits:
+    <ul>
+      <li>Easy to use</li>
+      <li>Highly scalable – handles large volumes and sizes of media files</li>
+      <li>Cost-effective – duration-based pricing model</li>
+      <li>Fully managed &amp; secure, pay for what you use</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="aws-appsync">AWS AppSync</h2>
+
+<ul>
+  <li>Store and sync data across mobile and web apps in real-time</li>
+  <li>Uses GraphQL</li>
+  <li>Automatically generates client code</li>
+  <li>Integrates with DynamoDB / Lambda</li>
+  <li>Real-time subscriptions</li>
+  <li>Offline data synchronization (replaces Cognito Sync)</li>
+  <li>Fine Grained Security</li>
+  <li>AWS Amplify can leverage AWS AppSync in the background!</li>
+</ul>
+
+<h2 id="aws-amplify">AWS Amplify</h2>
+
+<ul>
+  <li>A set of tools and services for developing and deploying scalable full stack web and mobile applications</li>
+  <li>Features:
+    <ul>
+      <li>Backend-as-a-Service (BaaS)</li>
+      <li>Frontend Libraries and UI Components</li>
+      <li>Authentication</li>
+      <li>Storage</li>
+      <li>API Management (REST, GraphQL)</li>
+      <li>Real-Time and Offline Capabilities through AWS AppSync</li>
+      <li>CI/CD</li>
+      <li>Command-Line Interface (CLI)</li>
+      <li>PubSub</li>
+      <li>Analytics</li>
+      <li>AI/ML Predictions</li>
+      <li>Monitoring</li>
+      <li>Source Code from AWS, GitHub, etc.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="aws-device-farm">AWS Device Farm</h2>
+
+<ul>
+  <li>Fully-managed service that tests web and mobile apps against desktop browsers, real mobile devices, and tablets</li>
+  <li>Run tests concurrently on multiple devices to speed up execution</li>
+  <li>Configure device settings (GPS, language, Wi-Fi, Bluetooth, etc.)</li>
+</ul>
+
+<h2 id="aws-backup">AWS Backup</h2>
+
+<ul>
+  <li>Fully-managed service to centrally manage and automate backups across AWS services</li>
+  <li>On-demand and scheduled backups</li>
+  <li>Supports PITR (Point-in-time Recovery)</li>
+  <li>Retention Periods, Lifecycle Management, Backup Policies, etc.</li>
+  <li>Cross-Region Backup</li>
+  <li>Cross-Account Backup (using AWS Organizations)</li>
+</ul>
+
+<h2 id="aws-elastic-disaster-recovery-drs">AWS Elastic Disaster Recovery (DRS)</h2>
+
+<ul>
+  <li>Formerly known as “CloudEndure Disaster Recovery”</li>
+  <li>Quickly and easily recover physical, virtual, and cloud-based servers into AWS</li>
+  <li>Example: protect critical databases (Oracle, MySQL, SQL Server), enterprise apps (SAP), and protect data from ransomware attacks</li>
+  <li>Continuous block-level replication for servers</li>
+</ul>
+
+<h2 id="aws-datasync">AWS DataSync</h2>
+
+<ul>
+  <li>Move large amounts of data from on-premises to AWS</li>
+  <li>Synchronize to Amazon S3 (any storage classes including Glacier), Amazon EFS, Amazon FSx for Windows</li>
+  <li>Schedule replication tasks hourly, daily, weekly</li>
+  <li>Incremental replication after the first full load</li>
+</ul>
+
+<h2 id="aws-application-discovery-service">AWS Application Discovery Service</h2>
+
+<ul>
+  <li>Plan migration projects by gathering information about on-premises data centers</li>
+  <li>Collect server utilization data and dependency mapping for migrations</li>
+  <li>Agentless Discovery (AWS Agentless Discovery Connector):
+    <ul>
+      <li>VM inventory, configuration, and performance history (CPU, memory, disk usage)</li>
+    </ul>
+  </li>
+  <li>Agent-based Discovery (AWS Application Discovery Agent):
+    <ul>
+      <li>System configuration, performance, running processes, and network connections between systems</li>
+    </ul>
+  </li>
+  <li>Data can be viewed within AWS Migration Hub</li>
+</ul>
+
+<h2 id="aws-application-migration-service-mgn">AWS Application Migration Service (MGN)</h2>
+
+<ul>
+  <li>The “AWS evolution” of CloudEndure Migration, replacing AWS Server Migration Service (SMS)</li>
+  <li>Lift-and-shift (rehost) solution to simplify migrating applications to AWS</li>
+  <li>Converts physical, virtual, and cloud-based servers to run natively on AWS</li>
+  <li>Supports a wide range of platforms, Operating Systems, and databases</li>
+  <li>Minimal downtime and reduced costs</li>
+</ul>
+
+<h2 id="aws-migration-evaluator">AWS Migration Evaluator</h2>
+
+<ul>
+  <li>Build a data-driven business case for migration to AWS</li>
+  <li>Provides a clear baseline of current infrastructure</li>
+  <li>Use Agentless Collector for broad-based discovery</li>
+  <li>Take a snapshot of on-premises footprint, server dependencies, etc.</li>
+  <li>Analyze current state, define target state, and develop a migration plan</li>
+</ul>
+
+<h2 id="aws-migration-hub">AWS Migration Hub</h2>
+
+<ul>
+  <li>Central location to collect servers and applications inventory data for the assessment, planning, and tracking of migrations to AWS</li>
+  <li>Accelerate migration to AWS, automate lift-and-shift</li>
+  <li>AWS Migration Hub Orchestrator provides pre-built templates for migrating enterprise apps (e.g., SAP, Microsoft SQL Server)</li>
+  <li>Supports migration status updates from Application Migration Service (MGN) and Database Migration Service (DMS)</li>
+</ul>
+
+<h2 id="aws-fault-injection-simulator-fis">AWS Fault Injection Simulator (FIS)</h2>
+
+<ul>
+  <li>Fully managed service for running fault injection experiments on AWS workloads</li>
+  <li>Based on Chaos Engineering – stress an application by creating disruptive events (e.g., sudden increase in CPU or memory), observe system response, and implement improvements</li>
+  <li>Uncover hidden bugs and performance bottlenecks</li>
+  <li>Supports AWS services such as EC2, ECS, EKS, RDS</li>
+  <li>Use pre-built templates for desired disruptions</li>
+</ul>
+
+<h2 id="aws-step-functions">AWS Step Functions</h2>
+
+<ul>
+  <li>Build serverless visual workflows to orchestrate Lambda functions</li>
+  <li>Features: sequence, parallel, conditions, timeouts, error handling, etc.</li>
+  <li>Integrate with EC2, ECS, on-premises servers, API Gateway, SQS queues, etc.</li>
+  <li>Implement human approval feature</li>
+  <li>Use cases: order fulfillment, data processing, web applications, any workflow</li>
+</ul>
+
+
+
+<h2 id="aws-ground-station">AWS Ground Station</h2>
+
+<ul>
+  <li>Fully managed service for controlling satellite communications, processing data, and scaling satellite operations</li>
+  <li>Global network of satellite ground stations near AWS regions</li>
+  <li>Download satellite data to your AWS VPC within seconds</li>
+  <li>Send satellite data to S3 or EC2 instance</li>
+  <li>Use cases: weather forecasting, surface imaging, communications, video broadcasts</li>
+</ul>
+
+<h2 id="aws-pinpoint">AWS Pinpoint</h2>
+
+<ul>
+  <li>Scalable 2-way (outbound/inbound) marketing communications service</li>
+  <li>Supports email, SMS, push, voice, and in-app messaging</li>
+  <li>Segment and personalize messages with the right content for customers</li>
+  <li>Receive replies</li>
+  <li>Scale to billions of messages per day</li>
+  <li>Use cases: run campaigns by sending marketing, bulk, transactional SMS messages</li>
+  <li>Comparison with Amazon SNS or Amazon SES:
+    <ul>
+      <li>SNS &amp; SES: manage each message’s audience, content, and delivery schedule</li>
+      <li>Amazon Pinpoint: create message templates, delivery schedules, targeted segments, and full campaigns</li>
+    </ul>
+  </li>
+</ul>
+
+
+<footer>
+  <!-- New Footer Navigation -->
+<div class="footer-nav">
+<nav>
+    <ul>
+        <li><a href="chapter17.html">Previous</a></li>
+        <li><a href="chapter19.html">Next</a></li>
+        <li><a href="Notes.html">Home</a></li>
+    </ul>
+</nav>
+</div>
+<div class="footer-content">
+<div class="footer-info">
+    <p><strong>Jawahar Parvez</strong></p>
+    <p>Email: <a href="mailto:Jawaharparvez@gmail.com">Jawaharparvez@gmail.com</a></p>
+</div>
+
+<div class="social-links">
+    <a href="https://instagram.com/iamtheparvez" target="_blank" title="Instagram">
+        <i class="fab fa-instagram"></i> Instagram
+    </a>
+    <a href="https://github.com/Jawaharparvez" target="_blank" title="GitHub">
+        <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/jawaharparvez" target="_blank" title="LinkedIn">
+        <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+</div>
+
+<div class="copyright">
+    <p>&copy; 2025 Jawahar Parvez. All rights reserved.</p>
+</div>
+</div>
+
+
+</footer>
+
+</main>
+</body>
+</html>

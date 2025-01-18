@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Advanced Identity</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="chapter.css">
+</head>
+<body>
+  <main id="content" class="main-content" role="main">
+      <h1 id="advanced-identity">Advanced Identity</h1>
+
+<ul>
+  <li><a href="#advanced-identity">Advanced Identity</a>
+    <ul>
+      <li><a href="#aws-sts-security-token-service">AWS STS (Security Token Service)</a></li>
+      <li><a href="#amazon-cognito">Amazon Cognito</a></li>
+      <li><a href="#microsoft-active-directory-ad">Microsoft Active Directory (AD)</a>
+        <ul>
+          <li><a href="#aws-directory-services">AWS Directory Services</a></li>
+        </ul>
+      </li>
+      <li><a href="#aws-iam-identity-center">AWS IAM Identity Center</a></li>
+      <li><a href="#summary">Summary</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="aws-sts-security-token-service">AWS STS (Security Token Service)</h2>
+
+<ul>
+  <li>Provides temporary, limited-privilege credentials to access AWS resources</li>
+  <li>Credentials have a configurable expiration period</li>
+  <li>Use cases:
+    <ul>
+      <li>Identity federation: manage user identities in external systems, providing STS tokens for AWS resource access</li>
+      <li>IAM Roles for cross-account or same-account access</li>
+      <li>IAM Roles for EC2 instances: temporary credentials for EC2 to access AWS resources</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="amazon-cognito">Amazon Cognito</h2>
+
+<ul>
+  <li>Manages identity for web and mobile application users (potentially millions)</li>
+  <li>Instead of creating IAM users, create users in Cognito</li>
+</ul>
+
+<h2 id="microsoft-active-directory-ad">Microsoft Active Directory (AD)</h2>
+
+<ul>
+  <li>Available on any Windows Server with AD Domain Services</li>
+  <li>Database of objects: user accounts, computers, printers, file shares, security groups</li>
+  <li>Centralized security management, create accounts, assign permissions</li>
+</ul>
+
+<h3 id="aws-directory-services">AWS Directory Services</h3>
+
+<ul>
+  <li><strong>AWS Managed Microsoft AD</strong>
+    <ul>
+      <li>Create and manage your own AD in AWS, supports MFA</li>
+      <li>Establish trust connections with on-premise AD</li>
+    </ul>
+  </li>
+  <li><strong>AD Connector</strong>
+    <ul>
+      <li>Directory gateway (proxy) to redirect to on-premise AD, supports MFA</li>
+      <li>Users are managed on the on-premise AD</li>
+    </ul>
+  </li>
+  <li><strong>Simple AD</strong>
+    <ul>
+      <li>AD-compatible managed directory on AWS</li>
+      <li>Cannot be joined with on-premise AD</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="aws-iam-identity-center">AWS IAM Identity Center</h2>
+
+<ul>
+  <li>Single sign-on (SSO) for:
+    <ul>
+      <li>AWS accounts in AWS Organizations</li>
+      <li>Business cloud applications (e.g., Salesforce, Box, Microsoft 365)</li>
+      <li>SAML 2.0-enabled applications</li>
+      <li>EC2 Windows instances</li>
+    </ul>
+  </li>
+  <li>Identity providers:
+    <ul>
+      <li>Built-in identity store in IAM Identity Center</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="summary">Summary</h2>
+
+<ul>
+  <li><strong>IAM</strong>: Identity and Access Management within your AWS account for trusted users within your company</li>
+  <li><strong>Organizations</strong>: Manage multiple AWS accounts</li>
+  <li><strong>Security Token Service (STS)</strong>: Temporary, limited-privilege credentials for AWS resource access</li>
+  <li><strong>Cognito</strong>: Create a user database for mobile and web applications</li>
+  <li><strong>Directory Services</strong>: Integrate Microsoft Active Directory in AWS</li>
+  <li><strong>IAM Identity Center</strong>: Single login for multiple AWS accounts and applications</li>
+</ul>
+
+
+<footer>
+  <!-- New Footer Navigation -->
+<div class="footer-nav">
+<nav>
+    <ul>
+        <li><a href="chapter16.html">Previous</a></li>
+        <li><a href="chapter18.html">Next</a></li>
+        <li><a href="Notes.html">Home</a></li>
+    </ul>
+</nav>
+</div>
+<div class="footer-content">
+<div class="footer-info">
+    <p><strong>Jawahar Parvez</strong></p>
+    <p>Email: <a href="mailto:Jawaharparvez@gmail.com">Jawaharparvez@gmail.com</a></p>
+</div>
+
+<div class="social-links">
+    <a href="https://instagram.com/iamtheparvez" target="_blank" title="Instagram">
+        <i class="fab fa-instagram"></i> Instagram
+    </a>
+    <a href="https://github.com/Jawaharparvez" target="_blank" title="GitHub">
+        <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/jawaharparvez" target="_blank" title="LinkedIn">
+        <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+</div>
+
+<div class="copyright">
+    <p>&copy; 2025 Jawahar Parvez. All rights reserved.</p>
+</div>
+</div>
+
+
+</footer>
+
+</main>
+</body>
+</html>

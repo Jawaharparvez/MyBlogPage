@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Cloud Computing</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="chapter.css">
+</head>
+<body>
+  <main id="content" class="main-content" role="main">
+    <h1 id="cloud-computing">Cloud Computing</h1>
+  
+    <ul>
+      <li><a href="#what-is-cloud-computing">What is Cloud Computing?</a>
+        <ul>
+          <li><a href="#the-deployment-models-of-the-cloud">The Deployment Models of the Cloud</a></li>
+          <li><a href="#the-five-characteristics-of-cloud-computing">The Five Characteristics of Cloud Computing</a></li>
+          <li><a href="#six-advantages-of-cloud-computing">Six Advantages of Cloud Computing</a></li>
+          <li><a href="#problems-solved-by-the-cloud">Problems Solved by the Cloud</a></li>
+          <li><a href="#types-of-cloud-computing">Types of Cloud Computing</a></li>
+          <li><a href="#example-of-cloud-computing-types">Example of Cloud Computing Types</a></li>
+          <li><a href="#pricing-of-the-cloud--quick-overview">Pricing of the Cloud – Quick Overview</a></li>
+          <li><a href="#how-cloud-pricing-solves-traditional-it-cost-issues">How Cloud Pricing Solves Traditional IT Cost Issues</a></li>
+          <li><a href="#aws-cloud-use-cases">AWS Cloud Use Cases</a></li>
+        </ul>
+      </li>
+      <li><a href="#aws-global-infrastructure">AWS Global Infrastructure</a>
+        <ul>
+          <li><a href="#aws-regions">AWS Regions</a></li>
+          <li><a href="#how-to-choose-an-aws-region">How to Choose an AWS Region?</a></li>
+          <li><a href="#aws-availability-zones-azs">AWS Availability Zones (AZs)</a></li>
+          <li><a href="#aws-points-of-presence-edge-locations">AWS Points of Presence (Edge Locations)</a></li>
+        </ul>
+      </li>
+      <li><a href="#aws-shared-responsibility-model">AWS Shared Responsibility Model</a>
+        <ul>
+          <li><a href="#what-is-the-shared-responsibility-model">What is the Shared Responsibility Model?</a></li>
+          <li><a href="#aws-responsibilities-security-of-the-cloud">AWS Responsibilities: <strong>Security <em>of</em> the Cloud</strong></a></li>
+          <li><a href="#customer-responsibilities-security-in-the-cloud">Customer Responsibilities: <strong>Security <em>in</em> the Cloud</strong></a></li>
+          <li><a href="#example-responsibilities-for-different-aws-services">Example Responsibilities for Different AWS Services</a></li>
+          <li><a href="#summary">Summary</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <h2 id="what-is-cloud-computing">What is Cloud Computing?</h2>
+
+    <p>Cloud computing is the on-demand delivery of compute power, database storage, applications, and other IT resources through a cloud services platform with pay-as-you-go pricing. It provides:</p>
+
+    <ul>
+      <li>Provisioning of exactly the right type and size of computing resources.</li>
+      <li>Access to as many resources as needed, almost instantly.</li>
+      <li>A simple way to access servers, storage, databases, and a set of application services.</li>
+      <li>Amazon Web Services (AWS) owns and maintains the network-connected hardware, while you provision and use what you need via a web application.</li>
+    </ul>
+
+    <h3 id="the-deployment-models-of-the-cloud">The Deployment Models of the Cloud</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th><strong>Private Cloud</strong></th>
+          <th><strong>Public Cloud</strong></th>
+          <th><strong>Hybrid Cloud</strong></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Cloud services used by a single organization, not exposed to the public.</td>
+          <td>Cloud resources owned and operated by a third-party cloud service provider, delivered over the Internet.</td>
+          <td>Keep some servers on-premises and extend some capabilities to the cloud.</td>
+        </tr>
+        <tr>
+          <td>Complete control over data, security, and compliance.</td>
+          <td>Cost-effective as infrastructure is shared among multiple users.</td>
+          <td>Allows data and applications to be shared between private and public clouds.</td>
+        </tr>
+        <tr>
+          <td>Security for sensitive applications, ideal for critical workloads.</td>
+          <td>Suitable for less sensitive workloads that require high scalability and availability.</td>
+          <td>Offers flexibility, security, and scalability for different use cases.</td>
+        </tr>
+        <tr>
+          <td>Meet specific business needs and compliance requirements.</td>
+          <td>No maintenance required as the cloud provider manages the infrastructure.</td>
+          <td>Provides business continuity, disaster recovery, and data backup solutions.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 id="the-five-characteristics-of-cloud-computing">The Five Characteristics of Cloud Computing</h3>
+
+    <ol>
+      <li><strong>On-demand self-service</strong>: Provision computing resources as needed automatically.</li>
+      <li><strong>Broad network access</strong>: Access cloud resources over the network using standard mechanisms.</li>
+      <li><strong>Resource pooling</strong>: Providers serve multiple customers using a multi-tenant model.</li>
+      <li><strong>Rapid elasticity</strong>: Resources can be scaled up or down rapidly.</li>
+      <li><strong>Measured service</strong>: Resource usage is monitored and billed accordingly.</li>
+    </ol>
+
+    <h3 id="six-advantages-of-cloud-computing">Six Advantages of Cloud Computing</h3>
+
+    <ol>
+      <li><strong>Cost Savings</strong>: Pay only for the computing power, storage, and other resources you use.</li>
+      <li><strong>Speed and Agility</strong>: Quickly deploy services and resources.</li>
+      <li><strong>Scalability</strong>: Easily scale resources up or down as needed.</li>
+      <li><strong>High Availability</strong>: Highly available architecture for business continuity.</li>
+      <li><strong>Global Reach</strong>: Access services from any geographical region.</li>
+      <li><strong>Security</strong>: AWS provides robust security capabilities to protect your data.</li>
+    </ol>
+
+    <h3 id="problems-solved-by-the-cloud">Problems Solved by the Cloud</h3>
+
+    <ul>
+      <li><strong>High upfront costs</strong>: Replaced by a pay-as-you-go model.</li>
+      <li><strong>Scalability limitations</strong>: Dynamic scaling to meet business demands.</li>
+      <li><strong>Limited infrastructure availability</strong>: Global infrastructure to support workloads.</li>
+    </ul>
+
+    <h3 id="types-of-cloud-computing">Types of Cloud Computing</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th><strong>Infrastructure as a Service (IaaS)</strong></th>
+          <th><strong>Platform as a Service (PaaS)</strong></th>
+          <th><strong>Software as a Service (SaaS)</strong></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Provides virtualized computing resources over the internet (e.g., AWS EC2).</td>
+          <td>Provides a platform allowing customers to develop, run, and manage applications (e.g., AWS Elastic Beanstalk).</td>
+          <td>Provides software applications over the internet on a subscription basis (e.g., AWS Chime).</td>
+        </tr>
+        <tr>
+          <td>Offers maximum control over the infrastructure.</td>
+          <td>Focus on deploying applications without managing underlying infrastructure.</td>
+          <td>Accessible over the internet, usually via a web browser.</td>
+        </tr>
+        <tr>
+          <td>Suitable for developers needing control over OS, middleware, and runtime.</td>
+          <td>Ideal for developers who want to focus on application development.</td>
+          <td>Suitable for users needing access to software without infrastructure management.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 id="example-of-cloud-computing-types">Example of Cloud Computing Types</h3>
+
+    <ul>
+      <li><strong>IaaS</strong>: AWS EC2 (Elastic Compute Cloud)
+        <ul>
+          <li>GCP, Azure, Rackspace, Digital Ocean, Linode</li>
+        </ul>
+      </li>
+      <li><strong>PaaS</strong>: AWS Elastic Beanstalk
+        <ul>
+          <li>Heroku, Google App Engine (GCP), Windows Azure (Microsoft)</li>
+        </ul>
+      </li>
+      <li><strong>SaaS</strong>: AWS Chime
+        <ul>
+          <li>Google Apps (Gmail), Dropbox, Zoom</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3 id="pricing-of-the-cloud--quick-overview">Pricing of the Cloud – Quick Overview</h3>
+
+    <p>AWS follows three fundamental pricing principles based on the pay-as-you-go pricing model:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th><strong>Fundamental</strong></th>
+          <th><strong>Description</strong></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Compute</strong></td>
+          <td>Pay for the compute time you consume. Examples include EC2 instance hours or Lambda invocation duration.</td>
+        </tr>
+        <tr>
+          <td><strong>Storage</strong></td>
+          <td>Pay for the amount of data stored in the cloud. Examples include S3 storage space and EBS volume usage.</td>
+        </tr>
+        <tr>
+          <td><strong>Data Transfer OUT</strong></td>
+          <td>Pay for data transfer out of the cloud. Data transfer IN is free. This pricing structure solves the issue of expensive data transfer fees in traditional IT systems.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 id="how-cloud-pricing-solves-traditional-it-cost-issues">How Cloud Pricing Solves Traditional IT Cost Issues</h3>
+
+    <ul>
+      <li>Traditional IT requires expensive upfront investments for hardware, maintenance, and upgrades.</li>
+      <li>With AWS’s pay-as-you-go model, you only pay for what you use, reducing overall costs.</li>
+      <li>You can scale up or down based on demand, minimizing under-utilized resources.</li>
+    </ul>
+
+    <h3 id="aws-cloud-use-cases">AWS Cloud Use Cases</h3>
+
+    <ol>
+      <li><strong>Web Hosting</strong>: Host websites with elastic scaling and high availability.</li>
+      <li><strong>Big Data Analytics</strong>: Run analytics on large datasets.</li>
+      <li><strong>Application Hosting</strong>: Host applications with global accessibility and automated scaling.</li>
+      <li><strong>Disaster Recovery</strong>: Implement disaster recovery strategies with minimized infrastructure.</li>
+      <li><strong>Backup and Storage</strong>: Store backups in a highly durable and secure manner.</li>
+    </ol>
+
+    <h2 id="aws-global-infrastructure">AWS Global Infrastructure</h2>
+
+    <h3 id="aws-regions">AWS Regions</h3>
+
+    <ul>
+      <li>Geographically isolated areas where AWS clusters data centers.</li>
+      <li>Each region has multiple Availability Zones.</li>
+      <li>Used to deploy applications close to customers for lower latency.</li>
+    </ul>
+
+    <h3 id="how-to-choose-an-aws-region">How to Choose an AWS Region?</h3>
+
+    <ul>
+      <li><strong>Latency</strong>: Choose a region closest to your customers for lower latency.</li>
+      <li><strong>Compliance</strong>: Ensure the region meets data residency and compliance requirements.</li>
+      <li><strong>Services Available</strong>: Check which AWS services are offered in the region.</li>
+      <li><strong>Pricing</strong>: Prices vary by region, so choose a region that fits your cost requirements.</li>
+    </ul>
+
+    <h3 id="aws-availability-zones-azs">AWS Availability Zones (AZs)</h3>
+
+    <ul>
+      <li>Multiple, isolated data centers within a region.</li>
+      <li>Each AZ has independent power, cooling, and networking.</li>
+      <li>Provides redundancy and fault tolerance in case of a failure.</li>
+      <li>They’re connected with high bandwidth, ultra-low latency networking.</li>
+    </ul>
+
+    <h3 id="aws-points-of-presence-edge-locations">AWS Points of Presence (Edge Locations)</h3>
+
+    <ul>
+      <li>Network locations that deliver content closer to end users.</li>
+      <li>Used by services like Amazon CloudFront and AWS Global Accelerator.</li>
+      <li>Provides low latency and improved performance for content delivery.</li>
+    </ul>
+
+    <h2 id="aws-shared-responsibility-model">AWS Shared Responsibility Model</h2>
+
+    <h3 id="what-is-the-shared-responsibility-model">What is the Shared Responsibility Model?</h3>
+
+    <ul>
+      <li>AWS and the customer share responsibility for security and compliance.</li>
+      <li>Divides security tasks based on <strong>AWS as the provider</strong> and <strong>customer as the user</strong> of cloud services.</li>
+    </ul>
+
+    <h3 id="aws-responsibilities-security-of-the-cloud">AWS Responsibilities: <strong>Security <em>of</em> the Cloud</strong></h3>
+
+    <ul>
+      <li>AWS is responsible for protecting the infrastructure that runs all services offered in the AWS Cloud.</li>
+      <li>Includes hardware, software, networking, and facilities:
+        <ul>
+          <li><strong>Physical security</strong> of data centers (e.g., access control, environmental controls).</li>
+          <li><strong>Infrastructure</strong> security, such as maintaining hypervisors, host operating systems, and network infrastructure.</li>
+          <li><strong>Global network</strong> operations, such as DDoS protection and monitoring.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3 id="customer-responsibilities-security-in-the-cloud">Customer Responsibilities: <strong>Security in the Cloud</strong></h3>
+
+    <ul>
+      <li>Customers are responsible for managing and securing what they put in the cloud.</li>
+      <li>Includes:
+        <ul>
+          <li><strong>Data protection</strong>: Encrypt data in transit and at rest.</li>
+          <li><strong>IAM</strong>: Control access through Identity and Access Management (IAM) roles, users, and policies.</li>
+          <li><strong>OS and application configurations</strong>: Maintain security of guest operating systems, applications, and firewall configurations.</li>
+          <li><strong>Network settings</strong>: Manage security group rules and network access control lists (NACLs).</li>
+          <li><strong>Compliance</strong>: Ensure compliance with regulations and standards based on data storage and usage.</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h3 id="example-responsibilities-for-different-aws-services">Example Responsibilities for Different AWS Services</h3>
+
+    <table>
+      <thead>
+        <tr>
+          <th><strong>Service Type</strong></th>
+          <th><strong>AWS Responsibility</strong></th>
+          <th><strong>Customer Responsibility</strong></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>IaaS (e.g., EC2)</strong></td>
+          <td>Securing physical infrastructure, hypervisor, and network.</td>
+          <td>Configure and secure OS, patch management, data, and network settings.</td>
+        </tr>
+        <tr>
+          <td><strong>PaaS (e.g., RDS)</strong></td>
+          <td>Managing the database engine, backups, and patching.</td>
+          <td>Secure data at rest and in transit, manage DB access, and IAM roles.</td>
+        </tr>
+        <tr>
+          <td><strong>SaaS (e.g., S3)</strong></td>
+          <td>Protecting the service’s underlying infrastructure.</td>
+          <td>Manage permissions, bucket policies, and data lifecycle rules.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 id="summary">Summary</h3>
+
+    <ul>
+      <li>AWS handles security of the cloud, while customers manage security in the cloud.</li>
+      <li>Understanding your responsibilities helps you implement appropriate security measures for your AWS environment.</li>
+    </ul>
+
+    <footer>
+              <!-- New Footer Navigation -->
+        <div class="footer-nav">
+            <nav>
+                <ul>
+                    <li><a href="NULL">Previous</a></li>
+                    <li><a href="chapter2.html">Next</a></li>
+                    <li><a href="Notes.html">Home</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="footer-content">
+            <div class="footer-info">
+                <p><strong>Jawahar Parvez</strong></p>
+                <p>Email: <a href="mailto:Jawaharparvez@gmail.com">Jawaharparvez@gmail.com</a></p>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://instagram.com/iamtheparvez" target="_blank" title="Instagram">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                <a href="https://github.com/Jawaharparvez" target="_blank" title="GitHub">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+                <a href="https://www.linkedin.com/in/jawaharparvez" target="_blank" title="LinkedIn">
+                    <i class="fab fa-linkedin"></i> LinkedIn
+                </a>
+            </div>
+    
+            <div class="copyright">
+                <p>&copy; 2025 Jawahar Parvez. All rights reserved.</p>
+            </div>
+        </div>
+    
+
+    </footer>
+    
+  </main>
+</body>
+</html>

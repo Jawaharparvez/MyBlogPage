@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Deploying and Managing Infrastructure at Scale</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="chapter.css">
+</head>
+<body>
+  <main id="content" class="main-content" role="main">
+      <h1 id="deploying-and-managing-infrastructure-at-scale">Deploying and Managing Infrastructure at Scale</h1>
+
+<ul>
+  <li><a href="#deploying-and-managing-infrastructure-at-scale">Deploying and Managing Infrastructure at Scale</a>
+    <ul>
+      <li><a href="#what-is-cloudformation">What is CloudFormation?</a>
+        <ul>
+          <li><a href="#benefits-of-aws-cloudformation">Benefits of AWS CloudFormation</a></li>
+          <li><a href="#cloudformation-stack-designer">CloudFormation Stack Designer</a></li>
+        </ul>
+      </li>
+      <li><a href="#aws-cloud-development-kit-cdk">AWS Cloud Development Kit (CDK)</a>
+        <ul>
+          <li><a href="#example-of-aws-cdk-python">Example of AWS CDK (Python)</a></li>
+        </ul>
+      </li>
+      <li><a href="#developer-problems-on-aws">Developer problems on AWS</a></li>
+      <li><a href="#typical-architecture-web-app-3-tier">Typical architecture: Web App 3-tier</a></li>
+      <li><a href="#aws-elastic-beanstalk-overview">AWS Elastic Beanstalk Overview</a>
+        <ul>
+          <li><a href="#elastic-beanstalk-vs-cloudformation">Elastic Beanstalk vs CloudFormation</a></li>
+          <li><a href="#elastic-beanstalk---health-monitoring">Elastic Beanstalk - Health Monitoring</a></li>
+        </ul>
+      </li>
+      <li><a href="#aws-codedeploy">AWS CodeDeploy</a></li>
+      <li><a href="#aws-codecommit">AWS CodeCommit</a></li>
+      <li><a href="#aws-codebuild">AWS CodeBuild</a></li>
+      <li><a href="#aws-codepipeline">AWS CodePipeline</a></li>
+      <li><a href="#aws-codeartifact">AWS CodeArtifact</a></li>
+      <li><a href="#aws-codestar">AWS CodeStar</a></li>
+      <li><a href="#aws-cloud9">AWS Cloud9</a></li>
+      <li><a href="#aws-systems-manager-ssm">AWS Systems Manager (SSM)</a>
+        <ul>
+          <li><a href="#how-systems-manager-works">How Systems Manager works</a></li>
+          <li><a href="#systems-manager---ssm-session-manager">Systems Manager - SSM Session Manager</a></li>
+        </ul>
+      </li>
+      <li><a href="#aws-opsworks">AWS OpsWorks</a>
+        <ul>
+          <li><a href="#opsworks-architecture">OpsWorks Architecture</a></li>
+        </ul>
+      </li>
+      <li><a href="#deployment---summary">Deployment - Summary</a></li>
+      <li><a href="#developer-services---summary">Developer Services - Summary</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="what-is-cloudformation">What is CloudFormation?</h2>
+
+<ul>
+  <li>CloudFormation is a declarative way of outlining your AWS Infrastructure, for any resources (most of them are supported).</li>
+  <li>For example, within a CloudFormation template, you say:
+    <ul>
+      <li>I want a security group</li>
+      <li>I want two EC2 instances using this security group</li>
+      <li>I want an S3 bucket</li>
+      <li>I want a load balancer (ELB) in front of these machines</li>
+    </ul>
+  </li>
+  <li>Then CloudFormation creates those for you, in the right order, with the exact configuration that you specify</li>
+</ul>
+
+<h3 id="benefits-of-aws-cloudformation">Benefits of AWS CloudFormation</h3>
+
+<ul>
+  <li>Infrastructure as code
+    <ul>
+      <li>No resources are manually created, which is excellent for control</li>
+      <li>Changes to the infrastructure are reviewed through code</li>
+    </ul>
+  </li>
+  <li>Cost
+    <ul>
+      <li>Each resources within the stack is tagged with an identifier so you can easily see how much a stack costs you</li>
+      <li>You can estimate the costs of your resources using the CloudFormation template</li>
+      <li>Savings strategy: In Dev, you could automation deletion of templates at 5 PM and recreated at 8 AM, safely</li>
+    </ul>
+  </li>
+  <li>Productivity
+    <ul>
+      <li>Ability to destroy and re-create an infrastructure on the cloud on the fly</li>
+      <li>Automated generation of Diagram for your templates!</li>
+      <li>Declarative programming (no need to figure out ordering and orchestration)</li>
+    </ul>
+  </li>
+  <li>Don’t re-invent the wheel
+    <ul>
+      <li>Leverage existing templates on the web!</li>
+      <li>Leverage the documentation</li>
+    </ul>
+  </li>
+  <li>Supports (almost) all AWS resources:
+    <ul>
+      <li>Everything we’ll see in this course is supported</li>
+      <li>You can use “custom resources” for resources that are not supported</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="cloudformation-stack-designer">CloudFormation Stack Designer</h3>
+
+<ul>
+  <li>Example: WordPress CloudFormation Stack</li>
+  <li>We can see all the resources</li>
+  <li>We can see the relations between the components</li>
+</ul>
+
+<h2 id="aws-cloud-development-kit-cdk">AWS Cloud Development Kit (CDK)</h2>
+
+<ul>
+  <li>Define your cloud infrastructure using a familiar language:
+    <ul>
+      <li>JavaScript/TypeScript, Python, Java, and .NET</li>
+    </ul>
+  </li>
+  <li>The code is “compiled” into a CloudFormation template (JSON/YAML)</li>
+  <li>You can therefore deploy infrastructure and application runtime code together
+    <ul>
+      <li>Great for Lambda functions</li>
+      <li>Great for Docker containers in ECS / EKS</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="example-of-aws-cdk-python">Example of AWS CDK (Python)</h3>
+
+<p>To use AWS CDK, you need to install the CDK CLI and initialize a new CDK project. Once you have set up your project, you can start defining your cloud infrastructure using the programming language of your choice. Then, you can deploy the infrastructure to your AWS account using the CDK CLI.</p>
+
+<p>In below example, we define an AWS CDK stack that creates an S3 bucket with versioning enabled. To run this code, you’ll need to have the AWS CDK for Python (<code class="language-plaintext highlighter-rouge">aws-cdk-lib</code>) installed in your Python environment. You can install it using pip:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pip</span> <span class="n">install</span> <span class="n">aws</span><span class="o">-</span><span class="n">cdk</span><span class="o">-</span><span class="n">lib</span>
+</code></pre></div></div>
+
+<p>Once you have the dependencies installed, you can execute this Python script, and it will create the S3 bucket in your AWS account based on the code defined in the <code class="language-plaintext highlighter-rouge">MyS3BucketStack</code> class.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">aws_cdk</span> <span class="kn">import</span> <span class="n">core</span>
+<span class="kn">from</span> <span class="nn">aws_cdk</span> <span class="kn">import</span> <span class="n">aws_s3</span> <span class="k">as</span> <span class="n">s3</span>
+
+<span class="k">class</span> <span class="nc">MyS3BucketStack</span><span class="p">(</span><span class="n">core</span><span class="p">.</span><span class="n">Stack</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope</span><span class="p">:</span> <span class="n">core</span><span class="p">.</span><span class="n">Construct</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">().</span><span class="n">__init__</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="nb">id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Define an S3 bucket
+</span>        <span class="n">s3</span><span class="p">.</span><span class="n">Bucket</span><span class="p">(</span>
+            <span class="bp">self</span><span class="p">,</span>
+            <span class="s">'MyS3Bucket'</span><span class="p">,</span>
+            <span class="n">versioned</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+            <span class="n">removal_policy</span><span class="o">=</span><span class="n">core</span><span class="p">.</span><span class="n">RemovalPolicy</span><span class="p">.</span><span class="n">DESTROY</span>
+        <span class="p">)</span>
+
+<span class="c1"># App entry point
+</span><span class="n">app</span> <span class="o">=</span> <span class="n">core</span><span class="p">.</span><span class="n">App</span><span class="p">()</span>
+<span class="n">MyS3BucketStack</span><span class="p">(</span><span class="n">app</span><span class="p">,</span> <span class="s">'MyS3BucketStack'</span><span class="p">)</span>
+<span class="n">app</span><span class="p">.</span><span class="n">synth</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="developer-problems-on-aws">Developer problems on AWS</h2>
+
+<ul>
+  <li>Managing infrastructure</li>
+  <li>Deploying Code</li>
+  <li>Configuring all the databases, load balancers, etc</li>
+  <li>Scaling concerns</li>
+  <li>Most web apps have the same architecture (ALB + ASG)</li>
+  <li>All the developers want is for their code to run!</li>
+  <li>Possibly, consistently across different applications and environments</li>
+</ul>
+
+<h2 id="typical-architecture-web-app-3-tier">Typical architecture: Web App 3-tier</h2>
+
+<p><img src="/images/web_architecture.png" alt="Web App 3-tier"></p>
+
+<h2 id="aws-elastic-beanstalk-overview">AWS Elastic Beanstalk Overview</h2>
+
+<ul>
+  <li>Elastic Beanstalk is a developer centric view of deploying an application on AWS</li>
+  <li>It uses all the component’s we’ve seen before: EC2, ASG, ELB, RDS, etc…</li>
+  <li>But it’s all in one view that’s easy to make sense of!</li>
+  <li>We still have full control over the configuration</li>
+  <li>Beanstalk = Platform as a Service (PaaS)</li>
+  <li>Beanstalk is free but you pay for the underlying instances</li>
+  <li>Managed service
+    <ul>
+      <li>Instance configuration / OS is handled by Beanstalk</li>
+      <li>Deployment strategy is configurable but performed by Elastic Beanstalk</li>
+      <li>Capacity provisioning</li>
+      <li>Load balancing &amp; auto-scaling</li>
+    </ul>
+  </li>
+  <li>Application health-monitoring &amp; responsiveness</li>
+  <li>Just the application code is the responsibility of the developer</li>
+  <li>Three architecture models:
+    <ul>
+      <li>Single Instance deployment: good for dev</li>
+      <li>LB + ASG: great for production or pre-production web applications</li>
+      <li>ASG only: great for non-web apps in production (workers, etc..)</li>
+    </ul>
+  </li>
+  <li>Support for many platforms:
+    <ul>
+      <li>Go</li>
+      <li>Java SE</li>
+      <li>Java with Tomcat</li>
+      <li>.NET on Windows Server with IIS</li>
+      <li>Node.js</li>
+      <li>PHP</li>
+      <li>Python</li>
+      <li>Ruby</li>
+      <li>Packer Builder</li>
+      <li>Single Container Docker</li>
+      <li>Multi-Container Docker</li>
+      <li>Preconfigured Docker</li>
+    </ul>
+  </li>
+  <li>If not supported, you can write your custom platform.</li>
+</ul>
+
+<h3 id="elastic-beanstalk-vs-cloudformation">Elastic Beanstalk vs CloudFormation</h3>
+
+<p>AWS Elastic Beanstalk uses AWS CloudFormation underneath for managing the infrastructure and resources required to run your application. Then, what’s the difference between them?</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameters</th>
+      <th>AWS CloudFormation</th>
+      <th>AWS Elastic Beanstalk</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Purpose</td>
+      <td>Infrastructure as Code</td>
+      <td>Platform as a Service</td>
+    </tr>
+    <tr>
+      <td>Deployment</td>
+      <td>Define and manage AWS infrastructure</td>
+      <td>Simplified application deployment and scaling</td>
+    </tr>
+    <tr>
+      <td>Control</td>
+      <td>High control and flexibility over underlying resources</td>
+      <td>Simplified management of underlying resources</td>
+    </tr>
+    <tr>
+      <td>Management</td>
+      <td>Manages entire stack of resources</td>
+      <td>Abstracts infrastructure management</td>
+    </tr>
+    <tr>
+      <td>Granularity</td>
+      <td>Fine-grained control over individual</td>
+      <td>Limited configuration of underlying resources</td>
+    </tr>
+    <tr>
+      <td>Configuration</td>
+      <td>Uses JSON or YAML templates</td>
+      <td>Prescriptive configuration and environment setup</td>
+    </tr>
+    <tr>
+      <td>Use Cases</td>
+      <td>Complex architectures and multi-service</td>
+      <td>Web application deployment and scaling</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="elastic-beanstalk---health-monitoring">Elastic Beanstalk - Health Monitoring</h3>
+
+<ul>
+  <li>Health agent pushes metrics to CloudWatch</li>
+  <li>Checks for app health, publishes health events</li>
+</ul>
+
+<h2 id="aws-codedeploy">AWS CodeDeploy</h2>
+
+<ul>
+  <li>We want to deploy our application automatically</li>
+  <li>Works with EC2 Instances</li>
+  <li>Works with On-Premises Servers</li>
+  <li>Hybrid service</li>
+  <li>Servers / Instances must be provisioned and configured ahead of time with the CodeDeploy Agent</li>
+</ul>
+
+<h2 id="aws-codecommit">AWS CodeCommit</h2>
+
+<ul>
+  <li>Before pushing the application code to servers, it needs to be stored somewhere</li>
+  <li>Developers usually store code in a repository, using the Git technology</li>
+  <li>A famous public offering is GitHub, AWS’ competing product is CodeCommit</li>
+  <li>CodeCommit:
+    <ul>
+      <li>Source-control service that hosts Git-based repositories</li>
+      <li>Makes it easy to collaborate with others on code</li>
+      <li>The code changes are automatically versioned</li>
+    </ul>
+  </li>
+  <li>Benefits:
+    <ul>
+      <li>Fully managed</li>
+      <li>Scalable &amp; highly available</li>
+      <li>Private, Secured, Integrated with AWS</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="aws-codebuild">AWS CodeBuild</h2>
+
+<ul>
+  <li>Code building service in the cloud (name is obvious)</li>
+  <li>Compiles source code, run tests, and produces packages that are ready to be deployed (by CodeDeploy for example)</li>
+  <li>Benefits:
+    <ul>
+      <li>Fully managed, serverless</li>
+      <li>Continuously scalable &amp; highly available</li>
+      <li>Secure</li>
+      <li>Pay-as-you-go pricing – only pay for the build time</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="aws-codepipeline">AWS CodePipeline</h2>
+
+<ul>
+  <li>Orchestrate the different steps to have the code automatically pushed to production</li>
+  <li>Code =&gt; Build =&gt; Test =&gt; Provision =&gt; Deploy</li>
+  <li>Basis for CICD (Continuous Integration &amp; Continuous Delivery)</li>
+  <li>Benefits:
+    <ul>
+      <li>Fully managed, compatible with CodeCommit, CodeBuild, CodeDeploy, Elastic Beanstalk, CloudFormation, GitHub, 3rd-party services (GitHub…) &amp; custom plugins…</li>
+      <li>Fast delivery &amp; rapid updates</li>
+    </ul>
+  </li>
+  <li>CodePipeline: orchestration layer
+    <ul>
+      <li>CodeCommit =&gt; CodeBuild =&gt; CodeDeploy =&gt; Elastic Beanstalk</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="aws-codeartifact">AWS CodeArtifact</h2>
+
+<ul>
+  <li>Software packages depend on each other to be built (also called code dependencies), and new ones are created</li>
+  <li>Storing and retrieving these dependencies is called artifact management</li>
+  <li>Traditionally you need to setup your own artifact management system</li>
+  <li>CodeArtifact is a secure, scalable, and cost-effective artifact management for software development</li>
+  <li>Works with common dependency management tools such as Maven, Gradle, npm, yarn, twine, pip, and NuGet</li>
+  <li>Developers and CodeBuild can then retrieve dependencies straight from CodeArtifact</li>
+</ul>
+
+<h2 id="aws-codestar">AWS CodeStar</h2>
+
+<ul>
+  <li>Unified UI to easily manage software development activities in one place</li>
+  <li>“Quick way” to get started to correctly set-up CodeCommit, CodePipeline, CodeBuild, CodeDeploy, Elastic Beanstalk, EC2, etc…</li>
+  <li>Can edit the code ”in-the-cloud” using AWS Cloud9</li>
+</ul>
+
+<h2 id="aws-cloud9">AWS Cloud9</h2>
+
+<ul>
+  <li>AWS Cloud9 is a cloud IDE (Integrated Development Environment) for writing, running and debugging code</li>
+  <li>“Classic” IDE (like IntelliJ, Visual Studio Code…) are downloaded on a computer before being used</li>
+  <li>A cloud IDE can be used within a web browser, meaning you can work on your projects from your office, home, or anywhere with internet with no setup necessary</li>
+  <li>AWS Cloud9 also allows for code collaboration in real-time (pair programming)</li>
+</ul>
+
+<h2 id="aws-systems-manager-ssm">AWS Systems Manager (SSM)</h2>
+
+<ul>
+  <li>Helps you manage your EC2 and On-Premises systems at scale</li>
+  <li>Another Hybrid AWS service</li>
+  <li>Get operational insights about the state of your infrastructure</li>
+  <li>Suite of 10+ products</li>
+  <li>Most important features are:
+    <ul>
+      <li>Patching automation for enhanced compliance</li>
+      <li>Run commands across an entire fleet of servers</li>
+      <li>Store parameter configuration with the SSM Parameter Store</li>
+    </ul>
+  </li>
+  <li>Works for both Windows and Linux OS</li>
+</ul>
+
+<h3 id="how-systems-manager-works">How Systems Manager works</h3>
+
+<ul>
+  <li>We need to install the SSM agent onto the systems we control</li>
+  <li>Installed by default on Amazon Linux AMI &amp; some Ubuntu AMI</li>
+  <li>If an instance can’t be controlled with SSM, it’s probably an issue with the SSM agent!</li>
+  <li>Thanks to the SSM agent, we can run commands, patch &amp; configure our servers</li>
+</ul>
+
+<h3 id="systems-manager---ssm-session-manager">Systems Manager - SSM Session Manager</h3>
+
+<ul>
+  <li>Allows you to start a secure shell on your EC2 and on-premises servers</li>
+  <li>No SSH access, bastion hosts, or SSH keys needed</li>
+  <li>No port 22 needed (better security)</li>
+  <li>Supports Linux, macOS, and Windows</li>
+  <li>Send session log data to S3 or CloudWatch Logs</li>
+</ul>
+
+<h2 id="aws-opsworks">AWS OpsWorks</h2>
+
+<ul>
+  <li>Chef &amp; Puppet help you perform server configuration automatically, or repetitive actions</li>
+  <li>They work great with EC2 &amp; On-Premises VM</li>
+  <li>AWS OpsWorks = Managed Chef &amp; Puppet</li>
+  <li>It’s an alternative to AWS SSM</li>
+  <li>Only provision standard AWS resources:
+    <ul>
+      <li>EC2 Instances, Databases, Load Balancers, EBS volumes…</li>
+    </ul>
+  </li>
+  <li><strong>Chef or Puppet needed =&gt; AWS OpsWorks</strong></li>
+</ul>
+
+<h3 id="opsworks-architecture">OpsWorks Architecture</h3>
+
+<p><img src="/images/OpsWorks_Architecture.png" alt="OpsWorks Architecture"></p>
+
+<h2 id="deployment---summary">Deployment - Summary</h2>
+
+<ul>
+  <li>CloudFormation: (AWS only)
+    <ul>
+      <li>Infrastructure as Code, works with almost all of AWS resources</li>
+      <li>Repeat across Regions &amp; Accounts</li>
+    </ul>
+  </li>
+  <li>Beanstalk: (AWS only)
+    <ul>
+      <li>Platform as a Service (PaaS), limited to certain programming languages or Docker</li>
+      <li>Deploy code consistently with a known architecture: ex, ALB + EC2 + RDS</li>
+    </ul>
+  </li>
+  <li>CodeDeploy (hybrid): deploy &amp; upgrade any application onto servers</li>
+  <li>Systems Manager (hybrid): patch, configure and run commands at scale</li>
+  <li>OpsWorks (hybrid): managed Chef and Puppet in AWS</li>
+</ul>
+
+<h2 id="developer-services---summary">Developer Services - Summary</h2>
+
+<ul>
+  <li>CodeCommit: Store code in private git repository (version controlled)</li>
+  <li>CodeBuild: Build &amp; test code in AWS</li>
+  <li>CodeDeploy: Deploy code onto servers</li>
+  <li>CodePipeline: Orchestration of pipeline (from code to build to deploy)</li>
+  <li>CodeArtifact: Store software packages / dependencies on AWS</li>
+  <li>CodeStar: Unified view for allowing developers to do CICD and code</li>
+  <li>Cloud9: Cloud IDE (Integrated Development Environment) with collab</li>
+  <li>AWS CDK: Define your cloud infrastructure using a programming language</li>
+</ul>
+
+
+<footer>
+  <!-- New Footer Navigation -->
+<div class="footer-nav">
+<nav>
+    <ul>
+        <li><a href="chapter8.html">Previous</a></li>
+        <li><a href="chapter10.html">Next</a></li>
+        <li><a href="Notes.html">Home</a></li>
+    </ul>
+</nav>
+</div>
+<div class="footer-content">
+<div class="footer-info">
+    <p><strong>Jawahar Parvez</strong></p>
+    <p>Email: <a href="mailto:Jawaharparvez@gmail.com">Jawaharparvez@gmail.com</a></p>
+</div>
+
+<div class="social-links">
+    <a href="https://instagram.com/iamtheparvez" target="_blank" title="Instagram">
+        <i class="fab fa-instagram"></i> Instagram
+    </a>
+    <a href="https://github.com/Jawaharparvez" target="_blank" title="GitHub">
+        <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/jawaharparvez" target="_blank" title="LinkedIn">
+        <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+</div>
+
+<div class="copyright">
+    <p>&copy; 2025 Jawahar Parvez. All rights reserved.</p>
+</div>
+</div>
+
+
+</footer>
+
+</main>
+</body>
+</html>

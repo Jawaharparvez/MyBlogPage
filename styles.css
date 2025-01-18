@@ -1,0 +1,330 @@
+/* General Reset */
+body, h1, p, li, button {
+  margin: 0;
+  text-align: justify;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+h2 {
+  text-align: left;
+}
+
+/* Body Styles */
+body {
+  font-family: 'Baskerville', 'Georgia', serif;
+  background-color: #ffffff;
+  color: #000000;
+  line-height: 1.6;
+}
+
+/* Hamburger Menu Styles */
+.hamburger-menu {
+  position: absolute;
+  top: 50px;
+  right: 40px;
+  z-index: 1000; 
+}
+
+#menu__toggle {
+  display: none;
+}
+
+.menu__btn {
+  display: flex;
+  text-align: center;
+  justify-content:center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+
+.menu__btn span,
+.menu__btn span::before,
+.menu__btn span::after {
+  display: block;
+  background-color: #333;
+  height: 4px;
+  width: 30px;
+  border-radius: 2px;
+  position: absolute;
+  transition: 0.5s;
+}
+
+.menu__btn span::before {
+  content: "";
+  top: -8px;
+}
+
+.menu__btn span::after {
+  content: "";
+  top: 8px;
+}
+
+#menu__toggle:checked + .menu__btn span {
+  transform: rotate(45deg);
+}
+
+#menu__toggle:checked + .menu__btn span::before {
+  top: 0;
+  transform: rotate(0);
+}
+
+#menu__toggle:checked + .menu__btn span::after {
+  top: 0;
+  transform: rotate(90deg);
+}
+
+.menu__box {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  position: absolute;
+  top: 40px;
+  right: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  list-style: none;
+  padding: 10px 0;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: visibility 0s, opacity 0.5s, transform 0.5s;
+}
+
+#menu__toggle:checked ~ .menu__box {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.menu__item {
+  padding: 10px 20px;
+  color: #333;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+  text-align: center;
+}
+
+.menu__item:hover {
+  background-color: #eee;
+}
+
+/* Container Styles */
+.container {
+  max-width: 75%;
+  margin: 100px auto 0;
+  padding: 10px;
+}
+
+/* Page Title Styles */
+.page-title {
+  text-align: left;
+  font-size: 2em;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+/* Subtitle Styles */
+.subtitle {
+  text-align: left;
+  font-size: 1em;
+  color: gray;
+  margin-bottom: 20px;
+}
+
+/* Blog Post Styles */
+.blog-post {
+  text-align: justify;
+  background-color: #f8f8f8;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.blog-post:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.post-title {
+  margin-top: 0px;
+  font-size: 1.8em;
+  margin-bottom: 3px;
+  font-weight: 300;
+}
+
+.post-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post-summary {
+  font-size: 0.9em;
+  color: #555;
+  flex: 1;
+  margin-right: 10px;
+}
+
+.post-image {
+  width: 120px;
+  height: 120px;
+  margin-left: 10px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.read-more-btn {
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color: #000000;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.read-more-btn:hover {
+  background-color: #56585b;
+}
+
+
+/* Add styles for the "Read Full Article" button */
+.read-full-btn {
+  padding: 10px 20px;
+  background-color: #0056b3;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-right: 10px;
+  
+}
+
+.read-full-btn:hover {
+  background-color: #004099;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+
+
+/* Modal Styles */
+.blog-modal {
+  
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80%;
+  overflow-y: auto;
+  transform: scale(0);
+  transition: transform 0.3s ease-out;
+}
+
+.blog-modal h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.blog-modal button {
+  padding: 10px 20px;
+  background-color: #290503;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.blog-modal button:hover {
+  background-color: #50100a;
+}
+
+.blog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+
+
+/* Footer Styles */
+footer {
+  background-color: #000000;
+  color: #fff;
+  font-family: 'IBM Plex Sans', sans-serif;
+  padding: 20px 0;
+  text-align: left;
+  margin-top: 40px;
+  font-size: 0.9rem;
+}
+
+footer .footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+footer .footer-info {
+  margin-bottom: 15px;
+}
+
+footer .footer-info p {
+  margin: 5px 0;
+}
+
+footer .footer-info a {
+  text-decoration: none;
+  color: #f1f1f1;
+  font-weight: lighter;
+  transition: color 0.3s;
+}
+
+footer .footer-info a:hover {
+  color: #0073e6; /* Blue hover color */
+}
+
+footer .social-links {
+  margin-top: 15px;
+}
+
+footer .social-links a {
+  margin: 0 10px;
+  font-size: 1.3rem;
+  color: #f1f1f1;
+  transition: color 0.3s;
+}
+
+footer .social-links a:hover {
+  color: #0073e6; /* Blue hover color */
+}
+
+footer .copyright {
+  margin-top: 20px;
+  font-size: 0.8rem;
+  color: #ccc;
+}

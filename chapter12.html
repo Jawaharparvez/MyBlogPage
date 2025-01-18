@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Cloud Monitoring</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="chapter.css">
+</head>
+<body>
+  <main id="content" class="main-content" role="main">
+      <h1 id="cloud-monitoring">Cloud Monitoring</h1>
+
+<ul>
+  <li><a href="#cloud-monitoring">Cloud Monitoring</a>
+    <ul>
+      <li><a href="#amazon-cloudwatch">Amazon CloudWatch</a>
+        <ul>
+          <li><a href="#important-metrics">Important Metrics</a></li>
+          <li><a href="#amazon-cloudwatch-alarms">Amazon CloudWatch Alarms</a></li>
+          <li><a href="#amazon-cloudwatch-logs">Amazon CloudWatch Logs</a>
+            <ul>
+              <li><a href="#cloudwatch-logs-for-ec2">CloudWatch Logs for EC2</a></li>
+            </ul>
+          </li>
+          <li><a href="#amazon-cloudwatch-events">Amazon CloudWatch Events</a></li>
+          <li><a href="#amazon-eventbridge">Amazon EventBridge</a></li>
+        </ul>
+      </li>
+      <li><a href="#aws-cloudtrail">AWS CloudTrail</a>
+        <ul>
+          <li><a href="#cloudtrail-events">CloudTrail Events</a></li>
+          <li><a href="#cloudtrail-insights-events">CloudTrail Insights Events</a></li>
+          <li><a href="#cloudtrail-events-retention">CloudTrail Events Retention</a></li>
+        </ul>
+      </li>
+      <li><a href="#aws-x-ray">AWS X-Ray</a>
+        <ul>
+          <li><a href="#aws-x-ray-advantages">AWS X-Ray advantages</a></li>
+        </ul>
+      </li>
+      <li><a href="#amazon-codeguru">Amazon CodeGuru</a>
+        <ul>
+          <li><a href="#amazon-codeguru-reviewer">Amazon CodeGuru Reviewer</a></li>
+          <li><a href="#amazon-codeguru-profiler">Amazon CodeGuru Profiler</a></li>
+        </ul>
+      </li>
+      <li><a href="#aws-status---service-health-dashboard">AWS Status - Service Health Dashboard</a></li>
+      <li><a href="#aws-personal-health-dashboard">AWS Personal Health Dashboard</a></li>
+      <li><a href="#cloud-monitoring-summary">Cloud Monitoring Summary</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="amazon-cloudwatch">Amazon CloudWatch</h2>
+
+<ul>
+  <li>A monitoring and observability service for AWS resources and applications.</li>
+  <li>Enables real-time monitoring of AWS resources, applications, and custom metrics.</li>
+  <li>Metric is a variable to monitor (CPUUtilization, NetworkIn, etc..)</li>
+  <li>Can create CloudWatch dashboards of metrics</li>
+</ul>
+
+<p><strong>Key Features:</strong></p>
+
+<ul>
+  <li>Collect and track metrics.</li>
+  <li>Set alarms and take automated actions.</li>
+  <li>Store and access logs for troubleshooting.</li>
+</ul>
+
+<h3 id="important-metrics">Important Metrics</h3>
+
+<ul>
+  <li><strong>EC2 Instances:</strong> CPU utilization, disk I/O, network I/O.
+    <ul>
+      <li>Default metrics every 5 minutes</li>
+      <li>Option for Detailed Monitoring ($$$): metrics every 1 minute</li>
+    </ul>
+  </li>
+  <li><strong>EBS volumes</strong>: Disk Read/Writes</li>
+  <li><strong>RDS Databases:</strong> CPU utilization, free storage space, read/write IOPS.</li>
+  <li><strong>S3 Buckets:</strong> Number of requests, latency, and errors., AllRequests</li>
+  <li><strong>Lambda Functions:</strong> Invocation count, error count, duration.</li>
+  <li><strong>Billing</strong>:Total Estimated Charge (only in us-east-1)</li>
+  <li><strong>Service Limits</strong>: how much you’ve been using a service API</li>
+  <li><strong>Custom metrics</strong>: push your own metrics</li>
+</ul>
+
+<h3 id="amazon-cloudwatch-alarms">Amazon CloudWatch Alarms</h3>
+
+<ul>
+  <li>Trigger notifications or automated actions when a metric exceeds a threshold.</li>
+  <li>Examples:
+    <ul>
+      <li>Send an alert if EC2 CPU utilization exceeds 80%.</li>
+      <li>Scale out EC2 instances based on demand.</li>
+      <li>EC2 Actions: stop, terminate, reboot or recover an EC2 instance</li>
+      <li>SNS notifications: send a notification into an SNS topic</li>
+    </ul>
+  </li>
+  <li>Various options (sampling, %, max, min, etc…)</li>
+  <li>Example: create a billing alarm on the CloudWatch Billing metric</li>
+  <li>Alarm States: OK. INSUFFICIENT_DATA, ALARM</li>
+</ul>
+
+<h3 id="amazon-cloudwatch-logs">Amazon CloudWatch Logs</h3>
+
+<ul>
+  <li>Centralized logging for AWS services and applications.</li>
+  <li>CloudWatch Logs can collect log from:
+    <ul>
+      <li>Elastic Beanstalk: collection of logs from application</li>
+      <li>ECS: collection from containers</li>
+      <li>AWS Lambda: collection from function logs</li>
+      <li>CloudTrail based on filter</li>
+      <li>CloudWatch log agents: on EC2 machines or on-premises servers</li>
+      <li>Route53: Log DNS queries</li>
+    </ul>
+  </li>
+  <li>Enables real-time monitoring of logs</li>
+  <li>Adjustable CloudWatch Logs retention</li>
+</ul>
+
+<h4 id="cloudwatch-logs-for-ec2">CloudWatch Logs for EC2</h4>
+
+<ul>
+  <li>By default, no logs from your EC2 instance will go to CloudWatch</li>
+  <li>You need to run a CloudWatch agent on EC2 to push the log files you want</li>
+  <li>Make sure IAM permissions are correct</li>
+  <li>The CloudWatch log agent can be setup on-premises too</li>
+</ul>
+
+<h3 id="amazon-cloudwatch-events">Amazon CloudWatch Events</h3>
+
+<ul>
+  <li>Delivers a stream of system events describing changes in AWS resources.</li>
+  <li>Example: Trigger a Lambda function when an EC2 instance state changes.</li>
+  <li>Schedule: Cron jobs (scheduled scripts)
+    <ul>
+      <li>Schedule Every hour =&gt; Trigger script on Lambda function</li>
+    </ul>
+  </li>
+  <li>Event Pattern: Event rules to react to a service doing something
+    <ul>
+      <li>IAM Root User Sign in Event =&gt; SNS Topic with Email Notification</li>
+    </ul>
+  </li>
+  <li>Trigger Lambda functions, send SQS/SNS messages</li>
+</ul>
+
+<h3 id="amazon-eventbridge">Amazon EventBridge</h3>
+
+<ul>
+  <li>EventBridge is the next evolution of CloudWatch Events</li>
+  <li>Default event bus: generated by AWS services (CloudWatch Events)</li>
+  <li>Partner event bus: receive events from SaaS service or applications (Zendesk, DataDog, Segment, Auth0…)</li>
+  <li>Custom Event buses: for your own applications</li>
+  <li>Schema Registry: model event schema</li>
+  <li>EventBridge has a different name to mark the new capabilities</li>
+  <li>The CloudWatch Events name will be replaced with EventBridge</li>
+</ul>
+
+<h2 id="aws-cloudtrail">AWS CloudTrail</h2>
+
+<ul>
+  <li>Tracks and logs API calls made in your AWS account for auditing and governance.</li>
+  <li>Useful for security analysis, compliance, and operational troubleshooting.</li>
+  <li>CloudTrail is enabled by default!</li>
+  <li>Get an history of events / API calls made within your AWS Account by:
+    <ul>
+      <li>Console</li>
+      <li>SDK</li>
+      <li>CLI</li>
+      <li>AWS Services</li>
+    </ul>
+  </li>
+  <li>Can put logs from CloudTrail into CloudWatch Logs or S3</li>
+  <li>A trail can be applied to All Regions (default) or a single Region.</li>
+  <li>If a resource is deleted in AWS, investigate CloudTrail first!</li>
+</ul>
+
+<p><strong>Key Features:</strong></p>
+
+<ul>
+  <li>Logs API calls across AWS services, including CLI, SDK, and Management Console.</li>
+  <li>Tracks who made the call, when, and from where.</li>
+</ul>
+
+<h3 id="cloudtrail-events">CloudTrail Events</h3>
+
+<ul>
+  <li>Management Events:
+    <ul>
+      <li>Operations that are performed on resources in your AWS account</li>
+      <li>Examples:
+        <ul>
+          <li>Configuring security (IAM AttachRolePolicy)</li>
+          <li>Configuring rules for routing data (Amazon EC2 CreateSubnet)</li>
+          <li>Setting up logging (AWS CloudTrail CreateTrail)</li>
+        </ul>
+      </li>
+      <li>By default, trails are configured to log management events.</li>
+      <li>Can separate Read Events (that don’t modify resources) from Write Events (that may modify resources)</li>
+    </ul>
+  </li>
+  <li>Data Events:
+    <ul>
+      <li>By default, data events are not logged (because high volume operations)</li>
+      <li>Amazon S3 object-level activity (ex: GetObject, DeleteObject, PutObject): can separate Read and Write Events</li>
+      <li>AWS Lambda function execution activity (the Invoke API)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="cloudtrail-insights-events">CloudTrail Insights Events</h3>
+
+<ul>
+  <li>Enable CloudTrail Insights to detect unusual activity in your account:
+    <ul>
+      <li>inaccurate resource provisioning</li>
+      <li>hitting service limits</li>
+      <li>Bursts of AWS IAM actions</li>
+      <li>Gaps in periodic maintenance activity</li>
+    </ul>
+  </li>
+  <li>CloudTrail Insights analyzes normal management events to create a baseline</li>
+  <li>And then continuously analyzes write events to detect unusual patterns
+    <ul>
+      <li>Anomalies appear in the CloudTrail console</li>
+      <li>Event is sent to Amazon S3</li>
+      <li>An EventBridge event is generated (for automation needs)</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="cloudtrail-events-retention">CloudTrail Events Retention</h3>
+
+<ul>
+  <li>Events are stored for 90 days in CloudTrail</li>
+  <li>To keep events beyond this period, log them to S3 and use Athena</li>
+</ul>
+
+<h2 id="aws-x-ray">AWS X-Ray</h2>
+
+<ul>
+  <li>Helps analyze and debug distributed applications by providing request tracing.
+    <ul>
+      <li>Test locally</li>
+      <li>Add log statements everywhere</li>
+      <li>Re-deploy in production</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Key Features:</strong></p>
+
+<ul>
+  <li>Trace requests across AWS services and custom applications.</li>
+  <li>Identify performance bottlenecks and errors.</li>
+  <li>Visualize service maps to understand dependencies.</li>
+</ul>
+
+<h3 id="aws-x-ray-advantages">AWS X-Ray advantages</h3>
+
+<ul>
+  <li>Troubleshooting performance (bottlenecks)</li>
+  <li>Understand dependencies in a microservice architecture</li>
+  <li>Pinpoint service issues</li>
+  <li>Review request behavior</li>
+  <li>Find errors and exceptions</li>
+  <li>Are we meeting time SLA?</li>
+  <li>Where I am throttled?</li>
+  <li>Identify users that are impacted</li>
+</ul>
+
+<h2 id="amazon-codeguru">Amazon CodeGuru</h2>
+
+<ul>
+  <li>Code review and performance profiling service.</li>
+  <li>Provides suggestions to improve the performance of applications.</li>
+  <li>Identifies the most costly lines of applications.</li>
+  <li>It is based on machine learning models long used at Amazon.</li>
+  <li>Identifies code errors and risks with automatic code reviews.</li>
+  <li>CodeGuru Reviewer: automated code reviews for static code analysis (development)</li>
+  <li>CodeGuru Profiler: visibility/recommendations about application performance during runtime (production)</li>
+</ul>
+
+<h3 id="amazon-codeguru-reviewer">Amazon CodeGuru Reviewer</h3>
+
+<ul>
+  <li>Uses machine learning to identify:
+    <ul>
+      <li>Security vulnerabilities.</li>
+      <li>Code inefficiencies.</li>
+      <li>Best practices violations.</li>
+    </ul>
+  </li>
+  <li>Provides recommendations to improve code quality.</li>
+  <li>Supports Java and Python</li>
+  <li>Integrates with GitHub, Bitbucket, and AWS CodeCommit</li>
+</ul>
+
+<h3 id="amazon-codeguru-profiler">Amazon CodeGuru Profiler</h3>
+
+<ul>
+  <li>Helps understand the runtime behavior of your application</li>
+  <li>Example: identify if your application is consuming excessive CPU capacity on a logging routine</li>
+  <li>Features:
+    <ul>
+      <li>Identify and remove code inefficiencies</li>
+      <li>Improve application performance (e.g., reduce CPU utilization)</li>
+      <li>Decrease compute costs</li>
+      <li>Provides heap summary (identify which objects using up memory)</li>
+      <li>Anomaly Detection</li>
+    </ul>
+  </li>
+  <li>Support applications running on AWS or on- premise</li>
+  <li>Minimal overhead on application</li>
+</ul>
+
+<h2 id="aws-status---service-health-dashboard">AWS Status - Service Health Dashboard</h2>
+
+<ul>
+  <li>Service Health Dashboard is the single place to learn about the availability and operations of AWS services.</li>
+  <li>You can view the overall status of AWS services, and you can sign in to view personalized communications about your particular AWS account or organization.</li>
+  <li>Shows all regions, all services health</li>
+  <li>Shows historical information for each day</li>
+  <li>Has an RSS feed you can subscribe to</li>
+  <li><a href="https://status.aws.amazon.com/">https://status.aws.amazon.com/</a></li>
+</ul>
+
+<h2 id="aws-personal-health-dashboard">AWS Personal Health Dashboard</h2>
+
+<ul>
+  <li>AWS Personal Health Dashboard provides alerts and remediation guidance when AWS is experiencing events that may impact you.</li>
+  <li>While the Service Health Dashboard displays the general status of AWS services, Personal Health Dashboard gives you a personalized view into the performance and availability of the AWS services underlying your AWS resources.</li>
+  <li>The dashboard displays relevant and timely information to help you manage events in progress and provides proactive notification to help you plan for scheduled activities.</li>
+  <li>Global service <a href="https://phd.aws.amazon.com/">https://phd.aws.amazon.com/</a></li>
+  <li>Shows how AWS outages directly impact you &amp; your AWS resources</li>
+  <li>Alert, remediation, proactive, scheduled activities</li>
+</ul>
+
+<h2 id="cloud-monitoring-summary">Cloud Monitoring Summary</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Service</strong></th>
+      <th><strong>Key Features</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Amazon CloudWatch</td>
+      <td>Metrics, Alarms, Logs, Events, EventBridge.</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>- Metrics: monitor the performance of AWS services and billing metrics</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>- Alarms: automate notification, perform EC2 action, notify to SNS based on metric</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>- Logs: collect log files from EC2 instances, servers, Lambda functions…</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td>- Events (or EventBridge): react to events in AWS, or trigger a rule on a schedule</td>
+    </tr>
+    <tr>
+      <td>AWS CloudTrail</td>
+      <td>Tracks API calls, detects unusual activity.</td>
+    </tr>
+    <tr>
+      <td>CloudTrail Insights</td>
+      <td>automated analysis of your CloudTrail Events</td>
+    </tr>
+    <tr>
+      <td>AWS X-Ray</td>
+      <td>Trace requests made through your distributed applications</td>
+    </tr>
+    <tr>
+      <td>Amazon CodeGuru</td>
+      <td>automated code reviews and application performance recommendations</td>
+    </tr>
+    <tr>
+      <td>Service Health Dashboard</td>
+      <td>status of all AWS services across all regions</td>
+    </tr>
+    <tr>
+      <td>Personal Health Dashboard</td>
+      <td>AWS events that impact your infrastructure</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<footer>
+  <!-- New Footer Navigation -->
+<div class="footer-nav">
+<nav>
+    <ul>
+        <li><a href="chapter11.html">Previous</a></li>
+        <li><a href="chapter13.html">Next</a></li>
+        <li><a href="Notes.html">Home</a></li>
+    </ul>
+</nav>
+</div>
+<div class="footer-content">
+<div class="footer-info">
+    <p><strong>Jawahar Parvez</strong></p>
+    <p>Email: <a href="mailto:Jawaharparvez@gmail.com">Jawaharparvez@gmail.com</a></p>
+</div>
+
+<div class="social-links">
+    <a href="https://instagram.com/iamtheparvez" target="_blank" title="Instagram">
+        <i class="fab fa-instagram"></i> Instagram
+    </a>
+    <a href="https://github.com/Jawaharparvez" target="_blank" title="GitHub">
+        <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/jawaharparvez" target="_blank" title="LinkedIn">
+        <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+</div>
+
+<div class="copyright">
+    <p>&copy; 2025 Jawahar Parvez. All rights reserved.</p>
+</div>
+</div>
+
+
+</footer>
+
+</main>
+</body>
+</html>

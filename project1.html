@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Host a Website on AWS</title>
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            font-family: 'IBM Plex Sans', serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #444;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3em;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        section {
+            margin: 20px 0;
+        }
+
+        h2 {
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+            color: #000000;
+        }
+
+        a {
+            color: #000000;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            background: #f4f4f4;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        ul li:hover {
+            background: none;
+        }
+
+        .difficulty {
+            text-align: center;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Host a Website on AWS</h1>
+            <p>Steps to host your personal website on Amazon S3 and Route 53</p>
+        </header>
+
+        <section>
+            <h2>Step #1: Design Your Website</h2>
+            <ul>
+                <li>Design your own personal website or download an existing template.</li>
+                <li>You can find free templates at <a href="http://free-css.com" target="_blank">free-css.com</a>.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Step #2: Set Up Amazon S3 Bucket</h2>
+            <ul>
+                <li>Go to the AWS Management Console and open the Amazon S3 console.</li>
+                <li>Click "Create bucket" and enter a unique name for your bucket.</li>
+                <li>In the "Properties" section, enable "Static website hosting."</li>
+                <li>Upload your website files to the bucket.</li>
+                <li>Set the bucket permissions to allow public access.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Step #3: Purchase a Custom Domain through Amazon Route 53</h2>
+            <ul>
+                <li>Open the Amazon Route 53 console.</li>
+                <li>Choose "Domain registration" and then "Register domain."</li>
+                <li>Follow the prompts to purchase your custom domain.</li>
+                <li>In the "Route 53 hosted zones," create a new record set.</li>
+                <li>Enter your S3 bucket's endpoint as the alias target.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Project Completion Time</h2>
+            <ul>
+                <li>30 minutes to 1 hour if using an existing template.</li>
+                <li>Additional time may be required for customizing the website design.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Add to Your Resume</h2>
+            <p>Once you've completed this project, you can add this line to your resume: "Hosted a static website on AWS using Amazon S3 and Route 53."</p>
+        </section>
+
+        <div class="difficulty">
+            <section>
+                <h2>Facing Difficulties?</h2>
+                <p><a href="https://www.youtube.com/watch?v=sCQwEVhCvTg" target="_blank">Watch this Full Video Tutorial - "How to Host a Website on AWS"</a></p>
+            </section>
+        </div>
+    </div>
+
+</body>
+</html>

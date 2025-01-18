@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>IAM: Identity Access &amp; Management (IAM)</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="chapter.css">
+</head>
+<body>
+  <main id="content" class="main-content" role="main">
+    <h1 id="iam-identity-access--management-iam">IAM: Identity Access &amp; Management (IAM)</h1>
+
+<ul>
+  <li><a href="#iam-identity-access--management-iam">IAM: Identity Access \&amp; Management (IAM)</a>
+    <ul>
+      <li><a href="#what-is-iam">What Is IAM?</a>
+        <ul>
+          <li><a href="#iam-users--groups">IAM: Users \&amp; Groups</a></li>
+          <li><a href="#iam-permissions">IAM: Permissions</a></li>
+          <li><a href="#iam-policies-inheritance">IAM Policies Inheritance</a></li>
+          <li><a href="#iam-policies-structure">IAM Policies Structure</a>
+            <ul>
+              <li><a href="#example-iam-policy">Example IAM Policy</a></li>
+            </ul>
+          </li>
+          <li><a href="#iam--password-policy">IAM – Password Policy</a>
+            <ul>
+              <li><a href="#common-password-policy-settings">Common Password Policy Settings:</a></li>
+            </ul>
+          </li>
+          <li><a href="#iam-roles-for-services">IAM Roles for Services</a></li>
+          <li><a href="#iam-security-tools">IAM Security Tools</a></li>
+          <li><a href="#iam-guidelines--best-practices">IAM Guidelines \&amp; Best Practices</a></li>
+          <li><a href="#shared-responsibility-model-for-iam">Shared Responsibility Model for IAM</a></li>
+        </ul>
+      </li>
+      <li><a href="#multi-factor-authentication-mfa">Multi-Factor Authentication (MFA)</a>
+        <ul>
+          <li><a href="#benefits-of-mfa">Benefits of MFA</a></li>
+        </ul>
+      </li>
+      <li><a href="#mfa-devices-options-in-aws">MFA Devices Options in AWS</a></li>
+      <li><a href="#how-can-users-access-aws">How Can Users Access AWS?</a></li>
+      <li><a href="#whats-the-aws-cli">What’s the AWS CLI?</a>
+        <ul>
+          <li><a href="#key-features-of-aws-cli">Key Features of AWS CLI:</a></li>
+          <li><a href="#example-commands">Example Commands:</a></li>
+        </ul>
+      </li>
+      <li><a href="#whats-the-aws-sdk">What’s the AWS SDK?</a>
+        <ul>
+          <li><a href="#key-features-of-aws-sdk">Key Features of AWS SDK:</a></li>
+          <li><a href="#example-usage-python-boto3-sdk">Example Usage (Python boto3 SDK):</a></li>
+        </ul>
+      </li>
+      <li><a href="#iam-section--summary">IAM Section – Summary</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="what-is-iam">What Is IAM?</h2>
+
+<ul>
+  <li><strong>Identity and Access Management (IAM)</strong> is a web service for securely controlling access to AWS resources.</li>
+  <li>Allows you to manage:
+    <ul>
+      <li><strong>Users</strong>: Individual identities who interact with AWS services.</li>
+      <li><strong>Groups</strong>: Collection of IAM users with similar access permissions.</li>
+      <li><strong>Roles</strong>: Set of permissions to be assumed by AWS services or applications.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="iam-users--groups">IAM: Users &amp; Groups</h3>
+
+<ul>
+  <li><strong>Users</strong>: Represent individual identities that interact with AWS services. Users have unique credentials (username, password, access keys).</li>
+  <li><strong>Groups</strong>: Logical grouping of users to simplify permission management.
+    <ul>
+      <li>Permissions assigned to a group are automatically inherited by its users.</li>
+    </ul>
+  </li>
+  <li>Flexibility in User Management in IAM, users do not have to belong to a group, and a user can belong to multiple groups. This allows user to manage access permissions in a granular and efficient manner. For example, a user could belong to both the “QAs” group and the “Developers” group, inheriting permissions from both.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>IAM Users</strong></th>
+      <th><strong>IAM Groups</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Unique identity for accessing AWS services.</td>
+      <td>Logical grouping of users to apply common permissions.</td>
+    </tr>
+    <tr>
+      <td>Each user has individual permissions based on policies.</td>
+      <td>Adding/removing users from groups automatically changes their permissions.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="iam-permissions">IAM: Permissions</h3>
+
+<ul>
+  <li><strong>Permissions</strong> are defined using policies.</li>
+  <li>Policies specify what actions are allowed or denied on specific resources.</li>
+  <li>Policies can be attached to:
+    <ul>
+      <li><strong>Users</strong></li>
+      <li><strong>Groups</strong></li>
+      <li><strong>Roles</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="iam-policies-inheritance">IAM Policies Inheritance</h3>
+
+<p><img src="/images/IAM_Policies_inheritance.png" alt="IAM Policies Inheritance"></p>
+
+<ul>
+  <li>Policies are evaluated together for a user, including:
+    <ul>
+      <li><strong>Directly attached policies</strong>.</li>
+      <li><strong>Group policies</strong>.</li>
+      <li><strong>Policies attached to roles</strong>.</li>
+    </ul>
+  </li>
+  <li>If multiple policies apply, IAM combines them to evaluate the final permission set.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Policy Type</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Inline Policies</strong></td>
+      <td>Directly attached to a single user, group, or role.</td>
+    </tr>
+    <tr>
+      <td><strong>Managed Policies</strong></td>
+      <td>Reusable policies created and maintained by AWS (AWS-managed) or the customer (Customer-managed).</td>
+    </tr>
+    <tr>
+      <td><strong>Group Inherited Policies</strong></td>
+      <td>Policies assigned to groups apply to all users in that group.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="iam-policies-structure">IAM Policies Structure</h3>
+
+<ul>
+  <li>Policies are JSON documents that define permissions.</li>
+  <li>Key elements of a policy:
+    <ol>
+      <li><strong>Version</strong>: Policy language version (e.g., <code class="language-plaintext highlighter-rouge">2012-10-17</code>).</li>
+      <li><strong>Statement</strong>: Contains one or more permissions (allow or deny).</li>
+      <li><strong>Action</strong>: Specifies which AWS service actions are allowed or denied.</li>
+      <li><strong>Resource</strong>: Specifies the AWS resources to which the actions apply.</li>
+      <li><strong>Effect</strong>: Either <code class="language-plaintext highlighter-rouge">Allow</code> or <code class="language-plaintext highlighter-rouge">Deny</code>.</li>
+    </ol>
+  </li>
+</ul>
+
+<h4 id="example-iam-policy">Example IAM Policy</h4>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"Version"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2012-10-17"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"Statement"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"Effect"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Allow"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"Action"</span><span class="p">:</span><span class="w"> </span><span class="s2">"s3:ListBucket"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"Resource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"arn:aws:s3:::example-bucket"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h3 id="iam--password-policy">IAM – Password Policy</h3>
+
+<ul>
+  <li>AWS allows you to define a <strong>password policy</strong> for IAM users to ensure strong security standards.</li>
+  <li>You can enforce specific rules to make sure passwords are complex and secure.</li>
+</ul>
+
+<h4 id="common-password-policy-settings">Common Password Policy Settings:</h4>
+
+<ol>
+  <li><strong>Minimum password length</strong>: Set a minimum number of characters (e.g., at least 8 characters).</li>
+  <li><strong>Require specific character types</strong>:
+    <ul>
+      <li>Lowercase letters.</li>
+      <li>Uppercase letters.</li>
+      <li>Numbers.</li>
+      <li>Non-alphanumeric characters (special symbols like <code class="language-plaintext highlighter-rouge">!</code>, <code class="language-plaintext highlighter-rouge">@</code>, <code class="language-plaintext highlighter-rouge">#</code>).</li>
+    </ul>
+  </li>
+  <li><strong>Prevent password reuse</strong>: Enforce that new passwords cannot be the same as recently used passwords (e.g., prevent using the last 3 passwords).</li>
+  <li><strong>Password expiration</strong>: Set the password to expire after a certain period (e.g., 90 days) to prompt users to change their passwords.</li>
+  <li><strong>Enable Multi-Factor Authentication (MFA)</strong>: Enforce MFA for extra security, requiring both a password and a second authentication factor.</li>
+</ol>
+
+<h3 id="iam-roles-for-services">IAM Roles for Services</h3>
+
+<ul>
+  <li>IAM roles are used to grant permissions to AWS services to perform actions on behalf of users or applications.</li>
+  <li>Example use cases for IAM roles:
+    <ol>
+      <li>An EC2 instance can assume a role to access S3 buckets without the need for storing long-term credentials.</li>
+      <li>Lambda functions can use roles to interact with other AWS services without hardcoding access keys.</li>
+    </ol>
+  </li>
+</ul>
+
+<h3 id="iam-security-tools">IAM Security Tools</h3>
+
+<ol>
+  <li><strong>IAM Credential Report</strong>:
+    <ul>
+      <li>A report that provides details about all IAM users in the AWS account, including the status of their passwords and access keys.</li>
+      <li>Useful for auditing and reviewing user credentials.</li>
+    </ul>
+  </li>
+  <li><strong>IAM Access Advisor</strong>:
+    <ul>
+      <li>Shows service permissions granted to a user and indicates the last time those permissions were used.</li>
+      <li>Helps identify unnecessary permissions that can be revoked for least privilege.</li>
+    </ul>
+  </li>
+  <li><strong>IAM Policy Simulator</strong>:
+    <ul>
+      <li>A tool that lets you test and validate the impact of IAM policies before applying them to users, groups, or roles.</li>
+      <li>Helps to understand which actions are allowed or denied based on current policies.</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="iam-guidelines--best-practices">IAM Guidelines &amp; Best Practices</h3>
+
+<ol>
+  <li><strong>Follow the Principle of Least Privilege</strong>:
+    <ul>
+      <li>Grant only the permissions required to perform a specific task.</li>
+      <li>Regularly review and adjust permissions as needed.</li>
+    </ul>
+  </li>
+  <li><strong>Enable Multi-Factor Authentication (MFA)</strong>:
+    <ul>
+      <li>Enforce MFA for privileged IAM users (e.g., admin accounts).</li>
+      <li>Adds an additional layer of security by requiring users to provide a code from an MFA device along with their password.</li>
+    </ul>
+  </li>
+  <li><strong>Use IAM Roles Instead of IAM Users for Applications</strong>:
+    <ul>
+      <li>Assign roles to AWS resources instead of using IAM user credentials in code or configuration files.</li>
+      <li>Prevents security issues that could arise from accidental exposure of long-term credentials.</li>
+    </ul>
+  </li>
+  <li><strong>Rotate IAM Credentials Regularly</strong>:
+    <ul>
+      <li>Regularly rotate IAM access keys and passwords.</li>
+      <li>Remove unused credentials to reduce risk.</li>
+    </ul>
+  </li>
+  <li><strong>Use AWS Managed Policies for Common Use Cases</strong>:
+    <ul>
+      <li>AWS provides a set of predefined managed policies that are regularly updated.</li>
+      <li>Managed policies are designed for common use cases and provide a good starting point for granting permissions.</li>
+    </ul>
+  </li>
+</ol>
+
+<h3 id="shared-responsibility-model-for-iam">Shared Responsibility Model for IAM</h3>
+
+<ul>
+  <li><strong>AWS Responsibility</strong>:
+    <ul>
+      <li>Protect the infrastructure that runs AWS services.</li>
+      <li>Provide IAM service availability.</li>
+      <li>Offer managed policies for common scenarios.</li>
+    </ul>
+  </li>
+  <li><strong>Customer Responsibility</strong>:
+    <ul>
+      <li>Manage IAM users, groups, and roles.</li>
+      <li>Configure IAM policies correctly and apply the principle of least privilege.</li>
+      <li>Secure IAM credentials and enable MFA.</li>
+      <li>Regularly audit permissions using tools like IAM Credential Report and Access Advisor.</li>
+    </ul>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>AWS Responsibility</strong></th>
+      <th><strong>Customer Responsibility</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Protect physical data centers and global infrastructure.</td>
+      <td>Manage and secure IAM user accounts and access keys.</td>
+    </tr>
+    <tr>
+      <td>Maintain the availability of IAM service.</td>
+      <td>Implement strong password policies and enable MFA.</td>
+    </tr>
+    <tr>
+      <td>Provide IAM managed policies for common scenarios.</td>
+      <td>Ensure IAM permissions are correctly configured and follow the principle of least privilege.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="multi-factor-authentication-mfa">Multi-Factor Authentication (MFA)</h2>
+
+<ul>
+  <li><strong>MFA</strong> adds an extra layer of protection on top of a username and password.</li>
+  <li>With MFA enabled, when a user signs in, they must provide:
+    <ol>
+      <li>Their <strong>password</strong> (something they know).</li>
+      <li>An <strong>authentication code</strong> from their MFA device (something they have).</li>
+    </ol>
+  </li>
+  <li>Even if a user’s password is compromised, MFA can prevent unauthorized access.</li>
+</ul>
+
+<h3 id="benefits-of-mfa">Benefits of MFA</h3>
+
+<ul>
+  <li>Enhances account security by requiring a second form of authentication.</li>
+  <li>Reduces the risk of credential compromise and unauthorized access.</li>
+  <li>AWS recommends enabling MFA for all IAM users, especially for root accounts and privileged users.</li>
+  <li>Main benefit of MFA: if a password is stolen or hacked, the account is not compromised</li>
+</ul>
+
+<h2 id="mfa-devices-options-in-aws">MFA Devices Options in AWS</h2>
+
+<p>AWS supports several types of MFA devices:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>MFA Device Type</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Virtual MFA Device</strong></td>
+      <td>Uses apps like Google Authenticator or Authy. Generates a time-based one-time password (TOTP) on a smartphone or tablet.</td>
+    </tr>
+    <tr>
+      <td><strong>Hardware MFA Device</strong></td>
+      <td>Physical devices like Gemalto tokens that generate time-based codes.</td>
+    </tr>
+    <tr>
+      <td><strong>U2F Security Key</strong></td>
+      <td>USB devices supporting the Universal 2nd Factor (U2F) standard. Typically used for browser-based sign-ins.</td>
+    </tr>
+    <tr>
+      <td><strong>AWS Multi-Factor Authentication (MFA)</strong></td>
+      <td>AWS offers its own MFA solutions integrated with IAM to easily configure and manage MFA devices for users.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="how-can-users-access-aws">How Can Users Access AWS?</h2>
+
+<p>AWS provides multiple ways for users to access resources:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Access Method</strong></th>
+      <th><strong>Description</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>AWS Management Console</strong></td>
+      <td>A web-based user interface for interacting with and managing AWS resources visually. Best for beginners and infrequent tasks.</td>
+    </tr>
+    <tr>
+      <td><strong>AWS Command Line Interface (CLI)</strong></td>
+      <td>A unified tool to interact with AWS services using commands in your terminal. Suitable for automation and developers.</td>
+    </tr>
+    <tr>
+      <td><strong>AWS Software Development Kits (SDKs)</strong></td>
+      <td>Language-specific APIs for programmatically accessing AWS services using programming languages like Python, JavaScript, Java, Ruby, etc.</td>
+    </tr>
+    <tr>
+      <td><strong>AWS CloudFormation</strong></td>
+      <td>A service to define and provision AWS infrastructure using code (Infrastructure as Code – IaC). Allows creating stacks and automating deployment configurations.</td>
+    </tr>
+    <tr>
+      <td><strong>AWS Mobile Console</strong></td>
+      <td>Provides mobile access to manage AWS services on-the-go.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="whats-the-aws-cli">What’s the AWS CLI?</h2>
+
+<ul>
+  <li><strong>AWS CLI (Command Line Interface)</strong> is a unified tool to manage AWS services through your terminal or command prompt.</li>
+  <li>It allows you to issue commands and automate tasks across multiple AWS services.</li>
+  <li>Supports both Windows, macOS, and Linux.</li>
+  <li>Direct access to the public APIs of AWS services</li>
+</ul>
+
+<h3 id="key-features-of-aws-cli">Key Features of AWS CLI:</h3>
+
+<ol>
+  <li><strong>Command automation</strong>: Write scripts to automate frequent AWS tasks.</li>
+  <li><strong>Access to all services</strong>: Interact with any AWS service and manage resources from the command line.</li>
+  <li><strong>Profile management</strong>: Manage multiple AWS accounts using different named profiles.</li>
+  <li><strong>JSON and YAML output</strong>: Format CLI responses for better readability or integration with other tools.</li>
+</ol>
+
+<h3 id="example-commands">Example Commands:</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># List all S3 buckets in your account</span>
+aws s3 <span class="nb">ls</span>
+
+<span class="c"># Describe EC2 instances in a specific region</span>
+aws ec2 describe-instances <span class="nt">--region</span> us-west-2
+</code></pre></div></div>
+
+<h2 id="whats-the-aws-sdk">What’s the AWS SDK?</h2>
+
+<ul>
+  <li>AWS SDK (Software Development Kit) allows developers to interact with AWS services using various programming languages.</li>
+  <li>Supports languages like Python (boto3), JavaScript (aws-sdk), Java, .NET, Ruby, PHP, and more.</li>
+  <li>SDKs provide simplified APIs, making it easier to work with AWS services programmatically without dealing with low-level API calls.</li>
+</ul>
+
+<h3 id="key-features-of-aws-sdk">Key Features of AWS SDK:</h3>
+
+<ul>
+  <li>API abstraction: Higher-level abstractions simplify complex operations like S3 object uploads or DynamoDB queries.</li>
+  <li>Cross-service integration: SDKs help integrate multiple AWS services together within applications.</li>
+  <li>Authentication: Easily manage credentials and authenticate requests using IAM roles or user access keys.</li>
+  <li>Retry logic: Handles transient network issues with built-in retry logic.</li>
+</ul>
+
+<h3 id="example-usage-python-boto3-sdk">Example Usage (Python boto3 SDK):</h3>
+
+<pre><code class="language-Python">import boto3
+
+# Create an S3 client
+s3 = boto3.client('s3')
+
+# List all S3 buckets
+response = s3.list_buckets()
+print('S3 Buckets:', [bucket['Name'] for bucket in response['Buckets']])
+
+</code></pre>
+
+<h2 id="iam-section--summary">IAM Section – Summary</h2>
+
+<ul>
+  <li><strong>Users</strong>: Mapped to a physical user, has a username and password for AWS Management Console access.</li>
+  <li><strong>Groups</strong>: Contains users and allows applying common permissions to multiple users.</li>
+  <li><strong>Policies</strong>: JSON document that defines permissions for users, groups, or roles.</li>
+  <li><strong>Roles</strong>: Assign to AWS services (e.g., EC2, Lambda) for accessing other resources without credentials.</li>
+  <li><strong>Permissions</strong>: Allow or deny actions on AWS resources, defined using policies.</li>
+  <li><strong>MFA</strong>: Multi-Factor Authentication for an additional layer of security beyond username and password.</li>
+  <li><strong>Password Policy</strong>: Enforce password complexity, rotation, and reuse rules for IAM users.</li>
+  <li><strong>AWS CLI</strong>: Command-line tool to interact with AWS services and automate tasks.</li>
+  <li><strong>AWS SDK</strong>: Use programming languages (e.g., Python, JavaScript) to manage AWS services programmatically.</li>
+  <li><strong>Access Keys</strong>: Key pairs used to authenticate when accessing AWS using the CLI or SDK.</li>
+  <li><strong>Audit Tools</strong>: IAM Credential Report lists user credentials; Access Advisor shows service permissions usage.</li>
+</ul>
+
+<footer>
+  <!-- New Footer Navigation -->
+<div class="footer-nav">
+<nav>
+    <ul>
+        <li><a href="chapter1.html">Previous</a></li>
+        <li><a href="chapter3.html">Next</a></li>
+        <li><a href="Notes.html">Home</a></li>
+    </ul>
+</nav>
+</div>
+<div class="footer-content">
+<div class="footer-info">
+    <p><strong>Jawahar Parvez</strong></p>
+    <p>Email: <a href="mailto:Jawaharparvez@gmail.com">Jawaharparvez@gmail.com</a></p>
+</div>
+
+<div class="social-links">
+    <a href="https://instagram.com/iamtheparvez" target="_blank" title="Instagram">
+        <i class="fab fa-instagram"></i> Instagram
+    </a>
+    <a href="https://github.com/Jawaharparvez" target="_blank" title="GitHub">
+        <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/jawaharparvez" target="_blank" title="LinkedIn">
+        <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+</div>
+
+<div class="copyright">
+    <p>&copy; 2025 Jawahar Parvez. All rights reserved.</p>
+</div>
+</div>
+
+
+</footer>
+
+</main>
+</body>
+</html>

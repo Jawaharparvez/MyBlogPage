@@ -1,0 +1,1529 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CloudLeaf</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <nav class="hamburger-menu" aria-label="Main Navigation">
+        <input id="menu__toggle" type="checkbox" />
+        <label class="menu__btn" for="menu__toggle">
+          <span></span>
+        </label>
+        <ul class="menu__box" role="menu">
+          <li role="menuitem"><a class="menu__item" href="Project.html">Projects</a></li>
+          <li role="menuitem"><a class="menu__item" href="Notes.html" target="_blank">Notes</a></li>
+          <li role="menuitem"><a class="menu__item" href="#">Portfolio</a></li>
+          <li role="menuitem"><a class="menu__item" href="#">Practice</a></li>
+        </ul>
+      </nav>
+      <h1 class="page-title">CloudLeaf</h1>
+      <p class="subtitle">- Your First Steps in AWS Cloud: Learn, Build, and Grow</p>
+    </header>
+
+    <!-- Blog Post1 -->
+    <section aria-labelledby="blog-section">
+      
+      <article class="blog-post">
+        <h2 class="post-title">Cloud Computing Overview</h2>
+        <div class="post-content">
+          <p class="post-summary">
+            Cloud computing is a technology that enables on-demand delivery of IT services over the internet, including storage, computing power, and software applications, providing flexibility, scalability, and cost-efficiency for businesses and individuals. </p>
+          <img src="https://cdn-icons-png.flaticon.com/128/9420/9420939.png" alt="Cloud Computing Overview" class="post-image">
+        </div>
+        <div class="button-container">
+          <button class="read-more-btn" aria-expanded="false">Read More</button>
+        </div>
+        <div class="full-content" hidden>
+          <p>
+            The primary types of cloud computing services are Infrastructure as a Service (IaaS), Platform as a Service (PaaS), and Software as a Service (SaaS). IaaS provides virtualized computing resources, PaaS allows for building applications without managing underlying infrastructure, and SaaS offers software solutions through a subscription model.
+          </p>
+          <br>
+          <p>
+            The major deployment models in cloud computing include public, private, and hybrid clouds. Public clouds are hosted by third-party providers and offer services to the general public, while private clouds are dedicated to a single organization. Hybrid clouds combine both, providing flexibility and scalability.
+          </p>
+          <br>
+          <p>
+            Cloud computing offers significant advantages such as cost savings, scalability, flexibility, and the ability to access services from anywhere. However, concerns about data security, privacy, and compliance remain key challenges for businesses considering cloud adoption.
+          </p>
+          <br>
+          <p>
+            Major cloud providers include Amazon Web Services (AWS), Microsoft Azure, and Google Cloud, each offering a wide range of services to meet diverse business needs. Cloud computing continues to evolve, with innovations such as edge computing and serverless architecture driving further growth.
+          </p>
+        </div>
+      </article>
+      
+    <!-- Blog Post2 -->
+      <article class="blog-post">
+        <h2 class="post-title">IAM: Identity Access & Management (IAM)</h2>
+        <div class="post-content">
+          <p class="post-summary">
+            
+Identity and Access Management (IAM) is a service that allows you to securely control access to AWS resources, enabling you to define who can access specific resources, what actions they can perform, and under which conditions, ensuring robust security and compliance.</p>
+          <img src="https://cdn-icons-png.flaticon.com/128/6378/6378952.png" alt="IAM Overview" class="post-image">
+        </div>
+        <div class="button-container">
+          <button class="read-more-btn" aria-expanded="false">Read More</button>
+        </div>
+        <div class="full-content" hidden>
+          <p>
+            IAM enables you to define fine-grained access to AWS resources using policies. Policies are written in JSON and specify the permissions granted to users, groups, or roles. You can also define password policies and enforce multi-factor authentication (MFA) for additional security.
+          </p>
+          <br>
+          <p>
+            IAM roles allow AWS services like EC2 or Lambda to access resources without embedding access keys in your application. Best practices include using IAM roles, enabling MFA, and regularly rotating credentials for added security.
+          </p>
+          <br>
+          <p>
+            IAM is an essential part of managing AWS security. By following best practices such as least privilege and policy simulation tools, you can effectively control and monitor user access in your AWS environment.
+          </p>
+        </div>
+      </article>
+
+      
+      <!-- Blog Post3 -->
+      <article class="blog-post">
+        <h2 class="post-title">What is Amazon EC2?</h2>
+        <div class="post-content">
+          <p class="post-summary">
+            Amazon Elastic Compute Cloud (EC2) is a scalable compute service that allows users to rent virtual servers in the cloud. It provides flexibility to scale compute resources up or down based on demand, offering a cost-effective solution for applications with variable workloads.
+          </p>
+          <img src="https://cdn-icons-png.flaticon.com/128/4380/4380654.png" alt="What is Amazon EC2?" class="post-image">
+        </div>
+        <div class="button-container">
+          <button class="read-more-btn" aria-expanded="false">Read More</button>
+        </div>
+        <div class="full-content" hidden>
+          <p>
+            Key features include: On-Demand Instances, Reserved Instances, and Spot Instances. EC2 offers flexibility in instance types, storage, networking, elastic load balancing, and auto-scaling to suit a variety of application needs.
+          </p>
+          <br>
+          <p>
+            EC2 allows customized instance sizing and configuration. You can choose instance types based on application requirements, leverage Amazon EBS for persistent storage, and manage networking with VPCs and security groups. Auto scaling automatically adjusts instances to match demand.
+          </p>
+          <br>
+          <p>
+            EC2 also supports bootstrapping, which runs user data scripts at the instance launch. This can automate tasks like software installations, downloading configuration files, and configuring system settings.
+          </p>
+          <br>
+          <p>
+            EC2 offers a range of instance types for different workloads, such as General Purpose Instances, Compute Optimized Instances, Memory Optimized Instances, and Storage Optimized Instances. Each type provides specific resources like vCPUs, memory, network performance, and storage tailored to various application needs.
+          </p>
+          <br>
+          <p>
+            Instance types include: t4g.micro, m5.large, c5.large, r5.xlarge, i3.large, and more, each with varying levels of CPU, memory, storage, and network performance to meet specific use cases like web servers, databases, batch processing, and high-frequency trading.
+          </p>
+        </div>
+      </article>
+
+
+      <!-- Blog Post4 -->
+      <article class="blog-post">
+        <h2 class="post-title">What’s an EBS Volume?</h2>
+        <div class="post-content">
+          <p class="post-summary">
+            Elastic Block Store (EBS) is a network-attached storage for EC2 instances, providing persistent, block-level storage. It supports applications that require consistent, low-latency performance and allows data persistence even after instance termination.
+          </p>
+          <img src="https://cdn-icons-png.flaticon.com/128/4240/4240927.png" alt="What’s an EBS Volume?" class="post-image">
+        </div>
+        <div class="button-container">
+          <button class="read-more-btn" aria-expanded="false">Read More</button>
+        </div>
+        <div class="full-content" hidden>
+          <p>
+            EBS volumes are automatically replicated within an Availability Zone (AZ) and come in several types, including General Purpose (gp3/gp2), Provisioned IOPS (io1/io2), Throughput Optimized (st1), and Cold (sc1). They can be attached to one EC2 instance at a time but can be detached and re-attached as needed.
+          </p>
+          <br>
+          <p>
+            The EBS delete on termination attribute controls whether the volume is automatically deleted when the associated EC2 instance is terminated. By default, the root volume is deleted, while additional volumes are not unless explicitly specified.
+          </p>
+          <br>
+          <p>
+            EBS snapshots offer point-in-time backups of EBS volumes and are stored in Amazon S3. Snapshots are incremental, capturing only changes since the last backup. They can be copied across regions or accounts and automated using Amazon Data Lifecycle Manager (DLM).
+          </p>
+          <br>
+          <p>
+            EBS snapshot archives are cheaper, providing a 75% reduction in cost. However, they take between 24 to 72 hours to restore. The EBS Snapshot Recycle Bin feature allows retention of deleted snapshots, offering recovery after accidental deletion with customizable retention periods.
+          </p>
+          <br>
+          <p>
+            Elastic File System (EFS) is a fully managed NFS solution for EC2 instances that can scale automatically and provides high availability across multiple Availability Zones. EFS can be accessed by hundreds of EC2 instances simultaneously, making it ideal for shared storage applications.
+          </p>
+          <br>
+          <p>
+            EFS Infrequent Access (EFS-IA) is a lower-cost storage class for infrequently accessed data, offering up to 92% savings compared to standard EFS. It automatically moves less-accessed files to the EFS-IA tier, while maintaining high availability.
+          </p>
+        </div>
+      </article>
+      
+
+      <!-- Blog Post5 -->
+      <article class="blog-post">
+        <h2 class="post-title">Scalability & High Availability</h2>
+        <div class="post-content">
+          <p class="post-summary">
+            Scalability refers to a system's ability to handle increased load by adapting to demand, while High Availability ensures a system is operational for a high percentage of time by reducing failure impact. These concepts are essential for resilient cloud infrastructure.
+          </p>
+          <img src="https://cdn-icons-png.flaticon.com/128/5372/5372011.png" alt="Scalability & High Availability" class="post-image">
+        </div>
+        <div class="button-container">
+          <button class="read-more-btn" aria-expanded="false">Read More</button>
+        </div>
+        <div class="full-content" hidden>
+          <p>
+            Scalability can be vertical (increasing a single instance's capacity) or horizontal (adding more instances to distribute the load). Vertical scalability is often used for databases, while horizontal scalability is suited for applications requiring resilience and distributed workloads.
+          </p>
+          <br>
+          <p>
+            High Availability is achieved by deploying resources across multiple Availability Zones (AZs) to ensure failover and redundancy. It works best with horizontal scalability, as multiple AZs provide resilience against zone failures.
+          </p>
+          <br>
+          <p>
+            In EC2, vertical scaling involves increasing instance size, from smaller instances like t2.nano to larger ones like u-12tb1.metal. Horizontal scaling involves adding more instances using Auto Scaling Groups (ASG) and Elastic Load Balancing (ELB).
+          </p>
+          <br>
+          <p>
+            Scalability, Elasticity, and Agility each refer to different aspects of cloud infrastructure. Scalability adjusts capacity to handle varying traffic, elasticity dynamically adjusts resources in real-time, and agility enables quick deployment in response to demand changes.
+          </p>
+          <br>
+          <p>
+            Load balancing distributes incoming traffic across multiple resources, preventing overloading any single resource. It improves fault tolerance, high availability, and provides features like SSL termination and health checks.
+          </p>
+          <br>
+          <p>
+            Elastic Load Balancer (ELB) is a managed service that distributes traffic across multiple targets in one or more AZs. ELB improves performance and scales with demand, with AWS handling upgrades and high availability.
+          </p>
+          <br>
+          <p>
+            Types of ELBs include Application Load Balancer (ALB) for HTTP/HTTPS traffic at Layer 7, Network Load Balancer (NLB) for high-performance traffic at Layer 4, and Classic Load Balancer (retiring) for both layers.
+          </p>
+          <br>
+          <p>
+            An Auto Scaling Group (ASG) adjusts the number of EC2 instances based on metrics like CPU utilization, ensuring optimal capacity and high availability. It can automatically scale out (add instances) or scale in (remove instances) as needed, with cost savings from only running at optimal capacity.
+          </p>
+        </div>
+      </article>
+      
+
+      <!-- Blog Post6 -->
+      <article class="blog-post">
+        <h2 class="post-title">Amazon S3 Overview - Buckets</h2>
+        <div class="post-content">
+          <p class="post-summary">
+            Amazon S3 enables users to store objects in "buckets" (directories). Buckets must have unique names and are defined at the region level. S3 uses a global service model, but buckets are tied to specific regions.
+          </p>
+          <img src="https://cdn-icons-png.flaticon.com/128/14354/14354523.png" alt="Amazon S3 Overview - Buckets" class="post-image">
+        </div>
+        <div class="button-container">
+          <button class="read-more-btn" aria-expanded="false">Read More</button>
+        </div>
+        <div class="full-content" hidden>
+          <p>
+            Buckets must follow naming conventions: no uppercase letters or underscores, 3-63 characters long, cannot be an IP, and must start with a lowercase letter or number.
+          </p>
+          <br>
+          <p>
+            Objects in S3 are identified by a "Key," which is the full path to the object. While S3 doesn’t have actual directories, the UI mimics a folder structure using slashes ("/") in the object keys.
+          </p>
+          <br>
+          <p>
+            The maximum object size in S3 is 5TB, but for uploads over 5GB, multi-part upload is required. Each object can have metadata and tags, and if versioning is enabled, a version ID is also included.
+          </p>
+          <br>
+          <p>
+            S3 offers various security mechanisms, including user-based IAM policies and resource-based policies such as bucket policies and access control lists (ACLs). Encryption can also be applied to S3 objects.
+          </p>
+          <br>
+          <p>
+            Bucket policies are JSON-based and allow defining which actions are permitted or denied for specific resources. These policies can be used for public access management, cross-account access, and ensuring encryption during object uploads.
+          </p>
+          <br>
+          <p>
+            For added security, you can configure "Block Public Access" settings to prevent unauthorized public access to your buckets and objects. These settings can be enforced at the account level.
+          </p>
+          <br>
+          <p>
+            S3 can host static websites, making your content accessible via a specific URL. However, to avoid access issues, ensure that the bucket policy allows public reads if needed.
+          </p>
+        </div>
+      </article>
+      
+
+
+      <!-- Blog Post7 -->
+      <article class="blog-post">
+        <h2 class="post-title">Databases Intro</h2>
+        <div class="post-content">
+          <p class="post-summary">
+            Storing data on disk (like EFS, EBS, EC2 Instance Store, or S3) has its limits. For more structured data storage, databases allow you to organize, query, and define relationships between datasets efficiently.
+          </p>
+          <img src="https://cdn-icons-png.flaticon.com/128/6658/6658228.png" alt="Databases Intro" class="post-image">
+        </div>
+        <div class="button-container">
+          <button class="read-more-btn" aria-expanded="false">Read More</button>
+        </div>
+        <div class="full-content" hidden>
+          <p>
+            Databases are designed for specific purposes and offer features like indexing, relationships, and query optimization. Managed databases in AWS take care of maintenance, backups, and security, reducing operational complexity.
+          </p>
+          <br>
+          <p>
+            Benefits of managed databases include high availability, disaster recovery, scalability, and enhanced security. AWS offers various database types such as Relational (SQL), NoSQL, Data Warehousing, and In-memory Caching.
+          </p>
+          <br>
+          <p>
+            Relational Databases (SQL) store structured data in predefined schema tables and are commonly used in transactional applications and financial systems. Popular examples include MySQL, PostgreSQL, Oracle, SQL Server, and MariaDB.
+          </p>
+          <br>
+          <p>
+            NoSQL databases offer flexibility with no predefined schema, making them ideal for real-time applications, IoT, and mobile apps. They scale out using distributed clusters and are optimized for specific data models. Examples include DynamoDB, MongoDB (DocumentDB), and various key-value, document, graph, and search databases.
+          </p>
+          <br>
+          <p>
+            JSON is a common data format in NoSQL databases, supporting nested fields, dynamic structures, and new data types like arrays. An example of a NoSQL data entry might look like this:
+            <pre>
+              {
+                "name": "Abc",
+                "age": 30,
+                "cars": ["Ford", "BMW", "Fiat"],
+                "address": {
+                  "type": "house",
+                  "number": 23,
+                  "street": "Abc Road"
+                }
+              }
+            </pre>
+          </p>
+          <br>
+          <p>
+            AWS operates with a shared responsibility model. AWS handles infrastructure management, backups, patches, and availability, while customers are responsible for data security, encryption, IAM access controls, monitoring, and performance tuning.
+          </p>
+          <br>
+          <p>
+            AWS RDS (Relational Database Service) is a fully managed service for relational databases, supporting MySQL, PostgreSQL, MariaDB, Oracle, and SQL Server. It automates provisioning, OS patching, backups, high availability, scaling, and more.
+          </p>
+          <br>
+          <p>
+            Key advantages of using RDS over deploying a database on EC2 include automated provisioning, continuous backups, monitoring dashboards, read replicas for improved performance, and Multi-AZ setups for disaster recovery. However, you cannot SSH into RDS instances.
+          </p>
+          <br>
+          <p>
+            RDS offers different deployment options like Read Replicas (for scaling read workloads), Multi-AZ (for high availability with automatic failover), and Multi-Region (for disaster recovery and global availability).
+          </p>
+          <br>
+          <p>
+            In RDS, Read Replicas improve read performance and allow asynchronous replication, while Multi-AZ deployments provide failover and high availability, ensuring the database remains accessible in case of an AZ outage.
+          </p>
+        </div>
+      </article>
+      
+
+
+      <!-- Blog Post8 -->
+      <article class="blog-post">
+        <h2 class="post-title">What is Docker?</h2>
+        <div class="post-content">
+          <p class="post-summary">
+            Docker is a software development platform that enables you to deploy applications in containers. These containers can run on any OS, making them portable and ensuring predictable behavior, regardless of the environment.
+          </p>
+          <img src="https://cdn-icons-png.flaticon.com/128/2741/2741505.png" alt="What is Docker?" class="post-image">
+        </div>
+        <div class="button-container">
+          <button class="read-more-btn" aria-expanded="false">Read More</button>
+        </div>
+        <div class="full-content" hidden>
+          <p>
+            Docker containers provide consistency across different environments, allowing you to run the same application on any machine without compatibility issues. This leads to easier maintenance, faster scaling, and predictable behavior.
+          </p>
+          <br>
+          <p>
+            Docker works with any language, OS, or technology and enables rapid scaling of containers, with adjustments made in just seconds.
+          </p>
+          <br>
+          <p>
+            Docker images are stored in repositories like Docker Hub for public access, and Amazon ECR (Elastic Container Registry) for private storage, management, and deployment of container images.
+          </p>
+          <br>
+          <p>
+            Docker is often compared to Virtual Machines (VMs), but they are different. While both virtualize environments, Docker containers share the host OS kernel, making them more lightweight and portable. Virtual machines, on the other hand, include a full operating system, making them heavier and slower to start.
+          </p>
+          <br>
+          <p>
+            Docker containers are best for modern, microservices-based applications, while virtual machines are better suited for running multiple OS environments.
+          </p>
+          <br>
+          <p>
+            Amazon ECS (Elastic Container Service) is a fully managed container orchestration service that supports Docker containers. ECS automates container management, allowing you to launch and manage Docker containers on AWS. ECS integrates with other AWS services like IAM, VPC, ELB, and ECR.
+          </p>
+          <br>
+          <p>
+            AWS Fargate is a serverless compute engine for containers that works with ECS and EKS. It eliminates the need to manage EC2 instances, allowing you to pay for only the resources (CPU and memory) your containers use.
+          </p>
+          <br>
+          <p>
+            Amazon ECR is a fully managed Docker container registry that stores, manages, and secures Docker images. It integrates with ECS, EKS, and Fargate for seamless deployment and running of Docker containers.
+          </p>
+          <br>
+          <p>
+            Serverless computing eliminates the need to provision, scale, or manage servers. With serverless services like AWS Lambda, resources are automatically provisioned and scaled by AWS. Developers simply deploy functions (code) that respond to events, rather than managing infrastructure.
+          </p>
+          <br>
+          <p>
+            AWS Lambda is a serverless compute service that executes code in response to events like API calls or file uploads. It automatically scales and only charges you for usage.
+          </p>
+          <br>
+          <p>
+            In contrast to EC2, where you manage virtual servers, AWS Lambda runs code in a serverless environment with no server management required. Lambda functions are limited by time, whereas EC2 instances are limited by RAM and CPU. Lambda scales automatically, unlike EC2, which requires manual intervention.
+          </p>
+          <br>
+          <p>
+            Benefits of AWS Lambda include automatic scaling based on event triggers, a pay-per-use pricing model, and a free tier that covers up to 1,000,000 requests and 400,000 GB-seconds of compute time. Lambda also integrates seamlessly with other AWS services and supports multiple programming languages.
+          </p>
+          <br>
+          <p>
+            Lambda is ideal for event-driven architectures, with easy monitoring through AWS CloudWatch and the ability to increase resources (up to 10GB of RAM) to boost performance.
+          </p>
+        </div>
+      </article>
+      
+
+
+      <!-- Blog Post9 -->
+      <article class="blog-post">
+        <h2 class="post-title">What is CloudFormation?</h2>
+        <div class="post-content">
+          <p class="post-summary">
+            AWS CloudFormation is a declarative way to define and provision AWS infrastructure using code. You specify the resources you want, and CloudFormation takes care of creating them in the right order with the exact configuration.
+          </p>
+          <img src="https://cdn-icons-png.flaticon.com/128/18510/18510693.png" alt="What is CloudFormation?" class="post-image">
+        </div>
+        <div class="button-container">
+          <button class="read-more-btn" aria-expanded="false">Read More</button>
+        </div>
+        <div class="full-content" hidden>
+          <p>
+            CloudFormation allows you to declare your infrastructure using templates, specifying the resources you need (e.g., security groups, EC2 instances, S3 buckets, load balancers). It then creates, configures, and maintains the resources for you in the correct order.
+          </p>
+          <br>
+          <p>
+            The benefits of AWS CloudFormation include:
+            <ul>
+              <li><strong>Infrastructure as code</strong>: Resources are defined through code, improving control and eliminating manual configuration.</li>
+              <li><strong>Cost management</strong>: Each resource within a CloudFormation stack is tagged, helping you track costs. You can also estimate costs through the template.</li>
+              <li><strong>Productivity</strong>: CloudFormation allows you to destroy and recreate infrastructure quickly, automating diagram generation and eliminating the need for reinventing the wheel.</li>
+            </ul>
+          </p>
+          <br>
+          <p>
+            CloudFormation supports almost all AWS resources, and if a resource isn't supported, you can use "custom resources" to define it. You can even leverage existing templates found on the web.
+          </p>
+          <br>
+          <p>
+            For visual management, AWS CloudFormation Stack Designer allows you to see all resources in your stack and how they relate to each other. For example, a WordPress CloudFormation Stack would allow you to view all resources and their relationships.
+          </p>
+          <br>
+          <p>
+            The AWS Cloud Development Kit (CDK) allows you to define your cloud infrastructure using a programming language you're familiar with, such as JavaScript, TypeScript, Python, Java, or .NET. The CDK compiles this code into a CloudFormation template, enabling you to deploy infrastructure and runtime code together.
+          </p>
+          <br>
+          <p>
+            Here’s an example using Python with the AWS CDK to create an S3 bucket with versioning enabled:
+          </p>
+          <pre>
+            <code>
+      from aws_cdk import core
+      from aws_cdk import aws_s3 as s3
+      
+      class MyS3BucketStack(core.Stack):
+          def __init__(self, scope: core.Construct, id: str, **kwargs) -> None:
+              super().__init__(scope, id, **kwargs)
+      
+              # Define an S3 bucket
+              s3.Bucket(
+                  self,
+                  'MyS3Bucket',
+                  versioned=True,
+                  removal_policy=core.RemovalPolicy.DESTROY
+              )
+      
+      # App entry point
+      app = core.App()
+      MyS3BucketStack(app, 'MyS3BucketStack')
+      app.synth()
+            </code>
+          </pre>
+          <br>
+          <p>
+            After setting up the project and installing dependencies, running this script will create the S3 bucket as defined in the CDK stack.
+          </p>
+          <br>
+          <p>
+            Common developer challenges in AWS include managing infrastructure, deploying code, configuring databases, load balancers, and scaling. CloudFormation and CDK simplify these tasks by providing reusable templates and automating infrastructure provisioning.
+          </p>
+          <br>
+          <p>
+            Most web applications share similar architectures (such as an Application Load Balancer (ALB) and Auto Scaling Group (ASG)). Developers are primarily focused on getting their code running consistently across different applications and environments, without the need to manage infrastructure manually.
+          </p>
+        </div>
+      </article>
+      
+
+
+      <!-- Blog Post10 -->
+      <article class="blog-post">
+        <h2 class="post-title">Global AWS Infrastructure</h2>
+        <div class="post-content">
+          <p class="post-summary">
+            AWS provides a global infrastructure to deploy applications and improve performance with features like global DNS, content delivery networks, and data transfer acceleration. Learn about AWS Regions, Availability Zones, Edge Locations, and global services like Route 53, CloudFront, and AWS Global Accelerator.
+          </p>
+          <img src="https://cdn-icons-png.flaticon.com/128/2096/2096561.png" alt="Global AWS Infrastructure" class="post-image">
+        </div>
+        <div class="button-container">
+          <button class="read-more-btn" aria-expanded="false">Read More</button>
+        </div>
+        <div class="full-content" hidden>
+          <p>
+            AWS’s global infrastructure is made up of:
+            <ul>
+              <li><strong>Regions</strong>: Locations for deploying applications and infrastructure.</li>
+              <li><strong>Availability Zones</strong>: Multiple data centers within a region for redundancy and fault tolerance.</li>
+              <li><strong>Edge Locations</strong>: Points of presence for content delivery to ensure low latency for end-users.</li>
+            </ul>
+            More details can be found at <a href="https://infrastructure.aws/" target="_blank">AWS Global Infrastructure</a>.
+          </p>
+          <br>
+          <h3>Global Applications in AWS</h3>
+          <p>AWS offers several services to enhance the performance and availability of global applications:</p>
+          <ul>
+            <li><strong>Global DNS: Route 53</strong> – Direct users to the nearest deployment based on latency or disaster recovery strategies.</li>
+            <li><strong>Global Content Delivery Network (CDN): CloudFront</strong> – Replicates applications to AWS Edge Locations to reduce latency, with caching for improved user experience.</li>
+            <li><strong>S3 Transfer Acceleration</strong> – Speeds up global uploads and downloads to/from Amazon S3.</li>
+            <li><strong>AWS Global Accelerator</strong> – Improves global application availability and performance using the AWS global network.</li>
+          </ul>
+          <br>
+          <h3>Amazon Route 53 Overview</h3>
+          <p>Route 53 is a managed DNS service that helps direct clients to the correct servers through DNS records.</p>
+          <ul>
+            <li><strong>A Record</strong>: Maps a domain to an IPv4 address (e.g., www.google.com => 12.34.56.78).</li>
+            <li><strong>AAAA Record</strong>: Maps a domain to an IPv6 address.</li>
+            <li><strong>CNAME</strong>: Maps one domain to another domain (e.g., search.google.com => www.google.com).</li>
+            <li><strong>Alias Record</strong>: Used to map a domain to AWS resources like ELB, CloudFront, S3, RDS, etc.</li>
+          </ul>
+          <br>
+          <h3>Route 53 Routing Policies</h3>
+          <p>Route 53 supports various routing policies. Here’s a brief overview of the main types:</p>
+          <ul>
+            <li><strong>Simple Routing Policy</strong>: For a single resource serving a function, such as a web server.</li>
+            <li><strong>Weighted Routing Policy</strong>: Routes traffic to multiple resources in a specified proportion.</li>
+            <li><strong>Latency Routing Policy</strong>: Routes traffic to the region with the best latency.</li>
+            <li><strong>Failover Routing Policy</strong>: Configures active-passive failover for disaster recovery.</li>
+          </ul>
+          <br>
+          <h3>AWS CloudFront</h3>
+          <p>CloudFront is a Content Delivery Network (CDN) that improves the read performance of your applications by caching content at AWS Edge Locations globally. It helps improve user experience by reducing latency and includes DDoS protection through AWS Shield and AWS Web Application Firewall.</p>
+          <p>CloudFront can work with multiple origins:</p>
+          <ul>
+            <li><strong>S3 Bucket</strong>: For distributing and caching files at the edge with enhanced security (via CloudFront Origin Access Identity).</li>
+            <li><strong>Custom Origin (HTTP)</strong>: You can use CloudFront with Application Load Balancers, EC2 instances, or even other HTTP backends.</li>
+            <li><strong>S3 Website</strong>: CloudFront can be used to serve static websites hosted in S3 buckets.</li>
+          </ul>
+          <br>
+          <h3>CloudFront vs S3 Cross-Region Replication</h3>
+          <table border="1">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>CloudFront</th>
+                <th>S3 Cross-Region Replication</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Network</td>
+                <td>Global Edge network</td>
+                <td>Set up for each region</td>
+              </tr>
+              <tr>
+                <td>Content Update</td>
+                <td>Content cached for a TTL (time-to-live)</td>
+                <td>Content updated in near real-time</td>
+              </tr>
+              <tr>
+                <td>Use Case</td>
+                <td>Great for static content globally</td>
+                <td>Great for dynamic content with low-latency needs</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+      
+
+
+      <!-- Blog Post11 -->
+      <article class="blog-post">
+        <h2 class="post-title">Amazon SQS, SNS, Kinesis, and MQ Overview</h2>
+        <div class="post-content">
+          <p class="post-summary">
+            AWS offers a range of messaging services to decouple applications, handle real-time data, and facilitate message notifications. Services include SQS for queuing, SNS for notifications, Kinesis for data streaming, and MQ for legacy protocol support.
+          </p>
+          <img src="https://cdn-icons-png.flaticon.com/128/2029/2029919.png" alt="Amazon SQS" class="post-image">
+        </div>
+        <div class="button-container">
+          <button class="read-more-btn" aria-expanded="false">Read More</button>
+        </div>
+        <div class="full-content" hidden>
+          <h3>Amazon SQS - Simple Queue Service</h3>
+          <p>Amazon Simple Queue Service (SQS) is AWS's oldest offering, providing a fully managed, serverless service for decoupling applications. SQS allows asynchronous message communication between components, making it highly scalable and reliable for distributed applications.</p>
+          <ul>
+            <li><strong>Decoupling of Applications</strong>: Send and receive messages asynchronously.</li>
+            <li><strong>Queue Types</strong>: Standard queues (unlimited throughput) and FIFO queues (ordered processing).</li>
+            <li><strong>Scalability</strong>: From 1 message per second to 10,000+ messages per second.</li>
+            <li><strong>Retention</strong>: Default message retention of 4 days, with a maximum of 14 days.</li>
+            <li><strong>Low Latency</strong>: Less than 10ms for publishing and receiving messages.</li>
+            <li><strong>Horizontal Scaling</strong>: Multiple consumers share the workload.</li>
+            <li><strong>Message Deletion</strong>: Messages are deleted after they’re read by consumers.</li>
+          </ul>
+          <br>
+      
+          <h3>Amazon Kinesis</h3>
+          <p>Amazon Kinesis is a real-time big data streaming service that allows you to collect, process, and analyze real-time streaming data at any scale. It's mainly used for real-time data processing and analytics.</p>
+          <p>While too detailed for the Cloud Practitioner exam, these components of Kinesis are important:</p>
+          <ul>
+            <li><strong>Kinesis Data Streams</strong>: Low-latency streaming to ingest data from thousands of sources.</li>
+            <li><strong>Kinesis Data Firehose</strong>: Loads streams into S3, Redshift, ElasticSearch, etc.</li>
+            <li><strong>Kinesis Data Analytics</strong>: Real-time analytics on streams using SQL.</li>
+            <li><strong>Kinesis Video Streams</strong>: Monitor and analyze real-time video streams for applications like analytics or machine learning (ML).</li>
+          </ul>
+          <br>
+      
+          <h3>Amazon SNS - Simple Notification Service</h3>
+          <p>Amazon SNS allows you to send notifications to multiple receivers. It's used for mass message delivery, primarily for mobile users, and provides low-cost infrastructure for event-driven systems.</p>
+          <ul>
+            <li><strong>Event Publishers</strong>: Only need to send messages to one SNS topic.</li>
+            <li><strong>Event Subscribers</strong>: Multiple subscribers can listen to the SNS topic and receive all messages.</li>
+            <li><strong>Subscriptions</strong>: Up to 12,500,000 subscriptions per topic, with a limit of 100,000 topics.</li>
+          </ul>
+          <br>
+      
+          <h3>Amazon MQ</h3>
+          <p>Amazon MQ is a managed Apache ActiveMQ service, designed to support legacy protocols like MQTT, AMQP, STOMP, and WSS. It's particularly useful when migrating traditional on-premise applications to the cloud, offering a way to integrate without re-engineering applications for cloud-native services like SQS and SNS.</p>
+          <ul>
+            <li><strong>Managed ActiveMQ</strong>: Amazon MQ is a managed service for applications that use open protocols.</li>
+            <li><strong>Queue & Topic Support</strong>: Similar to SQS and SNS, but with traditional message broker support.</li>
+            <li><strong>Not Serverless</strong>: Runs on dedicated machines, not serverless like SQS and SNS.</li>
+          </ul>
+          <br>
+      
+          <h3>Integration Summary</h3>
+          <p>Here’s a comparison of the key AWS messaging services:</p>
+          <table border="1">
+            <thead>
+              <tr>
+                <th>Service</th>
+                <th>Purpose</th>
+                <th>Key Features</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>SQS</td>
+                <td>Queue service for decoupling applications</td>
+                <td>Multiple producers and consumers, message retention up to 14 days, low latency, horizontal scaling</td>
+              </tr>
+              <tr>
+                <td>SNS</td>
+                <td>Notification service for broadcasting messages</td>
+                <td>Multiple subscribers (email, Lambda, HTTP, mobile), no message retention</td>
+              </tr>
+              <tr>
+                <td>Kinesis</td>
+                <td>Real-time data streaming</td>
+                <td>Data ingestion, real-time analytics, video streaming</td>
+              </tr>
+              <tr>
+                <td>Amazon MQ</td>
+                <td>Managed message broker (Apache ActiveMQ)</td>
+                <td>Supports open protocols (MQTT, AMQP, STOMP), queue & topic support, dedicated machines</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </article>
+      
+
+
+      <!-- Blog Post12 -->
+      <article class="blog-post">
+        <h2 class="post-title">Amazon CloudWatch, CloudTrail, EventBridge Overview</h2>
+        <div class="post-content">
+          <p class="post-summary">
+            AWS offers robust monitoring, logging, and event-driven automation services through Amazon CloudWatch, CloudTrail, and EventBridge. These services enable real-time visibility into your AWS resources and applications, ensuring proactive monitoring, logging, and automation.
+          </p>
+          <img src="https://cdn-icons-png.flaticon.com/128/2516/2516461.png" alt="Amazon CloudWatch" class="post-image">
+        </div>
+        <div class="button-container">
+          <button class="read-more-btn" aria-expanded="false">Read More</button>
+        </div>
+        <div class="full-content" hidden>
+          <h3>Amazon CloudWatch</h3>
+          <p>Amazon CloudWatch is a monitoring and observability service that provides real-time metrics and logs for AWS resources, applications, and custom metrics. It helps you collect, analyze, and act on performance and operational data.</p>
+          
+          <h4>Key Features:</h4>
+          <ul>
+            <li><strong>Metrics:</strong> Collect and track metrics like CPU utilization, network I/O, and more.</li>
+            <li><strong>Alarms:</strong> Set alarms and take automated actions when thresholds are exceeded.</li>
+            <li><strong>Logs:</strong> Store and access logs for troubleshooting.</li>
+          </ul>
+      
+          <h4>Important Metrics:</h4>
+          <ul>
+            <li><strong>EC2 Instances:</strong> CPU utilization, disk I/O, network I/O (Default metrics every 5 minutes; Detailed monitoring every minute).</li>
+            <li><strong>EBS Volumes:</strong> Disk read/writes.</li>
+            <li><strong>RDS Databases:</strong> CPU utilization, free storage space, read/write IOPS.</li>
+            <li><strong>S3 Buckets:</strong> Number of requests, latency, errors.</li>
+            <li><strong>Lambda Functions:</strong> Invocation count, error count, duration.</li>
+            <li><strong>Billing:</strong> Total estimated charge (only in us-east-1).</li>
+            <li><strong>Service Limits:</strong> Usage of AWS service APIs.</li>
+            <li><strong>Custom Metrics:</strong> Push your own metrics.</li>
+          </ul>
+      
+          <h3>Amazon CloudWatch Alarms</h3>
+          <p>CloudWatch Alarms help you take actions automatically when a metric exceeds a set threshold. For example, if EC2 CPU utilization exceeds 80%, you can send an alert or trigger an auto-scaling event.</p>
+          <ul>
+            <li><strong>Examples:</strong> Send an SNS notification, scale EC2 instances based on demand.</li>
+            <li><strong>Alarm States:</strong> OK, INSUFFICIENT_DATA, ALARM.</li>
+            <li><strong>Actions:</strong> EC2 stop, terminate, reboot, or recover.</li>
+          </ul>
+          
+          <h3>Amazon CloudWatch Logs</h3>
+          <p>CloudWatch Logs is a centralized logging service that can collect logs from various AWS services and applications.</p>
+          <ul>
+            <li><strong>Supported Sources:</strong> Elastic Beanstalk, ECS, Lambda, CloudTrail, EC2 instances, Route 53 DNS queries.</li>
+            <li><strong>Real-time Monitoring:</strong> View logs as they are generated.</li>
+            <li><strong>Adjustable Retention:</strong> Control how long logs are stored.</li>
+          </ul>
+      
+          <h3>Amazon CloudWatch Events</h3>
+          <p>CloudWatch Events delivers a stream of system events describing changes to AWS resources. It can be used to trigger automated workflows based on resource changes.</p>
+          <ul>
+            <li><strong>Examples:</strong> Trigger Lambda on EC2 state change or run scheduled cron jobs.</li>
+            <li><strong>Event Patterns:</strong> Create event rules to react to specific events.</li>
+            <li><strong>Automation:</strong> Trigger Lambda, send SNS/SQS messages, or invoke other services.</li>
+          </ul>
+      
+          <h3>Amazon EventBridge</h3>
+          <p>EventBridge is the evolution of CloudWatch Events, offering more advanced capabilities for building event-driven architectures.</p>
+          <ul>
+            <li><strong>Event Buses:</strong> Default (AWS services), Partner (from third-party SaaS), and Custom (for your own applications).</li>
+            <li><strong>Schema Registry:</strong> Define and manage event schemas.</li>
+            <li><strong>EventBridge vs CloudWatch Events:</strong> EventBridge introduces new event bus capabilities and greater integration with external services.</li>
+          </ul>
+      
+          <h3>AWS CloudTrail</h3>
+          <p>CloudTrail tracks and logs API calls made within your AWS account, providing visibility into user activity for security analysis, compliance, and operational troubleshooting.</p>
+          <ul>
+            <li><strong>Enabled by Default:</strong> Tracks API calls across AWS services made through the console, CLI, SDK, etc.</li>
+            <li><strong>Log Delivery:</strong> CloudTrail logs can be sent to CloudWatch Logs or S3 for storage and analysis.</li>
+            <li><strong>Trail Scope:</strong> Can be configured to log events in all regions or a specific region.</li>
+          </ul>
+      
+          <h4>CloudTrail Events</h4>
+          <ul>
+            <li><strong>Management Events:</strong> Activities like configuring security policies or creating EC2 subnets.</li>
+            <li><strong>Data Events:</strong> Activities at a lower level, such as object-level operations on S3 or Lambda invocations.</li>
+          </ul>
+      
+          <h4>CloudTrail Insights</h4>
+          <p>CloudTrail Insights detects unusual activity in your account, such as inaccurate resource provisioning, hitting service limits, or anomalies in IAM actions.</p>
+          <ul>
+            <li><strong>Automatic Baselines:</strong> Insights create a baseline of normal activity and detect anomalies by comparing with past patterns.</li>
+            <li><strong>EventBridge Integration:</strong> Insights events can trigger automated workflows via EventBridge.</li>
+          </ul>
+      
+        </div>
+      </article>
+
+
+      <!-- Blog Post13 -->
+      <article class="blog-post">
+        <h2 class="post-title">VPC & Subnets Primer</h2>
+        <div class="post-content">
+          <p class="post-summary">
+            Amazon VPC (Virtual Private Cloud) allows you to create a private network for your AWS resources. Within the VPC, you can define subnets, control internet access, and set up secure connections to other VPCs, on-premises environments, and AWS services.
+          </p>
+          <img src="https://cdn-icons-png.flaticon.com/128/6658/6658180.png" alt="Amazon VPC Diagram" class="post-image">
+        </div>
+        <div class="button-container">
+          <button class="read-more-btn" aria-expanded="false">Read More</button>
+        </div>
+        <div class="full-content" hidden>
+          <h3>Amazon VPC</h3>
+          <p>Amazon Virtual Private Cloud (VPC) is a private network within AWS that you can use to host your resources. VPCs are region-specific and consist of subnets, which allow you to partition your network based on availability zones.</p>
+      
+          <h4>Subnets</h4>
+          <ul>
+            <li><strong>Public Subnet:</strong> A subnet that is accessible from the internet.</li>
+            <li><strong>Private Subnet:</strong> A subnet that is not accessible from the internet.</li>
+          </ul>
+      
+          <h3>Routing Access with Route Tables</h3>
+          <p>Route tables control the flow of traffic within your VPC. They define how traffic is routed between subnets and to/from the internet.</p>
+      
+          <h3>Internet Gateway (IGW)</h3>
+          <p>The Internet Gateway connects your VPC to the internet, allowing instances in your VPC to communicate directly with the internet.</p>
+          <ul>
+            <li>Essential for enabling public subnet communication with the internet.</li>
+          </ul>
+      
+          <h3>NAT Gateway</h3>
+          <p>The NAT Gateway allows instances in private subnets to initiate outbound traffic to the internet while preventing unsolicited inbound traffic.</p>
+          <ul>
+            <li>Used for scenarios like downloading updates and patches while preventing direct access from the internet.</li>
+            <li>Managed by AWS for ease of use and scalability.</li>
+          </ul>
+      
+          <h4>NAT Gateway vs NAT Instance</h4>
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Attribute</th>
+                <th>NAT Gateway</th>
+                <th>NAT Instance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Availability</td><td>Highly available, AWS manages redundancy</td><td>Requires manual failover setup</td></tr>
+              <tr><td>Bandwidth</td><td>Up to 100 Gbps</td><td>Depends on instance type</td></tr>
+              <tr><td>Maintenance</td><td>Managed by AWS</td><td>Managed by you</td></tr>
+              <tr><td>Performance</td><td>Optimized for NAT traffic</td><td>Generic AMI configured for NAT</td></tr>
+              <tr><td>Cost</td><td>Charged by usage and data transfer</td><td>Charged by instance type and usage</td></tr>
+              <tr><td>Public IP Addresses</td><td>Elastic IP address</td><td>Elastic or public IP address</td></tr>
+              <tr><td>Private IP Addresses</td><td>Automatically selected</td><td>Manually assigned</td></tr>
+              <tr><td>Security Groups</td><td>Cannot associate security groups</td><td>Can associate security groups</td></tr>
+              <tr><td>Flow Logs</td><td>Supported</td><td>Supported</td></tr>
+              <tr><td>Port Forwarding</td><td>Not supported</td><td>Customizable for port forwarding</td></tr>
+            </tbody>
+          </table>
+      
+          <h3>Network ACLs vs Security Groups</h3>
+          <p>Network ACLs and Security Groups are both firewalls, but they operate at different levels and have different capabilities.</p>
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Feature</th>
+                <th>Network ACL</th>
+                <th>Security Group</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Level of Operation</td><td>Subnet level</td><td>Instance level</td></tr>
+              <tr><td>Rule Type</td><td>Allow and Deny rules</td><td>Allow rules only</td></tr>
+              <tr><td>Statefulness</td><td>Stateless (return traffic must be allowed)</td><td>Stateful (return traffic allowed by default)</td></tr>
+              <tr><td>Rule Processing</td><td>Rules processed in order</td><td>All rules evaluated before action</td></tr>
+              <tr><td>Application</td><td>Automatically applied to all instances in subnet</td><td>Applied to instances based on association</td></tr>
+            </tbody>
+          </table>
+      
+          <h3>VPC Flow Logs</h3>
+          <p>VPC Flow Logs capture information about IP traffic going into or out of your network interfaces. This can help monitor and troubleshoot connectivity issues.</p>
+          <ul>
+            <li>Captures traffic from VPC, subnet, or ENI.</li>
+            <li>Useful for monitoring subnets’ traffic to/from the internet or between subnets.</li>
+            <li>Can send log data to S3 or CloudWatch Logs.</li>
+          </ul>
+      
+          <h3>VPC Peering</h3>
+          <p>VPC Peering allows direct communication between two VPCs, either in the same AWS account or across different accounts, without the use of the internet.</p>
+          <ul>
+            <li>Must have non-overlapping CIDR blocks.</li>
+            <li>Provides private, high-speed communication between VPCs.</li>
+          </ul>
+      
+          <h3>VPC Endpoints</h3>
+          <p>VPC Endpoints allow private connections between your VPC and AWS services, without using public internet routing.</p>
+          <ul>
+            <li><strong>Gateway Endpoint:</strong> For S3 and DynamoDB.</li>
+            <li><strong>Interface Endpoint:</strong> For all other AWS services.</li>
+          </ul>
+      
+          <h3>Site-to-Site VPN & Direct Connect</h3>
+          <p>A Site-to-Site VPN allows you to securely connect your on-premises network to AWS over the public internet. AWS Direct Connect establishes a private, secure, high-performance connection.</p>
+          <ul>
+            <li><strong>Site-to-Site VPN:</strong> Automatically encrypted, connects via a Virtual Private Gateway.</li>
+            <li><strong>AWS Direct Connect:</strong> Physical connection, private and secure, ideal for high-volume traffic.</li>
+          </ul>
+        </div>
+      </article>
+      
+
+
+      <!-- Blog Post14 -->
+      <article class="blog-post">
+        <h2 class="post-title">AWS Shared Responsibility Model & Security Practices</h2>
+        <div class="post-content">
+            <p class="post-summary">
+                The AWS Shared Responsibility Model outlines how security and compliance responsibilities are divided between AWS and the customer. AWS manages security "of" the cloud, while customers are responsible for security "in" the cloud, covering areas such as data protection, access management, and patching.
+            </p>
+            <img src="https://cdn-icons-png.flaticon.com/128/18294/18294642.png" alt="AWS Shared Responsibility Model" class="post-image">
+        </div>
+        <div class="button-container">
+            <button class="read-more-btn" aria-expanded="false">Read More</button>
+        </div>
+        <div class="full-content" hidden>
+            <h3>AWS Shared Responsibility Model</h3>
+            <p>The AWS Shared Responsibility Model clarifies the division of responsibilities for security and compliance between AWS and the customer. AWS handles security for the infrastructure, while customers are responsible for securing their data, applications, and other elements within the cloud.</p>
+    
+            <h4>Shared Responsibility Categories</h4>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Aspect</th>
+                        <th>AWS Responsibility</th>
+                        <th>Customer Responsibility</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Infrastructure</td><td>Physical security, hardware, and global network</td><td>Not applicable (fully managed by AWS)</td></tr>
+                    <tr><td>Configuration</td><td>Default configurations for services</td><td>Customize configurations to meet security requirements</td></tr>
+                    <tr><td>Data Protection</td><td>Ensure data encryption capabilities are available</td><td>Encrypt sensitive data and manage access permissions</td></tr>
+                    <tr><td>Patching</td><td>Patching underlying infrastructure</td><td>Patching the operating system and applications</td></tr>
+                    <tr><td>Access Management</td><td>IAM service availability and best practices</td><td>Defining and enforcing user and resource permissions</td></tr>
+                </tbody>
+            </table>
+    
+            <h3>Example for RDS</h3>
+            <p><strong>AWS Responsibility:</strong></p>
+            <ul>
+                <li>Managing the underlying database engine (e.g., MySQL, PostgreSQL).</li>
+                <li>Ensuring hardware security and network isolation.</li>
+                <li>Applying patches to the database software.</li>
+                <li>Audit the underlying instance and disks & guarantee it functions.</li>
+            </ul>
+            <p><strong>Customer Responsibility:</strong></p>
+            <ul>
+                <li>Managing database credentials and access control.</li>
+                <li>Encrypting data at rest and in transit.</li>
+                <li>Defining backup and recovery policies.</li>
+                <li>Monitoring database performance using CloudWatch.</li>
+                <li>Ensuring parameter groups or DB is configured to only allow SSL connections.</li>
+            </ul>
+    
+            <h3>Example for S3</h3>
+            <p><strong>AWS Responsibility:</strong></p>
+            <ul>
+                <li>Ensuring data durability and availability.</li>
+                <li>Managing infrastructure security for S3.</li>
+                <li>Guarantee unlimited storage.</li>
+                <li>Ensuring AWS employees can’t access your data.</li>
+                <li>Ensuring separation of the data between different customers.</li>
+            </ul>
+            <p><strong>Customer Responsibility:</strong></p>
+            <ul>
+                <li>Configuring bucket policies, access control lists (ACLs), and IAM roles.</li>
+                <li>Enabling encryption for objects (e.g., server-side or client-side encryption).</li>
+                <li>Monitoring and auditing access using AWS CloudTrail and S3 access logs.</li>
+                <li>Implementing versioning and lifecycle policies for object management.</li>
+            </ul>
+    
+            <h3>DDoS Protection on AWS</h3>
+            <p>AWS provides several security features to mitigate the risk of DDoS attacks and protect your applications:</p>
+            <ul>
+                <li><strong>AWS Shield Standard:</strong> Protects against DDoS attacks for all customers at no additional cost.</li>
+                <li><strong>AWS Shield Advanced:</strong> 24/7 premium DDoS protection.</li>
+                <li><strong>AWS WAF:</strong> Web Application Firewall to filter specific requests based on custom rules.</li>
+                <li><strong>CloudFront and Route 53:</strong> Availability protection using AWS’s global edge network.</li>
+                <li><strong>Auto Scaling:</strong> Be ready to scale with AWS Auto Scaling during high traffic periods.</li>
+            </ul>
+    
+            <h3>AWS Shield</h3>
+            <p>AWS Shield provides protection against DDoS attacks across Amazon CloudFront, Elastic Load Balancing, and other AWS services. Key features include:</p>
+            <ul>
+                <li>Protection from SYN/UDP Floods, Reflection attacks, and other layer 3/layer 4 attacks.</li>
+                <li>24/7 access to AWS DDoS Response Team (DRT).</li>
+                <li>Mitigating higher fees during usage spikes caused by DDoS attacks.</li>
+            </ul>
+    
+            <h3>AWS WAF (Web Application Firewall)</h3>
+            <p>AWS WAF helps protect your applications from common web exploits, including SQL injection and Cross-Site Scripting (XSS). Key features include:</p>
+            <ul>
+                <li>Define Web ACLs (Access Control Lists) based on IP addresses, HTTP headers, body, or URI strings.</li>
+                <li>Protects from common attacks and allows you to set size constraints, geo-match rules, and rate-based rules.</li>
+            </ul>
+    
+            <h3>Penetration Testing on AWS Cloud</h3>
+            <p>AWS allows customers to perform penetration testing or security assessments on certain AWS services without prior approval. These services include:</p>
+            <ul>
+                <li>Amazon EC2, RDS, CloudFront, and more.</li>
+                <li>For a full list, please refer to AWS’s official documentation.</li>
+            </ul>
+            <h4>Prohibited Activities</h4>
+            <ul>
+                <li>DNS zone walking via Amazon Route 53 Hosted Zones.</li>
+                <li>DoS and DDoS simulations, port flooding, and other attack simulations without approval.</li>
+            </ul>
+            <p>For more information on Penetration Testing, visit <a href="https://aws.amazon.com/security/penetration-testing/" target="_blank">AWS Security Penetration Testing</a>.</p>
+        </div>
+    </article>
+      
+      
+      <!-- Blog Post15 -->
+      <article class="blog-post">
+        <h2 class="post-title">AWS Machine Learning Services Overview</h2>
+        <div class="post-content">
+            <p class="post-summary">
+                Amazon Web Services (AWS) offers a variety of powerful machine learning services that enable businesses to add intelligence to their applications, from image and video recognition to speech-to-text and language translation. These services are designed to be easy to integrate and scalable to meet a variety of business needs.
+            </p>
+            <img src="https://cdn-icons-png.flaticon.com/128/12176/12176899.png" alt="AWS Machine Learning Services" class="post-image">
+        </div>
+        <div class="button-container">
+            <button class="read-more-btn" aria-expanded="false">Read More</button>
+        </div>
+        <div class="full-content" hidden>
+            <h3>Amazon Rekognition</h3>
+            <p>Amazon Rekognition uses machine learning to identify objects, people, text, and scenes in images and videos. It offers powerful tools for facial analysis, user verification, and people counting. You can create a database of familiar faces or compare against celebrities.</p>
+            <h4>Key Uses:</h4>
+            <ul>
+                <li>Labeling</li>
+                <li>Content Moderation</li>
+                <li>Text Detection</li>
+                <li>Face Detection and Analysis (e.g., gender, age range, emotions)</li>
+                <li>Face Search and Verification</li>
+                <li>Celebrities Recognition</li>
+            </ul>
+            <p>For more information, visit <a href="https://aws.amazon.com/rekognition/" target="_blank">Amazon Rekognition</a>.</p>
+    
+            <h3>Amazon Transcribe</h3>
+            <p>Amazon Transcribe converts speech to text using Automatic Speech Recognition (ASR), offering fast and accurate transcription for a variety of use cases.</p>
+            <h4>Key Uses:</h4>
+            <ul>
+                <li>Transcribing customer service calls</li>
+                <li>Automating closed captioning and subtitling</li>
+                <li>Generating metadata for searchable media archives</li>
+            </ul>
+    
+            <h3>Amazon Polly</h3>
+            <p>Amazon Polly turns text into lifelike speech using deep learning technology. It enables the creation of talking applications that can engage users with natural-sounding voice interactions.</p>
+    
+            <h3>Amazon Translate</h3>
+            <p>Amazon Translate provides natural and accurate language translation, allowing businesses to localize content for international users and efficiently translate large volumes of text.</p>
+    
+            <h3>Amazon Lex & Amazon Connect</h3>
+            <h4>Amazon Lex</h4>
+            <p>Amazon Lex uses ASR to convert speech to text and Natural Language Understanding (NLU) to recognize text and intent. It’s the same technology behind Amazon Alexa, enabling the creation of conversational bots and virtual assistants.</p>
+    
+            <h4>Amazon Connect</h4>
+            <p>Amazon Connect is a cloud-based virtual contact center that allows businesses to create personalized contact flows and integrate with CRM systems or other AWS services, offering a cost-effective alternative to traditional contact centers.</p>
+            <p>Amazon Connect requires no upfront payments and is 80% cheaper than traditional contact centers.</p>
+    
+            <h3>Amazon Comprehend</h3>
+            <p>Amazon Comprehend is a fully managed, serverless Natural Language Processing (NLP) service. It uses machine learning to find insights and relationships in text, providing valuable analytics on customer sentiment, key phrases, and more.</p>
+            <h4>Key Features:</h4>
+            <ul>
+                <li>Identifies language of the text</li>
+                <li>Extracts key phrases, places, people, brands, or events</li>
+                <li>Determines sentiment of the text</li>
+                <li>Analyzes text using tokenization and parts of speech</li>
+                <li>Organizes text by topic</li>
+            </ul>
+    
+            <h3>Amazon SageMaker</h3>
+            <p>Amazon SageMaker is a fully managed service designed for developers and data scientists to build, train, and deploy machine learning models. It simplifies the complex machine learning process, allowing users to focus on creating intelligent applications.</p>
+            <p>A simple example: Predicting your exam score based on historical data.</p>
+    
+            <h3>Amazon Forecast</h3>
+            <p>Amazon Forecast uses machine learning to deliver highly accurate forecasts, reducing the time it takes to forecast from months to hours. It helps businesses predict future sales, demand, and other important factors with 50% more accuracy than traditional methods.</p>
+            <h4>Key Uses:</h4>
+            <ul>
+                <li>Product demand planning</li>
+                <li>Financial planning</li>
+                <li>Resource planning</li>
+            </ul>
+    
+            <h3>Amazon Kendra</h3>
+            <p>Amazon Kendra is a fully managed document search service powered by machine learning. It can extract answers from various document types and offers natural language search capabilities.</p>
+            <p>Kendra learns from user interactions and allows manual fine-tuning of search results to ensure the most relevant information is presented.</p>
+    
+            <h3>Amazon Personalize</h3>
+            <p>Amazon Personalize is a fully managed ML service that provides real-time personalized recommendations. It’s used for creating customized user experiences, such as personalized product recommendations and targeted marketing campaigns.</p>
+            <h4>Key Uses:</h4>
+            <ul>
+                <li>Personalized product recommendations</li>
+                <li>Customized direct marketing</li>
+                <li>Integrates with websites, applications, SMS, email marketing systems</li>
+            </ul>
+    
+            <h3>Amazon Textract</h3>
+            <p>Amazon Textract automatically extracts text, handwriting, and data from scanned documents using AI and machine learning. It’s designed to process various document types such as PDFs, images, and scanned forms.</p>
+            <h4>Key Uses:</h4>
+            <ul>
+                <li>Financial Services (e.g., invoices, financial reports)</li>
+                <li>Healthcare (e.g., medical records, insurance claims)</li>
+                <li>Public Sector (e.g., tax forms, ID documents, passports)</li>
+            </ul>
+    
+            <h3>Summary</h3>
+            <ul>
+                <li><strong>Rekognition:</strong> Face detection, labeling, celebrity recognition</li>
+                <li><strong>Transcribe:</strong> Speech-to-text (e.g., subtitles)</li>
+                <li><strong>Polly:</strong> Text-to-speech conversion</li>
+                <li><strong>Translate:</strong> Language translation</li>
+                <li><strong>Lex:</strong> Build conversational bots (chatbots)</li>
+                <li><strong>Connect:</strong> Cloud-based virtual contact center</li>
+                <li><strong>Comprehend:</strong> Natural language processing</li>
+                <li><strong>SageMaker:</strong> ML model development</li>
+                <li><strong>Forecast:</strong> Accurate forecasts</li>
+                <li><strong>Kendra:</strong> ML-powered document search</li>
+                <li><strong>Personalize:</strong> Real-time personalized recommendations</li>
+                <li><strong>Textract:</strong> Document text extraction</li>
+            </ul>
+        </div>
+    </article>
+    
+
+
+      <!-- Blog Post16 -->
+      <article class="blog-post">
+        <h2 class="post-title">AWS Organizations and Pricing Models</h2>
+        <div class="post-content">
+            <p class="post-summary">
+                AWS Organizations enables businesses to manage multiple AWS accounts, providing cost benefits through consolidated billing and pricing advantages. It also helps in enforcing governance with Service Control Policies (SCP) and offers easy management of resources across different accounts. In addition, AWS offers a variety of pricing models to help optimize cost savings for compute services.
+            </p>
+            <img src="https://cdn-icons-png.flaticon.com/128/1549/1549847.png" alt="AWS Organizations and Pricing Models" class="post-image">
+        </div>
+        <div class="button-container">
+            <button class="read-more-btn" aria-expanded="false">Read More</button>
+        </div>
+        <div class="full-content" hidden>
+            <h3>AWS Organizations</h3>
+            <p>AWS Organizations is a global service that allows you to manage multiple AWS accounts. The main account in the organization is the master account, which oversees all billing and access controls for the organization.</p>
+            
+            <h4>Cost Benefits</h4>
+            <ul>
+                <li>Consolidated billing across all accounts, simplifying the payment process.</li>
+                <li>Volume-based pricing benefits, such as discounts for EC2, S3, and other services due to aggregated usage.</li>
+                <li>Pooling of Reserved EC2 instances for optimal savings.</li>
+                <li>API available for automating AWS account creation.</li>
+                <li>Restrict account privileges using Service Control Policies (SCP).</li>
+            </ul>
+    
+            <h4>Multi-Account Strategies</h4>
+            <ul>
+                <li>Create accounts per department, cost center, or environment (dev, test, prod) for better resource isolation.</li>
+                <li>Use SCPs to enforce compliance or regulatory restrictions.</li>
+                <li>Enable centralized logging by sending CloudTrail and CloudWatch logs to a central account.</li>
+                <li>Utilize tagging standards for billing purposes and separate per-account service limits.</li>
+            </ul>
+    
+            <h3>Service Control Policies (SCP)</h3>
+            <p>SCPs allow you to whitelist or blacklist IAM actions at the organizational unit (OU) or account level, except for the master account. They do not affect service-linked roles, which are essential for AWS services to integrate with AWS Organizations.</p>
+            <ul>
+                <li>SCP must have an explicit "Allow" to permit access (by default, they do not allow anything).</li>
+                <li>Common use cases: restricting access to certain services, enforcing PCI compliance by disabling services, etc.</li>
+            </ul>
+    
+            <h3>AWS Control Tower</h3>
+            <p>AWS Control Tower helps you set up and govern a secure, multi-account AWS environment following AWS best practices. It runs on top of AWS Organizations and automates ongoing policy management, detecting violations and monitoring compliance.</p>
+            <ul>
+                <li>Automate environment setup in a few clicks.</li>
+                <li>Use "guardrails" for policy enforcement and remediation.</li>
+                <li>Monitor compliance through an interactive dashboard.</li>
+            </ul>
+    
+            <h3>AWS Resource Access Manager (AWS RAM)</h3>
+            <p>AWS RAM allows you to share AWS resources that you own with other AWS accounts, either within your organization or externally. This helps avoid resource duplication and can save costs across multiple accounts.</p>
+            <ul>
+                <li>Resources supported for sharing include VPC subnets, Transit Gateway, Aurora, EC2 Dedicated Hosts, Route 53, etc.</li>
+            </ul>
+    
+            <h3>AWS Service Catalog</h3>
+            <p>AWS Service Catalog provides a curated, self-service portal for launching AWS resources. It helps ensure that users follow governance policies and only deploy approved resources, reducing the risk of non-compliant or rogue stacks.</p>
+            <ul>
+                <li>Users can launch predefined sets of authorized products, such as virtual machines, databases, and storage options.</li>
+            </ul>
+    
+            <h3>Pricing Models in AWS</h3>
+            <p>AWS offers four primary pricing models to cater to different business needs and optimize cost savings:</p>
+            <ul>
+                <li><strong>Pay as you go:</strong> Pay only for what you use, offering agility and scalability.</li>
+                <li><strong>Save when you reserve:</strong> Reduce costs with reserved capacity for EC2, DynamoDB, ElastiCache, RDS, etc.</li>
+                <li><strong>Pay less by using more:</strong> Receive volume-based discounts for higher usage levels.</li>
+                <li><strong>Pay less as AWS grows:</strong> Benefit from cost reductions as AWS scales its services.</li>
+            </ul>
+    
+            <h3>EC2 Pricing</h3>
+            <p>The EC2 pricing model offers several options based on your needs:</p>
+            <h4>On-Demand Instances</h4>
+            <ul>
+                <li>Pay for the compute capacity by the second or hour (Linux/Windows).</li>
+                <li>Flexible, pay for what you use without long-term commitments.</li>
+            </ul>
+    
+            <h4>Reserved Instances</h4>
+            <ul>
+                <li>Save up to 75% compared to on-demand pricing.</li>
+                <li>Commit to a 1- or 3-year term, with various payment options: all upfront, partial upfront, or no upfront.</li>
+            </ul>
+    
+            <h4>Spot Instances</h4>
+            <ul>
+                <li>Bid for unused EC2 capacity and save up to 90% off on-demand pricing.</li>
+                <li>Best for workloads that can tolerate interruptions.</li>
+            </ul>
+    
+            <h4>Dedicated Hosts</h4>
+            <ul>
+                <li>On-demand or reserved (1 or 3 years).</li>
+                <li>Reserved instances also available to save on sustained usage.</li>
+            </ul>
+    
+            <h4>Savings Plans</h4>
+            <ul>
+                <li>Alternative to Reserved Instances, offering flexible savings for EC2 and Fargate workloads.</li>
+            </ul>
+        </div>
+    </article>
+    
+
+
+
+      <!-- Blog Post17 -->
+      <article class="blog-post">
+        <h2 class="post-title">AWS STS, Cognito, and Directory Services</h2>
+        <div class="post-content">
+            <p class="post-summary">
+                AWS provides a range of services to manage identity and access securely, including Security Token Service (STS), Amazon Cognito, and Directory Services. These services help organizations manage user access, integrate with Microsoft Active Directory, and offer single sign-on (SSO) capabilities for various AWS resources and applications.
+            </p>
+            <img src="https://cdn-icons-png.flaticon.com/128/4850/4850169.png" alt="AWS Identity and Access Management" class="post-image">
+        </div>
+        <div class="button-container">
+            <button class="read-more-btn" aria-expanded="false">Read More</button>
+        </div>
+        <div class="full-content" hidden>
+            <h3>AWS STS (Security Token Service)</h3>
+            <p>AWS Security Token Service (STS) allows you to provide temporary, limited-privilege credentials for accessing AWS resources. The credentials are time-bound, with a configurable expiration period, ensuring that access to resources is controlled and secure.</p>
+            
+            <h4>Use Cases</h4>
+            <ul>
+                <li><strong>Identity Federation:</strong> Manage user identities in external systems and provide STS tokens for secure access to AWS resources.</li>
+                <li><strong>Cross-Account Access:</strong> Use IAM roles with STS to grant temporary access between different AWS accounts or within the same account.</li>
+                <li><strong>EC2 Instance Access:</strong> Use IAM roles with STS for EC2 instances to temporarily access AWS resources without hardcoding credentials.</li>
+            </ul>
+    
+            <h3>Amazon Cognito</h3>
+            <p>Amazon Cognito enables user identity management for web and mobile applications, supporting potentially millions of users. Instead of creating IAM users, you can create and manage users directly within Cognito, allowing for easy integration with your applications.</p>
+            <ul>
+                <li><strong>Scalability:</strong> Amazon Cognito can scale to handle millions of users, offering a secure and cost-effective solution for managing identities.</li>
+                <li><strong>User Pools:</strong> Create and manage a user directory for your web and mobile apps.</li>
+                <li><strong>Federated Identities:</strong> Authenticate users from third-party providers like Google, Facebook, and SAML-based identity providers.</li>
+            </ul>
+    
+            <h3>Microsoft Active Directory (AD) Integration</h3>
+            <p>AWS offers several solutions to integrate Microsoft Active Directory (AD) with AWS for centralized security management, such as managing user accounts, permissions, and resources across your organization.</p>
+    
+            <h4>AWS Directory Services</h4>
+            <p>AWS Directory Services offers multiple options for integrating Active Directory into AWS, providing both managed and self-managed solutions to meet your business needs:</p>
+    
+            <h5>AWS Managed Microsoft AD</h5>
+            <ul>
+                <li>Fully managed service to create and manage your own Active Directory within AWS.</li>
+                <li>Supports Multi-Factor Authentication (MFA) and establishes trust connections with on-premise AD.</li>
+                <li>Enables seamless integration of AWS resources with your existing AD infrastructure.</li>
+            </ul>
+    
+            <h5>AD Connector</h5>
+            <ul>
+                <li>Acts as a proxy to redirect directory requests to your on-premise Active Directory.</li>
+                <li>Supports MFA and allows you to manage users and resources from your on-premise AD while integrating with AWS services.</li>
+            </ul>
+    
+            <h5>Simple AD</h5>
+            <ul>
+                <li>A managed directory service that is compatible with Active Directory but does not support joining with on-premise AD.</li>
+                <li>Ideal for lightweight directory requirements without the need for full AD integration.</li>
+            </ul>
+    
+            <h3>AWS IAM Identity Center</h3>
+            <p>AWS IAM Identity Center provides a centralized identity management solution that enables Single Sign-On (SSO) for multiple AWS accounts and business applications. It integrates with cloud apps like Salesforce, Microsoft 365, and SAML-based apps for seamless user access.</p>
+            <ul>
+                <li><strong>Single Sign-On (SSO):</strong> Provides one-click access to multiple AWS accounts and applications.</li>
+                <li><strong>Identity Providers:</strong> Built-in identity store in IAM Identity Center or integration with external SAML 2.0 identity providers.</li>
+                <li><strong>Application Integration:</strong> Enables easy access to third-party cloud apps (e.g., Salesforce, Box, etc.) without separate logins.</li>
+            </ul>
+    
+            <h3>Summary</h3>
+            <p>AWS provides a variety of services to manage identities and access in a secure and scalable way:</p>
+            <ul>
+                <li><strong>AWS IAM:</strong> Identity and access management within your AWS account for trusted users.</li>
+                <li><strong>AWS Organizations:</strong> Manage multiple AWS accounts for better governance and resource management.</li>
+                <li><strong>AWS STS:</strong> Provides temporary, limited-privilege credentials for AWS resource access, ideal for identity federation and cross-account access.</li>
+                <li><strong>Amazon Cognito:</strong> Create and manage user identities for mobile and web applications, integrating with external identity providers.</li>
+                <li><strong>AWS Directory Services:</strong> Integrates Microsoft Active Directory in AWS, supporting managed AD, AD Connector, and Simple AD solutions.</li>
+                <li><strong>AWS IAM Identity Center:</strong> Single sign-on for AWS accounts and cloud applications, streamlining user access management.</li>
+            </ul>
+        </div>
+    </article>
+    
+
+
+
+      <!-- Blog Post18 -->
+      <article class="blog-post">
+        <h2 class="post-title">AWS Desktop, IoT, and Backup Services</h2>
+        <div class="post-content">
+            <p class="post-summary">
+                AWS offers a variety of powerful services for desktop virtualization, Internet of Things (IoT), and backup solutions. These services provide secure, scalable, and cost-effective ways to manage desktop environments, connect IoT devices, and ensure data protection. Whether you're building virtual desktops or managing backups and disaster recovery, AWS has a solution for your needs.
+            </p>
+            <img src="https://cdn-icons-png.flaticon.com/128/17021/17021109.png" alt="AWS Cloud Services" class="post-image">
+        </div>
+        <div class="button-container">
+            <button class="read-more-btn" aria-expanded="false">Read More</button>
+        </div>
+        <div class="full-content" hidden>
+            <h3>Amazon WorkSpaces</h3>
+            <p>Amazon WorkSpaces is a fully managed Desktop as a Service (DaaS) solution that provides Windows or Linux desktops, eliminating the need to manage on-premise Virtual Desktop Infrastructure (VDI). It's scalable to thousands of users quickly and integrates with AWS Key Management Service (KMS) for data security. The service follows a pay-as-you-go model with both monthly and hourly pricing options.</p>
+            
+            <h4>Key Features:</h4>
+            <ul>
+                <li>Fully managed virtual desktops (Windows or Linux)</li>
+                <li>Scalable to thousands of users</li>
+                <li>Integration with AWS KMS for secure data storage</li>
+                <li>Pay-as-you-go pricing with monthly or hourly options</li>
+            </ul>
+    
+            <h3>Amazon AppStream 2.0</h3>
+            <p>Amazon AppStream 2.0 is a Desktop Application Streaming Service that allows you to stream applications to any computer without the need for provisioning infrastructure. Applications are streamed directly from within a web browser, providing secure access without requiring users to connect to a Virtual Desktop Infrastructure (VDI).</p>
+            
+            <h4>Key Features:</h4>
+            <ul>
+                <li>Stream desktop applications to web browsers without VDI</li>
+                <li>Works across any device with a browser</li>
+                <li>Customizable instance types (CPU, RAM, GPU) for each application</li>
+                <li>On-demand and always-on workspace configurations</li>
+            </ul>
+    
+            <h3>Amazon Sumerian</h3>
+            <p>Amazon Sumerian is a platform to create and run virtual reality (VR), augmented reality (AR), and 3D applications without requiring programming skills. It offers easy-to-use tools to quickly create 3D models with animations. The service provides ready-to-use templates and assets, making it ideal for developers and creators looking to build immersive experiences.</p>
+            
+            <h4>Key Features:</h4>
+            <ul>
+                <li>Create 3D models with animations</li>
+                <li>No programming or 3D expertise required</li>
+                <li>Accessible via web-browser URLs or popular AR/VR hardware</li>
+            </ul>
+            <p>Example Showcase: <a href="https://docs.aws.amazon.com/sumerian/latest/userguide/gettingstartedshowcase.html" target="_blank">Amazon Sumerian Getting Started Showcase</a></p>
+    
+            <h3>AWS IoT Core</h3>
+            <p>AWS IoT Core is a service that allows you to securely and scalably connect IoT devices to the AWS Cloud. It supports serverless communication with devices, even when they are disconnected, and integrates with various AWS services such as Lambda, S3, and SageMaker to process, analyze, and act on IoT data.</p>
+            
+            <h4>Key Features:</h4>
+            <ul>
+                <li>Secure and scalable device connection to AWS Cloud</li>
+                <li>Integrates with services like Lambda, S3, SageMaker for data processing</li>
+                <li>Supports disconnected communication for IoT applications</li>
+            </ul>
+    
+            <h3>Amazon Elastic Transcoder</h3>
+            <p>Amazon Elastic Transcoder is a fully managed service that allows you to convert media files stored in Amazon S3 into formats required by consumer playback devices (e.g., phones, tablets, etc.). It supports large volumes of media files with a cost-effective, pay-as-you-go pricing model.</p>
+            
+            <h4>Key Benefits:</h4>
+            <ul>
+                <li>Easy-to-use interface for media transcoding</li>
+                <li>Highly scalable, handling large volumes of media files</li>
+                <li>Cost-effective with duration-based pricing</li>
+            </ul>
+    
+            <h3>AWS AppSync</h3>
+            <p>AWS AppSync is a service that allows you to store and sync data across mobile and web apps in real-time using GraphQL. It integrates seamlessly with DynamoDB, Lambda, and other AWS services and supports offline data synchronization for resilient apps.</p>
+            
+            <h4>Key Features:</h4>
+            <ul>
+                <li>Real-time data synchronization for mobile and web apps</li>
+                <li>Uses GraphQL to query and manipulate data</li>
+                <li>Offline synchronization capabilities (replacing Cognito Sync)</li>
+                <li>Fine-grained security controls</li>
+            </ul>
+    
+            <h3>AWS Amplify</h3>
+            <p>AWS Amplify is a set of tools and services that help developers build and deploy scalable, full-stack web and mobile applications. It includes features for backend-as-a-service (BaaS), frontend libraries, real-time capabilities, and CI/CD for continuous development.</p>
+            
+            <h4>Key Features:</h4>
+            <ul>
+                <li>Backend-as-a-Service (BaaS) with tools for authentication, storage, API management</li>
+                <li>Real-time and offline capabilities via AWS AppSync</li>
+                <li>CI/CD support for continuous integration and delivery</li>
+                <li>Integration with GitHub, AWS source code, and more</li>
+            </ul>
+    
+            <h3>AWS Device Farm</h3>
+            <p>AWS Device Farm is a fully-managed service that allows you to test web and mobile applications across real devices. It enables running tests on multiple devices simultaneously to speed up execution and provides device configuration options like GPS, Wi-Fi, and Bluetooth settings.</p>
+            
+            <h4>Key Features:</h4>
+            <ul>
+                <li>Test apps on real mobile devices and browsers</li>
+                <li>Run tests concurrently across multiple devices</li>
+                <li>Configure device settings like GPS, language, and Wi-Fi</li>
+            </ul>
+    
+            <h3>AWS Backup</h3>
+            <p>AWS Backup is a fully managed service that allows you to automate and centrally manage backups across AWS services. It supports on-demand and scheduled backups, retention policies, and cross-region backup capabilities.</p>
+            
+            <h4>Key Features:</h4>
+            <ul>
+                <li>Fully managed, on-demand and scheduled backups</li>
+                <li>Point-in-time recovery (PITR) capabilities</li>
+                <li>Cross-region and cross-account backup support</li>
+            </ul>
+    
+            <h3>AWS Elastic Disaster Recovery (DRS)</h3>
+            <p>AWS Elastic Disaster Recovery (formerly CloudEndure) provides quick and easy recovery for physical, virtual, and cloud-based servers to AWS. It supports continuous block-level replication for server recovery and is ideal for protecting critical databases and applications.</p>
+            
+            <h4>Key Features:</h4>
+            <ul>
+                <li>Continuous block-level replication for disaster recovery</li>
+                <li>Protect critical databases (e.g., Oracle, MySQL) and enterprise applications (e.g., SAP)</li>
+                <li>Ideal for protecting data from ransomware attacks</li>
+            </ul>
+    
+            <h3>AWS DataSync</h3>
+            <p>AWS DataSync is a service for transferring large amounts of data from on-premises systems to AWS. It supports synchronization with Amazon S3, EFS, and FSx, and provides scheduling for incremental replication after the initial data transfer.</p>
+            
+            <h4>Key Features:</h4>
+            <ul>
+                <li>Move large amounts of data from on-premises to AWS</li>
+                <li>Sync data with Amazon S3, EFS, and FSx</li>
+                <li>Support for scheduling and incremental replication</li>
+            </ul>
+    
+            <h3>AWS Application Discovery Service</h3>
+            <p>AWS Application Discovery Service helps plan migration projects by gathering data about on-premises data centers. It collects server utilization data and maps dependencies for migration planning, using both agentless and agent-based discovery options.</p>
+            
+            <h4>Key Features:</h4>
+            <ul>
+                <li>Collects server utilization and dependency data for migrations</li>
+                <li>Agentless and agent-based discovery options</li>
+                <li>Integrates with AWS Migration Hub</li>
+            </ul>
+        </div>
+    </article>
+    
+
+      <!-- Blog Post19 -->
+      <article class="blog-post">
+        <h2 class="post-title">AWS Well-Architected Framework & Cloud Best Practices</h2>
+        <div class="post-content">
+            <p class="post-summary">
+                Building cloud-native applications requires a strong foundation to ensure scalability, security, and cost-efficiency. AWS provides a set of guiding principles and best practices to help you architect systems that can meet evolving business requirements while optimizing resources. 
+            </p>
+            <img src="https://cdn-icons-png.flaticon.com/128/1081/1081009.png" alt="AWS Well-Architected Framework" class="post-image">
+        </div>
+        <div class="button-container">
+            <button class="read-more-btn" aria-expanded="false">Read More</button>
+        </div>
+        <div class="full-content" hidden>
+            <h3>Well-Architected Framework General Guiding Principles</h3>
+            <ul>
+                <li><strong>Stop guessing capacity needs:</strong> Use automated tools and scaling to avoid over-provisioning.</li>
+                <li><strong>Test systems at production scale:</strong> Simulate real-world load and usage patterns.</li>
+                <li><strong>Automate to facilitate architectural experimentation:</strong> Make testing and evolving architectures fast and efficient.</li>
+                <li><strong>Allow for evolutionary architectures:</strong> Continuously adapt to changing requirements and scale as needed.</li>
+                <li><strong>Drive architectures using data:</strong> Use data-driven decisions for continuous improvement.</li>
+                <li><strong>Improve through game days:</strong> Simulate high-stress events like flash sales to test system robustness.</li>
+            </ul>
+    
+            <h3>AWS Cloud Best Practices - Design Principles</h3>
+            <ul>
+                <li><strong>Scalability:</strong> Scale both vertically (bigger servers) and horizontally (more servers) to meet demand.</li>
+                <li><strong>Disposable Resources:</strong> Ensure that resources (like servers) are disposable, easily replaced, and automatically configured.</li>
+                <li><strong>Automation:</strong> Utilize serverless, Infrastructure as a Service (IaaS), and auto-scaling to reduce human intervention.</li>
+                <li><strong>Loose Coupling:</strong> Break monolithic applications into smaller, independent services to avoid cascading failures.</li>
+                <li><strong>Services, Not Servers:</strong> Use managed services, serverless options, and databases instead of managing EC2 instances yourself.</li>
+            </ul>
+    
+            <h3>The 6 Pillars of the AWS Well-Architected Framework</h3>
+    
+            <h4>1. Operational Excellence</h4>
+            <p>The ability to run and monitor systems for business value while improving supporting processes and procedures.</p>
+            <ul>
+                <li><strong>Design Principles:</strong> Automate operations, perform frequent, reversible changes, anticipate failure, and learn from all failures.</li>
+                <li><strong>Key Focus:</strong> Infrastructure as code, documentation automation, frequent refinement of operational processes, and failure anticipation.</li>
+            </ul>
+    
+            <h4>2. Security</h4>
+            <p>The ability to protect information, systems, and assets while delivering business value through risk assessments and mitigation strategies.</p>
+            <ul>
+                <li><strong>Design Principles:</strong> Implement centralized identity management, enable traceability, apply security at all layers (network, OS, application), automate security practices, and prepare for security events.</li>
+                <li><strong>Key Focus:</strong> Strong identity management (IAM), encryption, secure data access, and incident response preparation.</li>
+            </ul>
+    
+            <h4>3. Reliability</h4>
+            <p>The ability to recover from disruptions, dynamically acquire resources, and mitigate misconfigurations or transient network issues.</p>
+            <ul>
+                <li><strong>Design Principles:</strong> Test recovery procedures, automatically recover from failures, scale horizontally for availability, and manage change with automation.</li>
+                <li><strong>Key Focus:</strong> Redundancy, automated failover, horizontal scaling, and capacity management through Auto Scaling.</li>
+            </ul>
+    
+            <h4>4. Performance Efficiency</h4>
+            <p>Efficiently using computing resources to meet system requirements while maintaining efficiency as demands change.</p>
+            <ul>
+                <li><strong>Design Principles:</strong> Democratize advanced technologies, go global quickly, use serverless architectures, experiment often, and stay aware of all AWS services.</li>
+                <li><strong>Key Focus:</strong> Using the right tools and technologies to meet demand, and ensuring systems evolve efficiently with changing workloads.</li>
+            </ul>
+    
+            <h4>5. Cost Optimization</h4>
+            <p>The ability to deliver business value at the lowest possible cost while avoiding over-spending on unnecessary resources.</p>
+            <ul>
+                <li><strong>Design Principles:</strong> Pay for what you use, measure efficiency with CloudWatch, stop spending on data center operations, and use managed services to reduce costs.</li>
+                <li><strong>Key Focus:</strong> Reduce resource wastage, optimize pricing models, and regularly track costs through tags and usage analysis.</li>
+            </ul>
+    
+            <h4>6. Sustainability</h4>
+            <p>Minimizing environmental impacts of running cloud workloads through energy-efficient systems and practices.</p>
+            <ul>
+                <li><strong>Design Principles:</strong> Understand your impact on the environment, set sustainability goals, maximize utilization of resources, and automate sustainability best practices.</li>
+                <li><strong>Key Focus:</strong> Maximize efficiency, reduce energy/resource consumption, and adopt greener technologies.</li>
+            </ul>
+    
+            <h3>Summary</h3>
+            <p>The AWS Well-Architected Framework helps businesses build cloud systems that are scalable, secure, reliable, cost-efficient, and sustainable. By following the six pillars—Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimization, and Sustainability—you can ensure that your applications and workloads are well-architected to meet both current and future demands.</p>
+        </div>
+    </article>
+    
+
+    </section>
+  </div>
+  <footer>
+    <div class="footer-content">
+        <div class="footer-info">
+            <p><strong>Mohammad Jawahar Parvez</strong></p>
+            <p>Contact: <a href="tel:+917093141824">+91 7093141824</a></p>
+            <p>Email: <a href="mailto:Jawaharparvez@gmail.com">Jawaharparvez@gmail.com</a></p>
+        </div>
+        
+        <div class="social-links">
+            <a href="https://instagram.com/iamtheparvez" target="_blank" title="Instagram">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+            <a href="https://github.com/Jawaharparvez" target="_blank" title="GitHub">
+                <i class="fab fa-github"></i> GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/jawaharparvez" target="_blank" title="LinkedIn">
+                <i class="fab fa-linkedin"></i> LinkedIn
+            </a>
+        </div>
+
+        <div class="copyright">
+            <p>&copy; 2025 Jawahar Parvez. All rights reserved.</p>
+        </div>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>

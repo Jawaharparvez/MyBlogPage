@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>AWS Architecting &amp; Ecosystem</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="chapter.css">
+</head>
+<body>
+  <main id="content" class="main-content" role="main">
+      <h1 id="aws-architecting--ecosystem">AWS Architecting &amp; Ecosystem</h1>
+
+<ul>
+  <li><a href="#aws-architecting--ecosystem">AWS Architecting &amp; Ecosystem</a>
+    <ul>
+      <li><a href="#well-architected-framework-general-guiding-principles">Well Architected Framework General Guiding Principles</a></li>
+      <li><a href="#aws-cloud-best-practices---design-principles">AWS Cloud Best Practices - Design Principles</a></li>
+      <li><a href="#well-architected-framework-6-pillars">Well Architected Framework 6 Pillars</a>
+        <ul>
+          <li><a href="#1-operational-excellence">1. Operational Excellence</a></li>
+          <li><a href="#2-security">2. Security</a></li>
+          <li><a href="#3-reliability">3. Reliability</a></li>
+          <li><a href="#4-performance-efficiency">4. Performance Efficiency</a></li>
+          <li><a href="#5-cost-optimization">5. Cost Optimization</a></li>
+          <li><a href="#6-sustainability">6. Sustainability</a></li>
+        </ul>
+      </li>
+      <li><a href="#aws-well-architected-tool">AWS Well-Architected Tool</a></li>
+      <li><a href="#aws-right-sizing">AWS Right Sizing</a></li>
+      <li><a href="#aws-ecosystem---free-resources">AWS Ecosystem - Free Resources</a>
+        <ul>
+          <li><a href="#aws-ecosystem---aws-support">AWS Ecosystem - AWS Support</a></li>
+        </ul>
+      </li>
+      <li><a href="#aws-marketplace">AWS Marketplace</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="well-architected-framework-general-guiding-principles">Well Architected Framework General Guiding Principles</h2>
+
+<ul>
+  <li>Stop guessing capacity needs.</li>
+  <li>Test systems at production scale.</li>
+  <li>Automate to facilitate architectural experimentation.</li>
+  <li>Allow for evolutionary architectures based on changing requirements.</li>
+  <li>Drive architectures using data.</li>
+  <li>Improve through game days by simulating applications for flash sale days.</li>
+</ul>
+
+<h2 id="aws-cloud-best-practices---design-principles">AWS Cloud Best Practices - Design Principles</h2>
+
+<ul>
+  <li><strong>Scalability</strong>: Scale both vertically and horizontally.</li>
+  <li><strong>Disposable Resources</strong>: Servers should be disposable and easily configured.</li>
+  <li><strong>Automation</strong>: Utilize serverless, infrastructure as a service, and auto-scaling.</li>
+  <li><strong>Loose Coupling</strong>: Break monolithic applications into smaller, loosely coupled components to prevent cascading failures.</li>
+  <li><strong>Services, Not Servers</strong>: Use managed services, databases, and serverless options instead of just EC2.</li>
+</ul>
+
+<h2 id="well-architected-framework-6-pillars">Well Architected Framework 6 Pillars</h2>
+
+<h3 id="1-operational-excellence">1. Operational Excellence</h3>
+
+<ul>
+  <li>Ability to run and monitor systems for business value and improve supporting processes.</li>
+  <li><strong>Design Principles</strong>:
+    <ul>
+      <li>Perform operations as code (Infrastructure as code).</li>
+      <li>Automate the creation of annotated documentation.</li>
+      <li>Make frequent, small, reversible changes.</li>
+      <li>Refine operations procedures frequently and ensure team familiarity.</li>
+      <li>Anticipate failure.</li>
+      <li>Learn from all operational failures.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="2-security">2. Security</h3>
+
+<ul>
+  <li>Ability to protect information, systems, and assets while delivering business value through risk assessments and mitigation strategies.</li>
+  <li><strong>Design Principles</strong>:
+    <ul>
+      <li>Implement a strong identity foundation (centralized privilege management, principle of least privilege, IAM).</li>
+      <li>Enable traceability (integrate logs and metrics with systems).</li>
+      <li>Apply security at all layers (edge network, VPC, load balancer, instances, OS, application).</li>
+      <li>Automate security best practices.</li>
+      <li>Protect data in transit and at rest (encryption, tokenization, access control).</li>
+      <li>Keep people away from data (reduce or eliminate direct access).</li>
+      <li>Prepare for security events (run incident response simulations, use automation).</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="3-reliability">3. Reliability</h3>
+
+<ul>
+  <li>Ability to recover from disruptions, dynamically acquire resources, and mitigate misconfigurations or transient network issues.</li>
+  <li><strong>Design Principles</strong>:
+    <ul>
+      <li>Test recovery procedures using automation.</li>
+      <li>Automatically recover from failures.</li>
+      <li>Scale horizontally to increase availability.</li>
+      <li>Stop guessing capacity (use Auto Scaling).</li>
+      <li>Manage change with automation.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="4-performance-efficiency">4. Performance Efficiency</h3>
+
+<ul>
+  <li>Efficiently use computing resources to meet system requirements and maintain efficiency as demands change.</li>
+  <li><strong>Design Principles</strong>:
+    <ul>
+      <li>Democratize advanced technologies (use services).</li>
+      <li>Go global in minutes (deploy in multiple regions).</li>
+      <li>Use serverless architectures.</li>
+      <li>Experiment frequently.</li>
+      <li>Be aware of all AWS services (mechanical sympathy).</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="5-cost-optimization">5. Cost Optimization</h3>
+
+<ul>
+  <li>Deliver business value at the lowest price point.</li>
+  <li><strong>Design Principles</strong>:
+    <ul>
+      <li>Adopt a consumption model (pay for what you use).</li>
+      <li>Measure overall efficiency (use CloudWatch).</li>
+      <li>Stop spending on data center operations (focus on projects).</li>
+      <li>Analyze and attribute expenditure (use tags to measure ROI).</li>
+      <li>Use managed services to reduce costs.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="6-sustainability">6. Sustainability</h3>
+
+<ul>
+  <li>Minimize environmental impacts of running cloud workloads.</li>
+  <li><strong>Design Principles</strong>:
+    <ul>
+      <li>Understand your impact (establish performance indicators).</li>
+      <li>Set sustainability goals for each workload.</li>
+      <li>Maximize utilization (right size workloads).</li>
+      <li>Anticipate and adopt new efficient technologies.</li>
+      <li>Use managed services to automate sustainability best practices.</li>
+      <li>Reduce downstream impact (minimize energy/resources for services).</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="aws-well-architected-tool">AWS Well-Architected Tool</h2>
+
+<ul>
+  <li>Free tool to review architectures against the 6 pillars and adopt best practices.</li>
+  <li><strong>How it works</strong>:
+    <ul>
+      <li>Select your workload and answer questions.</li>
+      <li>Review answers against the 6 pillars.</li>
+      <li>Obtain advice: videos, documentation, reports, and dashboards.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="aws-right-sizing">AWS Right Sizing</h2>
+
+<ul>
+  <li>Match instance types and sizes to workload performance and capacity requirements at the lowest cost.</li>
+  <li>Right sizing involves starting small and scaling up easily, continuously adjusting after cloud onboarding, and using tools like CloudWatch, Cost Explorer, and Trusted Advisor.</li>
+</ul>
+
+<h2 id="aws-ecosystem---free-resources">AWS Ecosystem - Free Resources</h2>
+
+<ul>
+  <li><strong>AWS Blogs</strong>: <a href="https://aws.amazon.com/blogs/aws/">AWS Blogs</a></li>
+  <li><strong>AWS Forums</strong>: <a href="https://forums.aws.amazon.com/index.jspa">AWS Forums</a></li>
+  <li><strong>AWS Whitepapers &amp; Guides</strong>: <a href="https://aws.amazon.com/whitepapers">AWS Whitepapers &amp; Guides</a></li>
+  <li><strong>AWS Quick Starts</strong>: <a href="https://aws.amazon.com/quickstart/">AWS Quick Starts</a>
+    <ul>
+      <li>Automated, gold-standard deployments in the AWS Cloud.</li>
+      <li>Examples: WordPress on AWS, leveraging CloudFormation.</li>
+    </ul>
+  </li>
+  <li><strong>AWS Solutions</strong>: <a href="https://aws.amazon.com/solutions/">AWS Solutions</a>
+    <ul>
+      <li>Vetted technology solutions for the AWS Cloud.</li>
+      <li>Example - AWS Landing Zone (secure, multi-account environment).</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="aws-ecosystem---aws-support">AWS Ecosystem - AWS Support</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>DEVELOPER</th>
+      <th>BUSINESS</th>
+      <th>ENTERPRISE</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Business hours email access to Cloud Support Associates</td>
+      <td>24x7 phone, email, and chat access to Cloud Support Engineers</td>
+      <td>Access to a Technical Account Manager (TAM)</td>
+    </tr>
+    <tr>
+      <td>General guidance: &lt; 24 business hours</td>
+      <td>Production system impaired: &lt; 4 hours</td>
+      <td>Concierge Support Team (for billing and account best practices)</td>
+    </tr>
+    <tr>
+      <td>System impaired: &lt; 12 business hours</td>
+      <td>Production system down: &lt; 1 hour</td>
+      <td>Business-critical system down: &lt; 15 minutes</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="aws-marketplace">AWS Marketplace</h2>
+
+<ul>
+  <li>Digital catalog with thousands of software listings from independent software vendors.</li>
+  <li>Examples:
+    <ul>
+      <li>Custom AMIs, CloudFormation templates, SaaS, containers.</li>
+    </ul>
+  </li>
+  <li>Purchases go into your AWS bill.</li>
+  <li>You can sell your own solutions on the AWS Marketplace.</li>
+</ul>
+
+<footer>
+  <!-- New Footer Navigation -->
+<div class="footer-nav">
+<nav>
+    <ul>
+        <li><a href="chapter18.html">Previous</a></li>
+        <li><a href="NULL">Next</a></li>
+        <li><a href="Notes.html">Home</a></li>
+    </ul>
+</nav>
+</div>
+<div class="footer-content">
+<div class="footer-info">
+    <p><strong>Jawahar Parvez</strong></p>
+    <p>Email: <a href="mailto:Jawaharparvez@gmail.com">Jawaharparvez@gmail.com</a></p>
+</div>
+
+<div class="social-links">
+    <a href="https://instagram.com/iamtheparvez" target="_blank" title="Instagram">
+        <i class="fab fa-instagram"></i> Instagram
+    </a>
+    <a href="https://github.com/Jawaharparvez" target="_blank" title="GitHub">
+        <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/jawaharparvez" target="_blank" title="LinkedIn">
+        <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+</div>
+
+<div class="copyright">
+    <p>&copy; 2025 Jawahar Parvez. All rights reserved.</p>
+</div>
+</div>
+
+
+</footer>
+
+</main>
+</body>
+</html>

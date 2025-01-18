@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Visualize Data using Amazon QuickSight</title>
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            font-family: 'IBM Plex Sans', serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #444;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3em;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        section {
+            margin: 20px 0;
+        }
+
+        h2 {
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+            color: #000000;
+        }
+
+        a {
+            color: #000000;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            background: #f4f4f4;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        ul li:hover {
+            background: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Visualize Data using Amazon QuickSight </h1>
+            <p>Learn how to create visualizations from a large dataset using Amazon S3 and Amazon QuickSight.</p>
+        </header>
+
+        <section>
+            <h2>Step #1: Download the Dataset</h2>
+            <ul>
+                <li>Navigate to <a href="https://github.com/techwithlucy/youtube" target="_blank">2-S3-quicksight</a> to download the "Amazon Bestseller Dataset" CSV file and the "manifest.json" file.</li>
+                <li>Click on "raw" and Control+S to save both files onto your computer.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Step #2: Store the Dataset in Amazon S3</h2>
+            <ul>
+                <li>Open the Amazon S3 console and click "Create Bucket."</li>
+                <li>Name the bucket (e.g., "amazon-project") and keep the settings as default.</li>
+                <li>Upload the CSV file and the "manifest.json" file into the bucket.</li>
+                <li>Replace the URL in the "manifest.json" file with the S3 URL of your dataset.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Step #3: Connect S3 Bucket with Amazon QuickSight</h2>
+            <ul>
+                <li>Open the AWS management console and navigate to Amazon QuickSight.</li>
+                <li>Sign up for a free trial of the Enterprise edition if you don't have an account.</li>
+                <li>Select Amazon S3 and tick the box for the S3 bucket you created.</li>
+                <li>Enter the link to your "manifest.json" file and connect to QuickSight.</li>
+                <li>Select "interactive sheet" to start creating visualizations.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Step #4: Create Visualizations</h2>
+            <ul>
+                <li>Drag fields into the graph to create visualizations (e.g., Most popular brands).</li>
+                <li>Sort, filter, and customize the graphs as desired.</li>
+                <li>Experiment with different types of graphs like bar charts, pie charts, line graphs, etc.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Facing Difficulties?</h2>
+            <p><a href="https://www.youtube.com/watch?v=4-8cXuZzKTg" target="_blank">Watch this Full Video Tutorial - "Visualize Data using Amazon QuickSight"</a></p>
+        </section>
+
+        <section>
+            <h2>Project Completion Time</h2>
+            <ul>
+                <li>Approximately 1-2 hours, depending on the complexity of the visualizations.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Add to Your Resume</h2>
+            <p>Once you've completed this project, you can add this line to your resume: "Created data visualizations using Amazon S3 and Amazon QuickSight, working with a large dataset of best-selling Amazon products."</p>
+        </section>
+    </div>
+
+</body>
+</html>

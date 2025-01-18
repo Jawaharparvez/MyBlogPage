@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>VPC</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="chapter.css">
+</head>
+<body>
+  <main id="content" class="main-content" role="main">
+      <h1 id="vpc">VPC</h1>
+
+<ul>
+  <li><a href="#vpc">VPC</a>
+    <ul>
+      <li><a href="#vpc--subnets-primer">VPC &amp; Subnets Primer</a></li>
+      <li><a href="#internet-gateway-igw">Internet Gateway (IGW)</a></li>
+      <li><a href="#nat-gateway">NAT Gateway</a></li>
+      <li><a href="#nat-gateway-vs-nat-instance">NAT Gateway vs NAT Instance</a></li>
+      <li><a href="#network-acl--security-groups">Network ACL &amp; Security Groups</a>
+        <ul>
+          <li><a href="#network-acls-vs-security-groups">Network ACLs vs Security Groups</a></li>
+        </ul>
+      </li>
+      <li><a href="#vpc-flow-logs">VPC Flow Logs</a></li>
+      <li><a href="#vpc-peering">VPC Peering</a></li>
+      <li><a href="#vpc-endpoints">VPC Endpoints</a></li>
+      <li><a href="#site-to-site-vpn--direct-connect">Site to Site VPN &amp; Direct Connect</a></li>
+      <li><a href="#transit-gateway">Transit Gateway</a></li>
+      <li><a href="#vpc-summary">VPC Summary</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="vpc--subnets-primer">VPC &amp; Subnets Primer</h2>
+
+<ul>
+  <li>VPC -Virtual Private Cloud: private network to deploy your resources (regional resource)</li>
+  <li>Subnets allow you to partition your network inside your VPC (Availability Zone resource)</li>
+  <li>A public subnet is a subnet that is accessible from the internet</li>
+  <li>A private subnet is a subnet that is not accessible from the internet</li>
+  <li>To define access to the internet and between subnets, we use Route Tables.</li>
+</ul>
+
+<h2 id="internet-gateway-igw">Internet Gateway (IGW)</h2>
+
+<ul>
+  <li>Connects a VPC to the internet.</li>
+  <li>Allows instances in the VPC to directly communicate with the internet.</li>
+  <li>Essential for a public subnet in a VPC to send/receive traffic to/from the internet.</li>
+</ul>
+
+<h2 id="nat-gateway">NAT Gateway</h2>
+
+<ul>
+  <li>Allows instances in a private subnet to initiate outbound traffic to the internet.</li>
+  <li>Prevents unsolicited inbound traffic from reaching those instances.</li>
+  <li>Used for scenarios where instances need to download patches, updates, etc., but should not be directly accessed from the internet.</li>
+  <li>Managed by AWS</li>
+</ul>
+
+<h2 id="nat-gateway-vs-nat-instance">NAT Gateway vs NAT Instance</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>NAT gateway</th>
+      <th>NAT instance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Availability</td>
+      <td>Highly available. NAT gateways in each Availability Zone are implemented with redundancy. Create a NAT gateway in each Availability Zone to ensure zone-independent architecture.</td>
+      <td>Use a script to manage failover between instances.</td>
+    </tr>
+    <tr>
+      <td>Bandwidth</td>
+      <td>Scale up to 100 Gbps.</td>
+      <td>Depends on the bandwidth of the instance type.</td>
+    </tr>
+    <tr>
+      <td>Maintenance</td>
+      <td>Managed by AWS. You do not need to perform any maintenance.</td>
+      <td>Managed by you, for example, by installing software updates or operating system patches on the instance.</td>
+    </tr>
+    <tr>
+      <td>Performance</td>
+      <td>Software is optimized for handling NAT traffic.</td>
+      <td>A generic AMI that’s configured to perform NAT.</td>
+    </tr>
+    <tr>
+      <td>Cost</td>
+      <td>Charged depending on the number of NAT gateways you use, duration of usage, and amount of data that you send through the NAT gateways.</td>
+      <td>Charged depending on the number of NAT instances that you use, duration of usage, and instance type and size.</td>
+    </tr>
+    <tr>
+      <td>Type and size</td>
+      <td>Uniform offering; you don’t need to decide on the type or size.</td>
+      <td>Choose a suitable instance type and size, according to your predicted workload.</td>
+    </tr>
+    <tr>
+      <td>Public IP addresses</td>
+      <td>Choose the Elastic IP address to associate with a public NAT gateway at creation.</td>
+      <td>Use an Elastic IP address or a public IP address with a NAT instance. You can change the public IP address at any time by associating a new Elastic IP address with the instance.</td>
+    </tr>
+    <tr>
+      <td>Private IP addresses</td>
+      <td>Automatically selected from the subnet’s IP address range when you create the gateway.</td>
+      <td>Assign a specific private IP address from the subnet’s IP address range when you launch the instance.</td>
+    </tr>
+    <tr>
+      <td>Security groups</td>
+      <td>You cannot associate security groups with NAT gateways. You can associate them with the resources behind the NAT gateway to control inbound and outbound traffic.</td>
+      <td>Associate with your NAT instance and the resources behind your NAT instance to control inbound and outbound traffic.</td>
+    </tr>
+    <tr>
+      <td>Network ACLs</td>
+      <td>Use a network ACL to control the traffic to and from the subnet in which your NAT gateway resides.</td>
+      <td>Use a network ACL to control the traffic to and from the subnet in which your NAT instance resides.</td>
+    </tr>
+    <tr>
+      <td>Flow logs</td>
+      <td>Use flow logs to capture the traffic.</td>
+      <td>Use flow logs to capture the traffic.</td>
+    </tr>
+    <tr>
+      <td>Port forwarding</td>
+      <td>Not supported.</td>
+      <td>Manually customize the configuration to support port forwarding.</td>
+    </tr>
+    <tr>
+      <td>Bastion servers</td>
+      <td>Not supported.</td>
+      <td>Use as a bastion server.</td>
+    </tr>
+    <tr>
+      <td>Traffic metrics</td>
+      <td>View CloudWatch metrics for the NAT gateway.</td>
+      <td>View CloudWatch metrics for the instance.</td>
+    </tr>
+    <tr>
+      <td>Timeout behavior</td>
+      <td>When a connection times out, a NAT gateway returns an RST packet to any resources behind the NAT gateway that attempt to continue the connection (it does not send a FIN packet).</td>
+      <td>When a connection times out, a NAT instance sends a FIN packet to resources behind the NAT instance to close the connection.</td>
+    </tr>
+    <tr>
+      <td>IP fragmentation</td>
+      <td>Supports forwarding of IP fragmented packets for the UDP protocol.<br>              Does not support fragmentation for the TCP and ICMP protocols. Fragmented   packets for these protocols will get dropped.<br></td>
+      <td>Supports reassembly of IP fragmented packets for the UDP, TCP, and ICMP protocols.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="network-acl--security-groups">Network ACL &amp; Security Groups</h2>
+
+<ul>
+  <li>NACL (Network ACL)
+    <ul>
+      <li>A firewall which controls traffic from and to subnet</li>
+      <li>Can have ALLOW and DENY rules</li>
+      <li>Are attached at the Subnet level</li>
+      <li>Rules only include IP addresses</li>
+    </ul>
+  </li>
+  <li>Security Groups
+    <ul>
+      <li>A firewall that controls traffic to and from an ENI / an EC2 Instance</li>
+      <li>Can have only ALLOW rules</li>
+      <li>Rules include IP addresses and other security groups</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="network-acls-vs-security-groups">Network ACLs vs Security Groups</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Security Group</th>
+      <th>Network ACL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Operates at the instance level</td>
+      <td>Operates at the subnet level</td>
+    </tr>
+    <tr>
+      <td>Supports allow rules only</td>
+      <td>Supports allow rules and deny rules</td>
+    </tr>
+    <tr>
+      <td>Is stateful: Return traffic is automatically allowed, regardless of any rules</td>
+      <td>Is stateless: Return traffic must be explicitly allowed by rules</td>
+    </tr>
+    <tr>
+      <td>We evaluate all rules before deciding whether to allow traffic</td>
+      <td>We process rules in number order when deciding whether to allow traffic</td>
+    </tr>
+    <tr>
+      <td>Applies to an instance only if someone specifies the security group when launching the instance, or associates the security group with the instance later on</td>
+      <td>Automatically applies to all instances in the subnets it’s associated with (therefore, you don’t have to rely on users to specify the security group)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><a href="https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Security.html">https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Security.html</a></p>
+
+<h2 id="vpc-flow-logs">VPC Flow Logs</h2>
+
+<ul>
+  <li>Capture information about IP traffic going into your interfaces:
+    <ul>
+      <li>VPC Flow Logs</li>
+      <li>Subnet Flow Logs</li>
+      <li>Elastic Network Interface Flow Logs</li>
+    </ul>
+  </li>
+  <li>Helps to monitor &amp; troubleshoot connectivity issues. Example:
+    <ul>
+      <li>Subnets to internet</li>
+      <li>Subnets to subnets</li>
+      <li>Internet to subnets</li>
+    </ul>
+  </li>
+  <li>Captures network information from AWS managed interfaces too: Elastic Load Balancers, ElastiCache, RDS, Aurora, etc…</li>
+  <li>VPC Flow logs data can go to S3 / CloudWatch Logs</li>
+</ul>
+
+<h2 id="vpc-peering">VPC Peering</h2>
+
+<ul>
+  <li>Allows direct network connectivity between two VPCs.</li>
+  <li>VPCs can be in the same AWS account or different accounts.</li>
+  <li>Ensures private, high-speed communication between VPCs without routing traffic through the internet.</li>
+  <li>Make them behave as if they were in the same network</li>
+  <li>Must not have overlapping CIDR (IP address range)</li>
+</ul>
+
+<h2 id="vpc-endpoints">VPC Endpoints</h2>
+
+<ul>
+  <li>Endpoints allow you to connect to AWS Services using a private network instead of the public www network</li>
+  <li>This gives you enhanced security and lower latency to access AWS services</li>
+  <li>VPC Endpoint Gateway: S3 &amp; DynamoDB</li>
+  <li>VPC Endpoint Interface: the rest</li>
+</ul>
+
+<h2 id="site-to-site-vpn--direct-connect">Site to Site VPN &amp; Direct Connect</h2>
+
+<ul>
+  <li>Site to Site VPN
+    <ul>
+      <li>Connect an on-premises VPN to AWS</li>
+      <li>The connection is automatically encrypted</li>
+      <li>Goes over the public internet</li>
+      <li>On-premises: must use a Customer Gateway (CGW)</li>
+      <li>AWS: must use a Virtual Private Gateway (VGW)</li>
+    </ul>
+  </li>
+  <li>Direct Connect (DX)
+    <ul>
+      <li>Establish a physical connection between on-premises and AWS</li>
+      <li>The connection is private, secure and fast</li>
+      <li>Goes over a private network</li>
+      <li>Takes at least a month to establish</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="transit-gateway">Transit Gateway</h2>
+
+<ul>
+  <li>AWS Transit Gateway allows you to connect different Amazon VPCs and on-premise networks through a centralized routing service.</li>
+  <li>It can connect thousands of VPCs and on-premises networks through a single gateway, thus it has advanced security and routing features such as monitoring traffic on your network connections and defining routing policies.</li>
+  <li>Provides a simple and scalable solution for managing large numbers of VPCs and network connections in your organization.</li>
+</ul>
+
+<h2 id="vpc-summary">VPC Summary</h2>
+
+<ul>
+  <li>VPC: Virtual Private Cloud</li>
+  <li>Subnets:Tied to an AZ, network partition of the VPC</li>
+  <li>Internet Gateway: at the VPC level, provide Internet Access</li>
+  <li>NAT Gateway / Instances: give internet access to private subnets</li>
+  <li>NACL: Stateless, subnet rules for inbound and outbound</li>
+  <li>Security Groups: Stateful, operate at the EC2 instance level or ENI</li>
+  <li>VPC Peering: Connect two VPC with non overlapping IP ranges, nontransitive</li>
+  <li>VPC Endpoints: Provide private access to AWS Services within VPC</li>
+  <li>VPC Flow Logs: network traffic logs</li>
+  <li>Site to Site VPN: VPN over public internet between on-premises DC and AWS</li>
+  <li>Direct Connect: direct private connection to AWS</li>
+  <li>Transit Gateway: Connect thousands of VPC and on-premises networks together</li>
+</ul>
+
+
+<footer>
+  <!-- New Footer Navigation -->
+<div class="footer-nav">
+<nav>
+    <ul>
+        <li><a href="chapter12.html">Previous</a></li>
+        <li><a href="chapter14.html">Next</a></li>
+        <li><a href="Notes.html">Home</a></li>
+    </ul>
+</nav>
+</div>
+<div class="footer-content">
+<div class="footer-info">
+    <p><strong>Jawahar Parvez</strong></p>
+    <p>Email: <a href="mailto:Jawaharparvez@gmail.com">Jawaharparvez@gmail.com</a></p>
+</div>
+
+<div class="social-links">
+    <a href="https://instagram.com/iamtheparvez" target="_blank" title="Instagram">
+        <i class="fab fa-instagram"></i> Instagram
+    </a>
+    <a href="https://github.com/Jawaharparvez" target="_blank" title="GitHub">
+        <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/jawaharparvez" target="_blank" title="LinkedIn">
+        <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+</div>
+
+<div class="copyright">
+    <p>&copy; 2025 Jawahar Parvez. All rights reserved.</p>
+</div>
+</div>
+
+
+</footer>
+
+</main>
+</body>
+</html>

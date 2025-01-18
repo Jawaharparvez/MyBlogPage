@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Databases &amp; Analytics</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="chapter.css">
+</head>
+<body>
+  <main id="content" class="main-content" role="main">
+      <h1 id="databases--analytics">Databases &amp; Analytics</h1>
+
+<ul>
+  <li><a href="#databases--analytics">Databases &amp; Analytics</a>
+    <ul>
+      <li><a href="#databases-intro">Databases Intro</a></li>
+      <li><a href="#relational-databases-sql">Relational Databases (SQL)</a></li>
+      <li><a href="#nosql-databases">NoSQL Databases</a>
+        <ul>
+          <li><a href="#nosql-data-example-json">NoSQL data example: JSON</a></li>
+        </ul>
+      </li>
+      <li><a href="#databases--shared-responsibility-on-aws">Databases &amp; Shared Responsibility on AWS</a></li>
+      <li><a href="#aws-rds-overview">AWS RDS Overview</a>
+        <ul>
+          <li><a href="#advantage-over-using-rds-versus-deploying-db-on-ec2">Advantage over using RDS versus deploying DB on EC2</a></li>
+          <li><a href="#rds-deployments">RDS Deployments</a></li>
+          <li><a href="#rds-deployments-read-replicas-multi-az">RDS Deployments: Read Replicas, Multi-AZ</a></li>
+          <li><a href="#rds-deployments-multi-region">RDS Deployments: Multi-Region</a></li>
+        </ul>
+      </li>
+      <li><a href="#amazon-aurora">Amazon Aurora</a></li>
+      <li><a href="#amazon-elasticache-overview">Amazon ElastiCache Overview</a></li>
+      <li><a href="#dynamodb">DynamoDB</a>
+        <ul>
+          <li><a href="#dynamodb-accelerator-dax">DynamoDB Accelerator (DAX)</a></li>
+          <li><a href="#dynamodb-global-tables">DynamoDB Global Tables</a></li>
+        </ul>
+      </li>
+      <li><a href="#redshift-overview">Redshift Overview</a></li>
+      <li><a href="#amazon-emr-elastic-mapreduce">Amazon EMR (Elastic MapReduce)</a></li>
+      <li><a href="#amazon-athena">Amazon Athena</a></li>
+      <li><a href="#amazon-quicksight">Amazon QuickSight</a></li>
+      <li><a href="#documentdb-with-mongodb-compatibility">DocumentDB (with MongoDB Compatibility)</a></li>
+      <li><a href="#amazon-neptune">Amazon Neptune</a></li>
+      <li><a href="#amazon-qldb">Amazon QLDB</a></li>
+      <li><a href="#amazon-managed-blockchain">Amazon Managed Blockchain</a></li>
+      <li><a href="#aws-glue">AWS Glue</a></li>
+      <li><a href="#dms---database-migration-service">DMS - Database Migration Service</a></li>
+      <li><a href="#databases--analytics-summary">Databases &amp; Analytics Summary</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="databases-intro">Databases Intro</h2>
+
+<ul>
+  <li>Storing data on disk (EFS, EBS, EC2 Instance Store, S3) can have its limits</li>
+  <li>Sometimes, you want to store data in a database…</li>
+  <li>You can structure the data</li>
+  <li>You build indexes to efficiently query / search through the data</li>
+  <li>You define relationships between your datasets</li>
+  <li>Databases are optimized for a purpose and come with different features, shapes and constraint</li>
+  <li><strong>Managed Databases</strong>: AWS takes care of maintenance, backups, and security for databases.</li>
+  <li><strong>Benefits</strong>: Reduced operational complexity, built-in high availability, disaster recovery, scalability, and enhanced security.</li>
+  <li><strong>Types</strong>:
+    <ul>
+      <li><strong>Relational Databases</strong> (SQL)</li>
+      <li><strong>NoSQL Databases</strong></li>
+      <li><strong>Data Warehousing</strong></li>
+      <li><strong>In-memory Caching</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="relational-databases-sql">Relational Databases (SQL)</h2>
+
+<ul>
+  <li><strong>Structured Data</strong>: Stored in predefined schema tables, managed with SQL.</li>
+  <li><strong>Use Cases</strong>: Transactional applications, financial systems.</li>
+  <li><strong>Examples</strong>: MySQL, PostgreSQL, Oracle, SQL Server, MariaDB.</li>
+</ul>
+
+<h2 id="nosql-databases">NoSQL Databases</h2>
+
+<ul>
+  <li><strong>Flexible Schema</strong>: No predefined schema, designed for fast and scalable data storage.</li>
+  <li><strong>Use Cases</strong>: Real-time applications, IoT, mobile apps.</li>
+  <li>Benefits:
+    <ul>
+      <li>Flexibility: easy to evolve data model</li>
+      <li>Scalability: designed to scale-out by using distributed clusters</li>
+      <li>High-performance: optimized for a specific data model</li>
+      <li>Highly functional: types optimized for the data model</li>
+    </ul>
+  </li>
+  <li><strong>Examples</strong>: DynamoDB, MongoDB (DocumentDB), Key-value, document, graph, in-memory, search databases</li>
+</ul>
+
+<h3 id="nosql-data-example-json">NoSQL data example: JSON</h3>
+
+<ul>
+  <li>JSON is a common form of data that fits into a NoSQL model</li>
+  <li>Data can be nested</li>
+  <li>Fields can change over time</li>
+  <li>Support for new types: arrays, etc…</li>
+</ul>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Abc"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"age"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cars"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"Ford"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"BMW"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"Fiat"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"house"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"number"</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"street"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Abc Road"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="databases--shared-responsibility-on-aws">Databases &amp; Shared Responsibility on AWS</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>AWS Responsibility</strong></th>
+      <th><strong>Customer Responsibility</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Infrastructure management, backups, patches</td>
+      <td>Data security, encryption, access controls (IAM)</td>
+    </tr>
+    <tr>
+      <td>Availability and failover</td>
+      <td>Data management, monitoring, performance tuning</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="aws-rds-overview">AWS RDS Overview</h2>
+
+<ul>
+  <li><strong>RDS (Relational Database Service)</strong>: Fully managed service for relational databases.
+    <ul>
+      <li>It’s a managed DB service for DB use SQL as a query language.</li>
+      <li>Supports <strong>MySQL</strong>, <strong>PostgreSQL</strong>, <strong>MariaDB</strong>, <strong>Oracle</strong>, <strong>SQL Server</strong>.</li>
+      <li>Handles <strong>backup</strong>, <strong>patching</strong>, <strong>high availability</strong> (Multi-AZ), and <strong>scaling</strong>.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="advantage-over-using-rds-versus-deploying-db-on-ec2">Advantage over using RDS versus deploying DB on EC2</h3>
+
+<ul>
+  <li>RDS is a managed service:
+    <ul>
+      <li>Automated provisioning, OS patching</li>
+      <li>Continuous backups and restore to specific timestamp (Point in Time Restore)!</li>
+      <li>Monitoring dashboards</li>
+      <li>Read replicas for improved read performance</li>
+      <li>Multi AZ setup for DR (Disaster Recovery)</li>
+      <li>Maintenance windows for upgrades</li>
+      <li>Scaling capability (vertical and horizontal)</li>
+      <li>Storage backed by EBS (gp2 or io1)</li>
+    </ul>
+  </li>
+  <li>BUT you can’t SSH into your instances</li>
+</ul>
+
+<h3 id="rds-deployments">RDS Deployments</h3>
+
+<ul>
+  <li><strong>Read Replicas</strong>: Improves read performance, <strong>asynchronous</strong> replication.</li>
+  <li><strong>Multi-AZ</strong>: Automatic failover, high availability for production environments.</li>
+  <li><strong>Multi-Region</strong>: Disaster recovery across regions, global availability.</li>
+</ul>
+
+<h3 id="rds-deployments-read-replicas-multi-az">RDS Deployments: Read Replicas, Multi-AZ</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Read Replicas</th>
+      <th>Multi-AZ</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Scale the read workload of your DB</td>
+      <td>Failover in case of AZ outage (high availability)</td>
+    </tr>
+    <tr>
+      <td>Can create up to 5 Read Replicas</td>
+      <td>Data is only read/written to the main database</td>
+    </tr>
+    <tr>
+      <td>Data is only written to the main DB</td>
+      <td>Can only have 1 other AZ as failover</td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+<h3 id="rds-deployments-multi-region">RDS Deployments: Multi-Region</h3>
+
+<ul>
+  <li>Multi-Region (Read Replicas)
+    <ul>
+      <li>Disaster recovery in case of region issue</li>
+      <li>Local performance for global reads</li>
+      <li>Replication cost</li>
+    </ul>
+  </li>
+</ul>
+
+
+
+<h2 id="amazon-aurora">Amazon Aurora</h2>
+
+<ul>
+  <li><strong>Amazon Aurora</strong>: High-performance RDS database.
+    <ul>
+      <li>Compatible with <strong>MySQL</strong> and <strong>PostgreSQL</strong>.</li>
+      <li><strong>5x faster</strong> than MySQL, <strong>3x faster</strong> than PostgreSQL.</li>
+      <li><strong>Auto-scaling</strong> storage up to <strong>64 TB</strong>.</li>
+      <li>Supports <strong>Multi-AZ</strong> and up to <strong>15 read replicas</strong>.</li>
+      <li>Great for <strong>enterprise-grade</strong> applications requiring high availability and performance.</li>
+      <li>Aurora costs more than RDS (20% more) – but is more efficient</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="amazon-elasticache-overview">Amazon ElastiCache Overview</h2>
+
+<ul>
+  <li><strong>ElastiCache</strong>: In-memory data caching service.
+    <ul>
+      <li><strong>Redis</strong>: Advanced key-value store with replication and persistence.</li>
+      <li><strong>Memcached</strong>: Simple, memory-only caching service.</li>
+      <li>Reduces database load and speeds up applications by <strong>caching frequent queries</strong>.</li>
+      <li>Caches are in-memory databases with high performance, low latency</li>
+      <li>AWS takes care of OS maintenance / patching, optimizations, setup, configuration, monitoring, failure recovery and backup</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="dynamodb">DynamoDB</h2>
+
+<ul>
+  <li>Fully managed, serverless NoSQL database.</li>
+  <li>Supports key-value and document data models.</li>
+  <li>Automatically scales based on demand.</li>
+  <li>Provides high availability and durability with replication across 3 AZ</li>
+  <li>Millions of requests per seconds, trillions of row, 100s of TB of storage</li>
+  <li>Fast and consistent in performance</li>
+  <li>Single-digit millisecond latency – low latency retrieval</li>
+  <li>Integrated with IAM for security, authorization and administration</li>
+  <li>Low cost and auto scaling capabilities</li>
+  <li>Standard &amp; Infrequent Access (IA) Table Class</li>
+</ul>
+
+<h3 id="dynamodb-accelerator-dax">DynamoDB Accelerator (DAX)</h3>
+
+<ul>
+  <li>In-memory caching for DynamoDB.</li>
+  <li><strong>10x faster</strong> read performance.  Single-digit millisecond latency to microseconds latency – when accessing your DynamoDB tables</li>
+  <li>Secure, highly scalable &amp; highly available</li>
+  <li>Ideal for use cases where <strong>low-latency reads</strong> are critical.</li>
+</ul>
+
+<h3 id="dynamodb-global-tables">DynamoDB Global Tables</h3>
+
+<ul>
+  <li>Multi-region replication for <strong>global</strong> applications.</li>
+  <li><strong>Low-latency</strong> reads and writes across multiple regions.</li>
+  <li>Ensures data availability globally with <strong>multi-master replication</strong>.</li>
+</ul>
+
+<h2 id="redshift-overview">Redshift Overview</h2>
+
+<ul>
+  <li>Managed data warehousing service.</li>
+  <li>Optimized for <strong>online analytical processing (OLAP)</strong> and big data analytics.</li>
+  <li>Uses <strong>columnar storage</strong> for fast query performance.</li>
+  <li>10x better performance than other data warehouses, scale to PBs of data</li>
+  <li>Columnar storage of data (instead of row based)</li>
+  <li>Supports integration with <strong>BI tools</strong> (QuickSight, Tableau).</li>
+  <li>Massively Parallel Query Execution (MPP), highly available.</li>
+  <li>Has a SQL interface for performing the queries.</li>
+  <li>Pay-per-query or <strong>reserved instances</strong> for cost savings.</li>
+  <li>Designed for <strong>massive datasets</strong>.</li>
+</ul>
+
+<h2 id="amazon-emr-elastic-mapreduce">Amazon EMR (Elastic MapReduce)</h2>
+
+<ul>
+  <li>Managed big data processing service.</li>
+  <li>Uses <strong>Hadoop</strong>, <strong>Apache Spark</strong>, and <strong>Hive</strong> for processing large data sets.</li>
+  <li>Ideal for <strong>data transformation</strong>, <strong>machine learning</strong>, and <strong>ETL</strong> (Extract, Transform, Load).</li>
+  <li>Integration with <strong>S3</strong>, <strong>DynamoDB</strong>, and <strong>Redshift</strong>.</li>
+  <li>The clusters can be made of hundreds of EC2 instances</li>
+  <li>EMR takes care of all the provisioning and configuration</li>
+  <li>Auto-scaling and integrated with Spot instances</li>
+  <li>Use cases: data processing, machine learning, web indexing, big data</li>
+</ul>
+
+<h2 id="amazon-athena">Amazon Athena</h2>
+
+<ul>
+  <li>Serverless query service</li>
+  <li>Use <strong>SQL</strong> to query structured and unstructured data stored in <strong>S3</strong>.</li>
+  <li>No infrastructure to manage, pay-per-query.</li>
+  <li>Supports various formats like <strong>CSV</strong>, <strong>JSON</strong>, <strong>Parquet</strong>, and <strong>ORC</strong>.</li>
+  <li>Pricing: $5.00 per TB of data scanned</li>
+  <li>Use compressed or columnar data for cost-savings (less scan)</li>
+  <li>Use cases: Business intelligence / analytics / reporting, analyze &amp; query VPC Flow Logs, ELB Logs, CloudTrail trails, etc…</li>
+  <li>Analyze data in S3 using serverless SQL, use Athena</li>
+</ul>
+
+<h2 id="amazon-quicksight">Amazon QuickSight</h2>
+
+<ul>
+  <li>Business Intelligence (BI) tool for data visualization.</li>
+  <li>Serverless machine learning-powered business intelligence service to create interactive dashboards</li>
+  <li>Fast, automatically scalable, embeddable, with per-session pricing</li>
+  <li>Supports data from S3, Redshift, RDS, and other AWS data sources.</li>
+  <li><strong>Pay-per-session</strong> pricing model for cost efficiency.</li>
+  <li>Use cases:
+    <ul>
+      <li>Business analytics</li>
+      <li>Building visualizations</li>
+      <li>Perform ad-hoc analysis</li>
+      <li>Get business insights using data</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="documentdb-with-mongodb-compatibility">DocumentDB (with MongoDB Compatibility)</h2>
+
+<ul>
+  <li>Managed document database, <strong>MongoDB-compatible</strong>.</li>
+  <li>DocumentDB is the same for MongoDB (which is a NoSQL database)</li>
+  <li>Highly scalable and durable with <strong>Multi-AZ</strong>.</li>
+  <li>Built for <strong>JSON</strong> document storage.</li>
+  <li>Aurora storage automatically grows in increments of 10GB, up to 64 TB.</li>
+  <li>Automatically scales to workloads with millions of requests per seconds</li>
+  <li>Use cases: Content management, cataloging, and mobile backends.</li>
+</ul>
+
+<h2 id="amazon-neptune">Amazon Neptune</h2>
+
+<ul>
+  <li>Fully managed graph database</li>
+  <li>A popular graph dataset would be a social network
+    <ul>
+      <li>Users have friends</li>
+      <li>Posts have comments</li>
+      <li>Comments have likes from users</li>
+      <li>Users share and like posts…</li>
+    </ul>
+  </li>
+  <li>Highly available across 3 AZ, with up to 15 read replicas</li>
+  <li>Build and run applications working with highly connected datasets – optimized for these complex and hard queries</li>
+  <li>Can store up to billions of relations and query the graph with milliseconds latency</li>
+  <li>Highly available with replications across multiple AZs</li>
+  <li>Great for knowledge graphs (Wikipedia), fraud detection, recommendation engines, social networking</li>
+</ul>
+
+<h2 id="amazon-qldb">Amazon QLDB</h2>
+
+<ul>
+  <li>QLDB stands for ”Quantum Ledger Database”</li>
+  <li>A ledger is a book <strong>recording financial transactions</strong></li>
+  <li>Fully Managed, Serverless, High available, Replication across 3 AZ</li>
+  <li>Used to <strong>review history of all the changes made to your application data</strong> over time</li>
+  <li><strong>Immutable</strong> system: no entry can be removed or modified, cryptographically verifiable</li>
+  <li>2-3x better performance than common ledger blockchain frameworks, manipulate data using SQL</li>
+  <li>Difference with Amazon Managed Blockchain: no decentralization component, in accordance with financial regulation rules</li>
+</ul>
+
+<h2 id="amazon-managed-blockchain">Amazon Managed Blockchain</h2>
+
+<ul>
+  <li>Blockchain makes it possible to build applications where multiple parties can execute transactions without the need for a trusted, central authority.</li>
+  <li>Amazon Managed Blockchain is a managed service to:
+    <ul>
+      <li>Join public blockchain networks</li>
+      <li>Or create your own scalable private network</li>
+    </ul>
+  </li>
+  <li>Compatible with the frameworks Hyperledger Fabric &amp; Ethereum</li>
+</ul>
+
+<h2 id="aws-glue">AWS Glue</h2>
+
+<ul>
+  <li>Managed extract, transform, and load (ETL) service</li>
+  <li>Useful to prepare and transform data for analytics</li>
+  <li>Fully serverless service</li>
+  <li>Glue Data Catalog: catalog of datasets
+    <ul>
+      <li>can be used by Athena, Redshift, EMR</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="dms---database-migration-service">DMS - Database Migration Service</h2>
+
+<ul>
+  <li>Quickly and securely migrate databases to AWS, resilient, self healing</li>
+  <li>The source database remains available during the migration</li>
+  <li>Supports:
+    <ul>
+      <li>Homogeneous migrations: ex Oracle to Oracle</li>
+      <li>Heterogeneous migrations: ex Microsoft SQL Server to Aurora</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="databases--analytics-summary">Databases &amp; Analytics Summary</h2>
+
+<ul>
+  <li>Relational Databases - OLTP: RDS &amp; Aurora (SQL)</li>
+  <li>Differences between Multi-AZ, Read Replicas, Multi-Region</li>
+  <li>In-memory Database: ElastiCache</li>
+  <li>Key/Value Database: DynamoDB (serverless) &amp; DAX (cache for DynamoDB)</li>
+  <li>Warehouse - OLAP: Redshift (SQL)</li>
+  <li>Hadoop Cluster: EMR</li>
+  <li>Athena: query data on Amazon S3 (serverless &amp; SQL)</li>
+  <li>QuickSight: dashboards on your data (serverless)</li>
+  <li>DocumentDB: “Aurora for MongoDB” (JSON – NoSQL database)</li>
+  <li>Amazon QLDB: Financial Transactions Ledger (immutable journal, cryptographically verifiable)</li>
+  <li>Amazon Managed Blockchain: managed Hyperledger Fabric &amp; Ethereum blockchains</li>
+  <li>Glue: Managed ETL (Extract Transform Load) and Data Catalog service</li>
+  <li>Database Migration: DMS</li>
+  <li>Neptune: graph database</li>
+</ul>
+
+<footer>
+  <!-- New Footer Navigation -->
+<div class="footer-nav">
+<nav>
+    <ul>
+        <li><a href="chapter6.html">Previous</a></li>
+        <li><a href="chapter8.html">Next</a></li>
+        <li><a href="Notes.html">Home</a></li>
+    </ul>
+</nav>
+</div>
+<div class="footer-content">
+<div class="footer-info">
+    <p><strong>Jawahar Parvez</strong></p>
+    <p>Email: <a href="mailto:Jawaharparvez@gmail.com">Jawaharparvez@gmail.com</a></p>
+</div>
+
+<div class="social-links">
+    <a href="https://instagram.com/iamtheparvez" target="_blank" title="Instagram">
+        <i class="fab fa-instagram"></i> Instagram
+    </a>
+    <a href="https://github.com/Jawaharparvez" target="_blank" title="GitHub">
+        <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/jawaharparvez" target="_blank" title="LinkedIn">
+        <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+</div>
+
+<div class="copyright">
+    <p>&copy; 2025 Jawahar Parvez. All rights reserved.</p>
+</div>
+</div>
+
+
+</footer>
+
+</main>
+</body>
+</html>

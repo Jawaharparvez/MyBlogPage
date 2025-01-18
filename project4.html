@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Hosting Resume on AWS EC2 Instance with CI/CD Setup using GitHub Actions</title>
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            font-family: 'IBM Plex Sans', serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #444;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3em;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        section {
+            margin: 20px 0;
+        }
+
+        h2 {
+            border-bottom: 1px solid #444;
+            padding-bottom: 10px;
+            color: #000000;
+        }
+
+        a {
+            color: #000000;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            background: #f4f4f4;
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        ul li:hover {
+            background: none;
+        }
+
+        blockquote {
+            background-color: #f9f9f9;
+            border-left: 4px solid #ccc;
+            margin: 10px 0;
+            padding: 10px 20px;
+            font-style: italic;
+        }
+
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+    
+
+        .difficulty {
+             text-align: center;
+        }        
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Hosting Resume on AWS EC2 Instance with CI/CD Setup using GitHub Actions</h1>
+            <p>Learn how to host your resume on an AWS EC2 instance and automate deployment using GitHub Actions.</p>
+        </header>
+
+        <section>
+            <h2>Step #1: Go to EC2 from AWS Console</h2>
+            <p>Log in to your AWS Management Console and navigate to the EC2 dashboard.</p>
+        </section>
+
+        <section>
+            <h2>Step #2: Create a New Security Group</h2>
+            <ul>
+                <li>Go to Security Groups in EC2 Dashboard</li>
+                <li>Click <strong>Create Security Group</strong> (e.g., name it <strong>Linux-SG</strong>)</li>
+                <blockquote>
+                    Inbound Rules (Add Rule):
+                    <ul>
+                        <li><strong>Type</strong>: SSH, <strong>Port Range</strong>: 22, <strong>Source</strong>: Anywhere-IPv4 (0.0.0.0/0)</li>
+                        <li><strong>Type</strong>: HTTP, <strong>Port Range</strong>: 80, <strong>Source</strong>: Anywhere-IPv4 (0.0.0.0/0)</li>
+                        <li><strong>Type</strong>: HTTPS, <strong>Port Range</strong>: 443, <strong>Source</strong>: Anywhere-IPv4 (0.0.0.0/0)</li>
+                    </ul>
+                </blockquote>
+                <li>Click <strong>Create Security Group</strong></li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Step #3: Create EC2 Instance</h2>
+            <ul>
+                <li>Click <strong>Launch Instance</strong></li>
+                <li>Choose an <strong>Instance Name</strong> (e.g., <strong>My First Web Server</strong>)</li>
+                <li>Select <strong>OS</strong> as Ubuntu from the Amazon Machine Image</li>
+                <li>Select Instance type as <strong>t2.micro</strong> (available under Free Tier)</li>
+                <li>Create a New Keypair (e.g., <strong>My-kp1</strong>, Type: RSA). Download it and store it securely.</li>
+                <li>Select the security group created earlier and configure the rest of the instance settings.</li>
+                <li>Click <strong>Launch Instance</strong></li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Step #4: GitHub Repository</h2>
+            <p>Create a new GitHub repository and upload the files for your resume (e.g., <strong>index.html</strong>, <strong>style.css</strong>, etc.).</p>
+        </section>
+
+        <section>
+            <h2>Step #5: Secrets and Variables for CI/CD</h2>
+            <ul>
+                <li>Go to <strong>Settings</strong> in your repository</li>
+                <li>Under <strong>Secrets and Variables</strong>, add the following secrets:</li>
+                <ul>
+                    <li><strong>EC2_SSH_KEY</strong>: Copy your private key from the downloaded keypair</li>
+                    <li><strong>HOST_DNS</strong>: AWS provided Public IPv4 DNS for your instance (e.g., <code>ec2-xx-xxx-xxx.compute-x.amazonaws.com</code>)</li>
+                    <li><strong>TARGET_DIR</strong>: `home` (or the directory where your resume files are located)</li>
+                    <li><strong>USERNAME</strong>: `Ubuntu` (default username for Ubuntu EC2 instances)</li>
+                </ul>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Step #6: GitHub Actions</h2>
+            <ul>
+                <li>Create a directory <code>.github/workflows</code> in your repository</li>
+                <li>Create a file named <code>github-actions-ec2.yml</code> in the workflows folder</li>
+                <li>Copy and paste the following content into the file:</li>
+            </ul>
+            <pre>
+name: Push-to-EC2
+
+# Trigger deployment only on push to main branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Deploy to EC2 on master branch push
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout the files
+        uses: actions/checkout@v2
+
+      - name: Deploy to Server 1
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          REMOTE_HOST: ${{ secrets.HOST_DNS }}
+          REMOTE_USER: ${{ secrets.USERNAME }}
+          TARGET: ${{ secrets.TARGET_DIR }}
+
+      - name: Executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_DNS }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            sudo apt-get -y update
+            sudo apt-get install -y apache2
+            sudo systemctl start apache2
+            sudo systemctl enable apache2
+            cd home
+            sudo mv * /var/www/html
+            </pre>
+        <p>Click <strong>Commit Changes</strong></p>
+    </section>
+
+        <section>
+            <h2>Continuous Integration / Continuous Deployment (CI/CD)</h2>
+            <p>After setting up the above steps, any change committed to the <strong>Code</strong> will automatically reflect on the instance.</p>
+        </section>
+    </div>
+    <div class="difficulty">
+        <section>
+            <h2>Facing Difficulties?</h2>
+            <p><a href="https://github.com/Jawaharparvez/MyResume/" target="_blank">Go to this Repository</a></p>
+        </section>
+    </div>
+</body>
+</html>

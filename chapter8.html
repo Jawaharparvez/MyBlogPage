@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Other Computing</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="chapter.css">
+</head>
+<body>
+  <main id="content" class="main-content" role="main">
+      <h1>Other Computing</h1>
+      <h2 id="what-is-docker">What is Docker?</h2>
+
+<ul>
+  <li>Docker is a software development platform to deploy apps</li>
+  <li>Apps are packaged in containers that can be run on any OS</li>
+  <li>Apps run the same, regardless of where they’re run
+    <ul>
+      <li>Any machine</li>
+      <li>No compatibility issues</li>
+      <li>Predictable behavior</li>
+      <li>Less work</li>
+      <li>Easier to maintain and deploy</li>
+      <li>Works with any language, any OS, any technology</li>
+    </ul>
+  </li>
+  <li>Scale containers up and down very quickly (seconds)</li>
+</ul>
+
+<h3 id="where-are-docker-images-stored">Where are Docker images stored?</h3>
+
+<ul>
+  <li><strong>Docker Hub</strong>: Centralized public repository for storing Docker images.</li>
+  <li>Public: Docker Hub <a href="https://hub.docker.com/">https://hub.docker.com/</a></li>
+  <li>Private: <strong>Amazon ECR (Elastic Container Registry)</strong>: AWS service for storing, managing, and deploying container images.</li>
+</ul>
+
+<h3 id="docker-versus-virtual-machines">Docker versus Virtual Machines</h3>
+
+<ul>
+  <li>Docker is ”sort of” a virtualization technology, but not exactly</li>
+  <li>Resources are shared with the host =&gt; many containers on one server</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>Docker Containers</strong></th>
+      <th><strong>Virtual Machines (VMs)</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Lightweight, shares the host OS kernel</td>
+      <td>Heavier, includes full OS</td>
+    </tr>
+    <tr>
+      <td>Starts in seconds</td>
+      <td>Slower startup (minutes)</td>
+    </tr>
+    <tr>
+      <td>Portable, fast scaling</td>
+      <td>Not as portable, more resource-intensive</td>
+    </tr>
+    <tr>
+      <td>Best for microservices &amp; modern apps</td>
+      <td>Best for running multiple OS environments</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="ecs-elastic-container-service">ECS (Elastic Container Service)</h2>
+
+<ul>
+  <li>Fully managed container orchestration service.</li>
+  <li>Supports Docker containers.</li>
+  <li>Launch Docker containers on AWS</li>
+  <li>AWS takes care of starting / stopping containers</li>
+  <li><strong>Two launch modes</strong>: <strong>EC2</strong> (self-managed instances) and <strong>Fargate</strong> (serverless).</li>
+  <li>Provides integration with IAM, VPC, ELB, and ECR.</li>
+</ul>
+
+<h2 id="fargate">Fargate</h2>
+
+<ul>
+  <li>Serverless compute engine for containers, works with ECS and EKS.</li>
+  <li>No need to manage EC2 instances.</li>
+  <li>Pay for resources used (vCPU and memory).</li>
+  <li>AWS just runs containers for you based on the CPU / RAM you need</li>
+</ul>
+
+<h2 id="ecr-elastic-container-registry">ECR (Elastic Container Registry)</h2>
+
+<ul>
+  <li>Fully managed Docker container registry.</li>
+  <li>Stores, manages, and secures Docker images.</li>
+  <li>Integrated with <strong>ECS</strong>, <strong>EKS</strong>, and <strong>Fargate</strong> for easy deployment.</li>
+  <li>This is where you store your Docker images so they can be run by ECS or Fargate</li>
+</ul>
+
+<h2 id="whats-serverless">What’s Serverless?</h2>
+
+<ul>
+  <li>No need to provision, scale, or manage servers.</li>
+  <li>Resources are automatically provisioned and scaled by AWS.</li>
+  <li>Serverless is a new paradigm in which the developers don’t have to manage servers anymore…</li>
+  <li>They just deploy code</li>
+  <li>They just deploy… functions !</li>
+  <li>Initially… Serverless == FaaS (Function as a Service)</li>
+  <li>Serverless was pioneered by AWS Lambda but now also includes anything that’s managed: “databases, messaging, storage, etc.”</li>
+  <li>Serverless does not mean there are no servers…</li>
+  <li>it means you just don’t manage / provision / see them</li>
+  <li>Ideal for event-driven and stateless applications.</li>
+</ul>
+
+<h2 id="why-aws-lambda">Why AWS Lambda?</h2>
+
+<ul>
+  <li>Serverless compute service to run code without managing infrastructure.</li>
+  <li>Executes code in response to events (e.g., API calls, file uploads).</li>
+  <li>Scales automatically and you only pay for usage.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>EC2</th>
+      <th>Lambda</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Virtual Servers in the Cloud</td>
+      <td>Virtual functions – no servers to manage!</td>
+    </tr>
+    <tr>
+      <td>Limited by RAM and CPU</td>
+      <td>Limited by time - short executions</td>
+    </tr>
+    <tr>
+      <td>Continuously running</td>
+      <td>Run on-demand</td>
+    </tr>
+    <tr>
+      <td>Scaling means intervention to add / remove servers</td>
+      <td>Scaling is automated!</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="benefits-of-aws-lambda">Benefits of AWS Lambda</h3>
+
+<ul>
+  <li><strong>No server management</strong>: AWS handles the infrastructure.</li>
+  <li><strong>Automatic scaling</strong>: Scales based on event triggers.</li>
+  <li><strong>Flexible scaling</strong>: Runs from a few requests per day to thousands per second.</li>
+  <li><strong>Event-driven architecture</strong>: Ideal for apps that need to respond to events.</li>
+  <li>Easy Pricing:
+    <ul>
+      <li>Pay per request and compute time</li>
+      <li>Free tier of 1,000,000 AWS Lambda requests and 400,000 GBs of compute time</li>
+    </ul>
+  </li>
+  <li>Integrated with the whole AWS suite of services</li>
+  <li>Event-Driven: functions get invoked by AWS when needed</li>
+  <li>Integrated with many programming languages</li>
+  <li>Easy monitoring through AWS CloudWatch</li>
+  <li>Easy to get more resources per functions (up to 10GB of RAM!)</li>
+  <li>Increasing RAM will also improve CPU and network!</li>
+</ul>
+
+<h3 id="aws-lambda-language-support">AWS Lambda Language Support</h3>
+
+<ul>
+  <li>Node.js</li>
+  <li>Python</li>
+  <li>Ruby</li>
+  <li>Java</li>
+  <li>Go</li>
+  <li>.NET Core</li>
+  <li>custom runtime (via container images) (community supported, example Rust)</li>
+  <li>Lambda Container Image
+    <ul>
+      <li>The container image must implement the Lambda Runtime API</li>
+      <li>ECS / Fargate is preferred for running arbitrary Docker images</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="aws-lambda-pricing-example">AWS Lambda Pricing: Example</h3>
+
+<ul>
+  <li>Based on number of requests and execution time.</li>
+  <li>You can find overall pricing information here: <a href="https://aws.amazon.com/lambda/pricing/">https://aws.amazon.com/lambda/pricing/</a></li>
+  <li>First <strong>1 million requests/month</strong> are free.</li>
+  <li>After that, <strong>$0.20 per million requests</strong>.</li>
+  <li><strong>Execution duration</strong>: $0.00001667 for every GB-second used (first 400,000 GB-seconds free per month).</li>
+  <li>
+    <ul>
+      <li>Pay per duration: (in increment of 1 ms)</li>
+      <li>400,000 GB-seconds of compute time per month for FREE</li>
+      <li>== 400,000 seconds if function is 1GB RAM</li>
+      <li>== 3,200,000 seconds if function is 128 MB RAM</li>
+      <li>After that $1.00 for 600,000 GB-seconds</li>
+    </ul>
+  </li>
+  <li>It is usually <strong>very cheap</strong> to run AWS Lambda so it’s <strong>very popular</strong></li>
+</ul>
+
+<h2 id="amazon-api-gateway">Amazon API Gateway</h2>
+
+<ul>
+  <li>Managed service for creating, publishing, and monitoring REST, HTTP, and WebSocket APIs.</li>
+  <li>Integrates with AWS Lambda for fully serverless APIs.</li>
+  <li>Serverless and scalable</li>
+  <li>Support for security, user authentication, API throttling, API keys, monitoring.</li>
+  <li><strong>Throttling</strong>, <strong>caching</strong>, and <strong>authorization</strong> features built-in.</li>
+</ul>
+
+<h2 id="aws-batch">AWS Batch</h2>
+
+<ul>
+  <li>Fully managed service for running batch processing workloads.</li>
+  <li>Dynamically provisions compute resources based on job requirements.</li>
+  <li>Suitable for large-scale data processing, such as machine learning and rendering tasks.</li>
+  <li>Efficiently run 100,000s of computing batch jobs on AWS</li>
+  <li>A “batch” job is a job with a start and an end (opposed to continuous)</li>
+  <li>Batch will dynamically launch EC2 instances or Spot Instances</li>
+  <li>AWS Batch provisions the right amount of compute / memory</li>
+  <li>You submit or schedule batch jobs and AWS Batch does the rest!</li>
+  <li>Batch jobs are defined as Docker images and run on ECS</li>
+  <li>Helpful for cost optimizations and focusing less on the infrastructure</li>
+</ul>
+
+<h2 id="batch-vs-lambda">Batch vs Lambda</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th><strong>AWS Batch</strong></th>
+      <th><strong>AWS Lambda</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Designed for <strong>batch processing</strong></td>
+      <td>Designed for <strong>event-driven</strong> architecture</td>
+    </tr>
+    <tr>
+      <td>Handles large-scale compute jobs</td>
+      <td>Executes short-lived functions</td>
+    </tr>
+    <tr>
+      <td>Custom EC2 instances or Fargate tasks</td>
+      <td>Fully serverless, no server management</td>
+    </tr>
+    <tr>
+      <td>Jobs may take minutes to hours</td>
+      <td>Max execution time of 15 minutes</td>
+    </tr>
+    <tr>
+      <td>Rely on EBS / instance store for disk space</td>
+      <td>Limited temporary disk space</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="amazon-lightsail">Amazon Lightsail</h2>
+
+<ul>
+  <li>Virtual servers, storage, databases, and networking</li>
+  <li>Low &amp; predictable pricing</li>
+  <li>Simpler alternative to using EC2, RDS, ELB, EBS, Route 53…</li>
+  <li>Great for people with little cloud experience!</li>
+  <li>Can setup notifications and monitoring of your Lightsail resources</li>
+  <li>Use cases:
+    <ul>
+      <li>Simple web applications (has templates for LAMP, Nginx, MEAN, Node.js…)</li>
+      <li>Websites (templates for WordPress, Magento, Plesk, Joomla)</li>
+      <li>Dev / Test environment</li>
+    </ul>
+  </li>
+  <li>Has high availability but no auto-scaling, limited AWS integrations</li>
+</ul>
+
+<h2 id="lambda-summary">Lambda Summary</h2>
+
+<ul>
+  <li>Lambda is Serverless, Function as a Service, seamless scaling, reactive</li>
+  <li>Lambda Billing:
+    <ul>
+      <li>By the time run x by the RAM provisioned</li>
+      <li>By the number of invocations</li>
+    </ul>
+  </li>
+  <li>Language Support: many programming languages except (arbitrary) Docker</li>
+  <li>Invocation time: up to 15 minutes</li>
+  <li>Use cases:
+    <ul>
+      <li>Create Thumbnails for images uploaded onto S3</li>
+      <li>Run a Serverless cron job</li>
+    </ul>
+  </li>
+  <li>API Gateway: expose Lambda functions as HTTP API</li>
+</ul>
+
+<h2 id="other-compute-summary">Other Compute Summary</h2>
+
+<ul>
+  <li>Docker: container technology to run applications</li>
+  <li>ECS: run Docker containers on EC2 instances</li>
+  <li>Fargate:</li>
+  <li>Run Docker containers without provisioning the infrastructure</li>
+  <li>Serverless offering (no EC2 instances)</li>
+  <li>ECR: Private Docker Images Repository</li>
+  <li>Batch: run batch jobs on AWS across managed EC2 instances</li>
+  <li>Lightsail: predictable &amp; low pricing for simple application &amp; DB stacks</li>
+</ul>
+
+
+<footer>
+  <!-- New Footer Navigation -->
+<div class="footer-nav">
+<nav>
+    <ul>
+        <li><a href="chapter7.html">Previous</a></li>
+        <li><a href="chapter9.html">Next</a></li>
+        <li><a href="Notes.html">Home</a></li>
+    </ul>
+</nav>
+</div>
+<div class="footer-content">
+<div class="footer-info">
+    <p><strong>Jawahar Parvez</strong></p>
+    <p>Email: <a href="mailto:Jawaharparvez@gmail.com">Jawaharparvez@gmail.com</a></p>
+</div>
+
+<div class="social-links">
+    <a href="https://instagram.com/iamtheparvez" target="_blank" title="Instagram">
+        <i class="fab fa-instagram"></i> Instagram
+    </a>
+    <a href="https://github.com/Jawaharparvez" target="_blank" title="GitHub">
+        <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/jawaharparvez" target="_blank" title="LinkedIn">
+        <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+</div>
+
+<div class="copyright">
+    <p>&copy; 2025 Jawahar Parvez. All rights reserved.</p>
+</div>
+</div>
+
+
+</footer>
+
+</main>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Cloud Integration</title>
+  <link rel="icon" href="favicon.png" type="image/png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="chapter.css">
+</head>
+<body>
+  <main id="content" class="main-content" role="main">
+      <h1 id="cloud-integration">Cloud Integration</h1>
+
+<ul>
+  <li><a href="#cloud-integration">Cloud Integration</a>
+    <ul>
+      <li><a href="#section-introduction">Section Introduction</a></li>
+      <li><a href="#amazon-sqs---simple-queue-service">Amazon SQS - Simple Queue Service</a></li>
+      <li><a href="#amazon-kinesis">Amazon Kinesis</a></li>
+      <li><a href="#amazon-sns">Amazon SNS</a></li>
+      <li><a href="#amazon-mq">Amazon MQ</a></li>
+      <li><a href="#integration---summary">Integration - Summary</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="section-introduction">Section Introduction</h2>
+
+<ul>
+  <li>When we start deploying multiple applications, they will inevitably need to communicate with one another</li>
+  <li>There are two patterns of application communication
+    <ol>
+      <li>Synchronous communications (application to application)</li>
+      <li>Asynchronous / Event based (application to queue to application)</li>
+    </ol>
+  </li>
+  <li>Synchronous between applications can be problematic if there are sudden spikes of traffic</li>
+  <li>What if you need to suddenly encode 1000 videos but usually it’s 10?</li>
+  <li>In that case, it’s better to <strong>decouple</strong> your applications:
+    <ul>
+      <li>using SQS: queue model</li>
+      <li>using SNS: pub/sub model</li>
+      <li>using Kinesis: real-time data streaming model (out of scope for the exam)</li>
+    </ul>
+  </li>
+  <li>These services can scale independently from our application!</li>
+</ul>
+
+<h2 id="amazon-sqs---simple-queue-service">Amazon SQS - Simple Queue Service</h2>
+
+<ul>
+  <li>Oldest AWS offering (over 10 years old)</li>
+  <li>Fully managed service (~serverless), use to decouple applications</li>
+  <li>Allows decoupling of applications by sending and receiving messages asynchronously.</li>
+  <li>Supports standard queues (unlimited throughput) and FIFO queues (ordered processing).</li>
+  <li>Scales from 1 message per second to 10,000s per second</li>
+  <li>Default retention of messages: 4 days, maximum of 14 days</li>
+  <li>No limit to how many messages can be in the queue</li>
+  <li>Messages are deleted after they’re read by consumers</li>
+  <li>Low latency (&lt;10 ms on publish and receive)</li>
+  <li>Consumers share the work to read messages &amp; scale horizontally</li>
+</ul>
+
+<h2 id="amazon-kinesis">Amazon Kinesis</h2>
+
+<ul>
+  <li><strong>Kinesis = real-time big data streaming</strong></li>
+  <li>Managed service to collect, process, and analyze real-time streaming data at any scale</li>
+  <li>Too detailed for the Cloud Practitioner exam but good to know:
+    <ul>
+      <li>Kinesis Data Streams: low latency streaming to ingest data at scale from hundreds of thousands of sources</li>
+      <li>Kinesis Data Firehose: load streams into S3, Redshift, ElasticSearch, etc…</li>
+      <li>Kinesis Data Analytics: perform real-time analytics on streams using SQL</li>
+      <li>Kinesis Video Streams: monitor real-time video streams for analytics or ML</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="amazon-sns">Amazon SNS</h2>
+
+<ul>
+  <li>What if you want to send one message to many receivers?</li>
+  <li>Amazon Simple Notification Service is a notification service provided as part of Amazon Web Services since 2010. It provides a low-cost infrastructure for mass delivery of messages, predominantly to mobile users.</li>
+  <li>The “event publishers” only sends message to one SNS topic</li>
+  <li>As many “event subscribers” as we want to listen to the SNS topic notifications</li>
+  <li>Each subscriber to the topic will get all the messages</li>
+  <li>Up to 12,500,000 subscriptions per topic, 100,000 topics limit</li>
+</ul>
+
+<h2 id="amazon-mq">Amazon MQ</h2>
+
+<ul>
+  <li>SQS, SNS are “cloud-native” services, and they’re using proprietary protocols from AWS.</li>
+  <li>Traditional applications running from on-premise may use open protocols such as: MQTT, AMQP, STOMP, Openwire, WSS</li>
+  <li>When migrating to the cloud, instead of re-engineering the application to use SQS and SNS, we can use Amazon MQ</li>
+  <li>Amazon MQ = managed Apache ActiveMQ</li>
+  <li>Amazon MQ doesn’t “scale” as much as SQS / SNS</li>
+  <li>Amazon MQ runs on a dedicated machine (not serverless)</li>
+  <li>Amazon MQ has both queue feature (~SQS) and topic features (~SNS)</li>
+</ul>
+
+<h2 id="integration---summary">Integration - Summary</h2>
+
+<ul>
+  <li>SQS:
+    <ul>
+      <li>Queue service in AWS</li>
+      <li>Multiple Producers, messages are kept up to 14 days</li>
+      <li>Multiple Consumers share the read and delete messages when done</li>
+      <li>Used to decouple applications in AWS</li>
+    </ul>
+  </li>
+  <li>SNS:
+    <ul>
+      <li>Notification service in AWS</li>
+      <li>Subscribers: Email, Lambda, SQS, HTTP, Mobile…</li>
+      <li>Multiple Subscribers, send all messages to all of them</li>
+      <li>No message retention</li>
+    </ul>
+  </li>
+  <li>Kinesis: real-time data streaming, persistence and analysis</li>
+  <li>Amazon MQ: managed Apache MQ in the cloud (MQTT, AMQP.. protocols)</li>
+</ul>
+
+<footer>
+  <!-- New Footer Navigation -->
+<div class="footer-nav">
+<nav>
+    <ul>
+        <li><a href="chapter10.html">Previous</a></li>
+        <li><a href="chapter12.html">Next</a></li>
+        <li><a href="Notes.html">Home</a></li>
+    </ul>
+</nav>
+</div>
+<div class="footer-content">
+<div class="footer-info">
+    <p><strong>Jawahar Parvez</strong></p>
+    <p>Email: <a href="mailto:Jawaharparvez@gmail.com">Jawaharparvez@gmail.com</a></p>
+</div>
+
+<div class="social-links">
+    <a href="https://instagram.com/iamtheparvez" target="_blank" title="Instagram">
+        <i class="fab fa-instagram"></i> Instagram
+    </a>
+    <a href="https://github.com/Jawaharparvez" target="_blank" title="GitHub">
+        <i class="fab fa-github"></i> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/jawaharparvez" target="_blank" title="LinkedIn">
+        <i class="fab fa-linkedin"></i> LinkedIn
+    </a>
+</div>
+
+<div class="copyright">
+    <p>&copy; 2025 Jawahar Parvez. All rights reserved.</p>
+</div>
+</div>
+
+
+</footer>
+
+</main>
+</body>
+</html>
